@@ -67,6 +67,8 @@ namespace WMS.Models
         public Nullable<short> CrewID { get; set; }
         public int EmpID { get; set; }
         public Nullable<short> CityID { get; set; }
-        public Nullable<byte> RegionID { get; set; }
+        public byte RegionID { get; set; }
+        public byte Expr1 { get; set; }
+        public string Expr2 { get; set; }
     }
 }

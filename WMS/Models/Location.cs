@@ -19,6 +19,8 @@ namespace WMS.Models
             this.Emps = new HashSet<Emp>();
             this.Readers = new HashSet<Reader>();
             this.Shifts = new HashSet<Shift>();
+            this.Users = new HashSet<User>();
+            this.UserLocations = new HashSet<UserLocation>();
         }
     
         public short LocID { get; set; }
@@ -29,5 +31,7 @@ namespace WMS.Models
         public virtual ICollection<Emp> Emps { get; set; }
         public virtual ICollection<Reader> Readers { get; set; }
         public virtual ICollection<Shift> Shifts { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<UserLocation> UserLocations { get; set; }
     }
 }

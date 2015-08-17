@@ -17,7 +17,6 @@ namespace WMS.Models
         public User()
         {
             this.LvApplications = new HashSet<LvApplication>();
-            this.UserPermissions = new HashSet<UserPermission>();
         }
     
         public int UserID { get; set; }
@@ -52,13 +51,14 @@ namespace WMS.Models
         public Nullable<bool> ViewPermanentStaff { get; set; }
         public Nullable<bool> ViewPermanentMgm { get; set; }
         public Nullable<bool> ViewContractual { get; set; }
+        public Nullable<bool> ViewLocation { get; set; }
+        public Nullable<short> LocationID { get; set; }
         public Nullable<bool> MRoster { get; set; }
-        public string CriteriaType { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Emp Emp { get; set; }
+        public virtual Location Location { get; set; }
         public virtual ICollection<LvApplication> LvApplications { get; set; }
         public virtual UserRole UserRole { get; set; }
-        public virtual ICollection<UserPermission> UserPermissions { get; set; }
     }
 }

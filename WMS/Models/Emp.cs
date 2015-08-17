@@ -22,7 +22,6 @@ namespace WMS.Models
             this.Cards = new HashSet<Card>();
             this.EmergencyDetails = new HashSet<EmergencyDetail>();
             this.EmpAccesses = new HashSet<EmpAccess>();
-            this.EmpPostings = new HashSet<EmpPosting>();
             this.LvApplications = new HashSet<LvApplication>();
             this.LvConsumeds = new HashSet<LvConsumed>();
             this.LvShorts = new HashSet<LvShort>();
@@ -90,7 +89,6 @@ namespace WMS.Models
         public virtual ICollection<EmpAccess> EmpAccesses { get; set; }
         public virtual EmpFace EmpFace { get; set; }
         public virtual EmpFp EmpFp { get; set; }
-        public virtual ICollection<EmpPosting> EmpPostings { get; set; }
         public virtual ICollection<LvApplication> LvApplications { get; set; }
         public virtual ICollection<LvConsumed> LvConsumeds { get; set; }
         public virtual ICollection<LvShort> LvShorts { get; set; }

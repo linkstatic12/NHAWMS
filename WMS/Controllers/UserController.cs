@@ -227,10 +227,7 @@ namespace WMS.Controllers
                     user.ViewContractual = true;
                 else
                     user.ViewContractual = false;
-                if (Request.Form["ViewLocation"] == "1")
-                    user.ViewLocation = true;
-                else
-                    user.ViewLocation = false;
+               
 
                 if (check == false)
                 {
@@ -263,7 +260,7 @@ namespace WMS.Controllers
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", user.EmpID);
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
+           // ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
             return View(user);
         }
 
@@ -297,7 +294,7 @@ namespace WMS.Controllers
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", user.EmpID);
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
+           // ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
             return View(user);
         }
 
@@ -451,7 +448,7 @@ namespace WMS.Controllers
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", user.EmpID);
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
+        //    ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
             return View(user);
         }
 

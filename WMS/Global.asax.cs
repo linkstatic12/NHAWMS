@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using WMS.CustomClass;
 
 namespace WMS
 {
@@ -51,9 +52,19 @@ namespace WMS
 
         protected void Session_Start()
         {
+            Session["FiltersModel"] = SessionManager.Init();
             Session["CustomFilter"] = new DataAccess.CustomFilter();
+            LoadSessionValues();
         }
-
+        private void LoadSessionValues()
+        {
+            Session["ReportSession"] = new List<string>();
+            List<string> list = Session["ReportSession"] as List<string>;
+            list.Add(DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"));
+            list.Add(DateTime.Today.ToString("yyyy-MM-dd"));
+            list.Add("EmpView");
+            Session["ReportSession"] = list;
+        }
         protected void Session_End()
         {
             

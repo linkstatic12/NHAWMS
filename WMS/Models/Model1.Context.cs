@@ -36,7 +36,6 @@ namespace WMS.Models
         public DbSet<AuditForm> AuditForms { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<AuditOperation> AuditOperations { get; set; }
-        public DbSet<Cadre> Cadres { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -48,7 +47,6 @@ namespace WMS.Models
         public DbSet<Department> Departments { get; set; }
         public DbSet<Designation> Designations { get; set; }
         public DbSet<Division> Divisions { get; set; }
-        public DbSet<Domicile> Domiciles { get; set; }
         public DbSet<DownloadTime> DownloadTimes { get; set; }
         public DbSet<DutyCode> DutyCodes { get; set; }
         public DbSet<DutyTime> DutyTimes { get; set; }
@@ -61,7 +59,6 @@ namespace WMS.Models
         public DbSet<EmpFace> EmpFaces { get; set; }
         public DbSet<EmpFp> EmpFps { get; set; }
         public DbSet<EmpPhoto> EmpPhotoes { get; set; }
-        public DbSet<EmpPosting> EmpPostings { get; set; }
         public DbSet<EmpPresence> EmpPresences { get; set; }
         public DbSet<EmpRdr> EmpRdrs { get; set; }
         public DbSet<EmpType> EmpTypes { get; set; }
@@ -80,7 +77,6 @@ namespace WMS.Models
         public DbSet<Option> Options { get; set; }
         public DbSet<PollData> PollDatas { get; set; }
         public DbSet<PollDataError> PollDataErrors { get; set; }
-        public DbSet<Project> Projects { get; set; }
         public DbSet<RdrDutyCode> RdrDutyCodes { get; set; }
         public DbSet<RdrEventLog> RdrEventLogs { get; set; }
         public DbSet<Reader> Readers { get; set; }
@@ -98,7 +94,6 @@ namespace WMS.Models
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserLocation> UserLocations { get; set; }
-        public DbSet<UserPermission> UserPermissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<EmpView> EmpViews { get; set; }
         public DbSet<ViewAbsent> ViewAbsents { get; set; }
@@ -107,6 +102,7 @@ namespace WMS.Models
         public DbSet<ViewCard> ViewCards { get; set; }
         public DbSet<ViewCrew> ViewCrews { get; set; }
         public DbSet<ViewDepartment> ViewDepartments { get; set; }
+        public DbSet<ViewDetailAttData> ViewDetailAttDatas { get; set; }
         public DbSet<ViewEarlyIN> ViewEarlyINs { get; set; }
         public DbSet<ViewEarlyOut> ViewEarlyOuts { get; set; }
         public DbSet<ViewEditAttendance> ViewEditAttendances { get; set; }
@@ -117,7 +113,6 @@ namespace WMS.Models
         public DbSet<ViewLateOut> ViewLateOuts { get; set; }
         public DbSet<ViewLeaveData> ViewLeaveDatas { get; set; }
         public DbSet<ViewLeaveQuota> ViewLeaveQuotas { get; set; }
-        public DbSet<ViewLocation> ViewLocations { get; set; }
         public DbSet<ViewLvApplication> ViewLvApplications { get; set; }
         public DbSet<ViewLvConsumed> ViewLvConsumeds { get; set; }
         public DbSet<ViewMissingAtt> ViewMissingAtts { get; set; }
@@ -128,7 +123,6 @@ namespace WMS.Models
         public DbSet<ViewPollData> ViewPollDatas { get; set; }
         public DbSet<ViewPresentEmp> ViewPresentEmps { get; set; }
         public DbSet<ViewSection> ViewSections { get; set; }
-        public DbSet<ViewServiceLog> ViewServiceLogs { get; set; }
         public DbSet<ViewSLData> ViewSLDatas { get; set; }
         public DbSet<ViewSummary> ViewSummaries { get; set; }
         public DbSet<ViewUserLocation> ViewUserLocations { get; set; }

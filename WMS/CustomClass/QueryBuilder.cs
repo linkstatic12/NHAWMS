@@ -98,13 +98,51 @@ namespace WMS.CustomClass
             query = query + subQuery + subQueryLoc;
             return query;
         }
-
+        public string QueryForLocationTableSegeration(User _user)
+        {
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserLocation> ulocs = new List<UserLocation>();
+            List<string> _CriteriaForOrLoc = new List<string>();
+            ulocs = db.UserLocations.Where(aa => aa.UserID == _user.UserID).ToList();
+            string query = " where ";
+            foreach (var uloc in ulocs)
+            {
+                _CriteriaForOrLoc.Add(" LocID = " + uloc.LocationID + " ");
+            }
+            for (int i = 0; i < _CriteriaForOrLoc.Count - 1; i++)
+            {
+                query = query + _CriteriaForOrLoc[i] + " or ";
+            }
+            query = query + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1];
+            return query;
+        }
         public string QueryForCompanySegeration(User _user)
         {
             string query = "";
             if (query != "")
             {
                 query = " where " + query;
+            }
+            return query;
+        }
+        public string QueryForCompanyFilters(User _User)
+        {
+            string query = "";
+            switch (_User.RoleID)
+            {
+                case 1:
+                    break;
+                case 2:
+                    query = " where CompanyID= 1 or CompanyID = 2 ";
+                    break;
+                case 3:
+                    query = " where  CompanyID>= 3";
+                    break;
+                case 4:
+                    query = " where  CompanyID = " + _User.CompanyID.ToString();
+                    break;
+                case 5:
+                    break;
             }
             return query;
         }
