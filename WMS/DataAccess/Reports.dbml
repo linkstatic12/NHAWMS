@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TAS2013_NHA" Class="ReportsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=TAS2013_NHA;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TAS2013_NHAConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Emp" Member="Emps">
+    <Type Name="Emp">
+      <Column Name="EmpID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EmpName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DesigID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="ShiftID" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="LocID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="TypeID" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="GradeID" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="SecID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="CardNo" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="FpID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PinCode" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="NicNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FatherName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BloodGroup" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MarStatus" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="JoinDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ValidDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IssueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ResignDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="HomeAdd" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="ProcessAtt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ProcessIn" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PhoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CellNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CrewID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FlagFP" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FlagFace" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FlagCard" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EmpImageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Presence" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReaderID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LastEntryDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsSafe" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="HasOT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

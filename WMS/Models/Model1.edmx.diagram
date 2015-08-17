@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="509ed2af61364fada09015c00e7a03c5" Name="Diagram1" ZoomLevel="48">
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AccessEmp" Width="1.5" PointX="7.6659732701564085" PointY="5.0613897764409845" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttCode" Width="1.5" PointX="10.40103556700099" PointY="14.788408152194883" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttData" Width="1.5" PointX="5.3926734725910581" PointY="24.664807048004498" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttDataManEdit" Width="1.5" PointX="11.41569804372997" PointY="29.529028533738586" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttDataMonth" Width="1.5" PointX="7.08091480242131" PointY="2.0338312098913973" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttMnData" Width="1.5" PointX="8.2144640591994218" PointY="15.450381003064281" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttMnDataPer" Width="1.5" PointX="6.1060526865097007" PointY="25.028053727479676" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AttProcess" Width="1.5" PointX="2.9013567468623429" PointY="24.901967596682706" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AuditForm" Width="1.5" PointX="11.139604333387503" PointY="21.072732801117343" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AuditLog" Width="1.5" PointX="2.8843505526354303" PointY="6.6621015102891725" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.AuditOperation" Width="1.5" PointX="7.1096045258965361" PointY="3.2812175915023394" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Cadre" Width="1.5" PointX="10.675527752691659" PointY="14.689623049781483" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Card" Width="1.5" PointX="5.5244156334197214" PointY="13.857608235374842" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.CardType" Width="1.5" PointX="5.2153918450769927" PointY="9.33191936152611" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Category" Width="1.5" PointX="1.304126088183432" PointY="23.757793646193015" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.City" Width="1.5" PointX="8.4410474991617015" PointY="25.780191642129882" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Company" Width="1.5" PointX="7.5364746654110384" PointY="0.25647084426901806" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Crew" Width="1.5" PointX="7.7471171281054234" PointY="26.24428458243808" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.DailySummary" Width="1.5" PointX="7.4358587187881859" PointY="20.32856244795423" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.DaysName" Width="1.5" PointX="8.5530651083928841" PointY="25.003110733350326" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Department" Width="1.5" PointX="5.5814675602975621" PointY="30.316582246830958" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Designation" Width="1.5" PointX="1.2592440812193062" PointY="1.1410698299953108" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Division" Width="1.5" PointX="10.468178942086258" PointY="17.700224214093865" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Domicile" Width="1.5" PointX="5.1092532300899052" PointY="19.092217498967525" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.DownloadTime" Width="1.5" PointX="8.4086622728075184" PointY="1.07870550503894" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.DutyCode" Width="1.5" PointX="4.0262981467071448" PointY="1.8171770730135857" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.DutyTime" Width="1.5" PointX="7.0713453176763581" PointY="22.219095598076979" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmailPerson" Width="1.5" PointX="2.0064077237650788" PointY="17.161377795581416" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Emergency" Width="1.5" PointX="3.2224934134737091" PointY="13.046471795554492" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmergencyAuto" Width="1.5" PointX="0.021237423653359257" PointY="0.522854358201313" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmergencyDetail" Width="1.5" PointX="4.0339107979246931" PointY="21.109942088420475" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Emp" Width="1.5" PointX="9.769259611968538" PointY="27.124645826930482" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpAccess" Width="1.5" PointX="4.3216392045475729" PointY="28.125045849068577" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpFace" Width="1.5" PointX="10.257418210738068" PointY="16.026336319756851" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpFp" Width="1.5" PointX="1.6384030196994557" PointY="13.492666742528169" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpPhoto" Width="1.5" PointX="1.9023791299678288" PointY="9.377049107745778" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpPosting" Width="1.5" PointX="11.34920969202612" PointY="14.688490740344157" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpPresence" Width="1.5" PointX="8.9168205060608781" PointY="20.642363155559806" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpRdr" Width="1.5" PointX="11.971212515594072" PointY="27.327004177182449" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpType" Width="1.5" PointX="7.0404297015817985" PointY="29.031550808358727" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Grade" Width="1.5" PointX="0.0873498581756604" PointY="26.815494087904455" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Holiday" Width="1.5" PointX="7.0908074877647724" PointY="2.3989640634502116" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.JobCard" Width="1.5" PointX="4.8828744706152358" PointY="20.692282924750952" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.JobCardApp" Width="1.5" PointX="2.5962265481223477" PointY="29.878170176352455" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.JobCardEmp" Width="1.5" PointX="10.089768842835802" PointY="3.497601212699712" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.JobTitle" Width="1.5" PointX="6.619113304940571" PointY="6.7824847878806684" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Location" Width="1.5" PointX="7.601973494329477" PointY="22.285319264179709" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.LvApplication" Width="1.5" PointX="5.3422557270816782" PointY="25.773971405706355" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.LvConsumed" Width="1.5" PointX="1.5994587305930716" PointY="8.2333383896543353" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.LvData" Width="1.5" PointX="8.10626198170067" PointY="31.790097996494779" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.LvShort" Width="1.5" PointX="8.3801658695471311" PointY="29.598338960482895" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.LvType" Width="1.5" PointX="5.5211785424133666" PointY="8.9304326516252157" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Option" Width="1.5" PointX="10.502135434421774" PointY="1.3597459501399407" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.PollData" Width="1.5" PointX="1.332231710353974" PointY="4.1684301067927994" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.PollDataError" Width="1.5" PointX="11.41534034321799" PointY="16.708057441147073" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Project" Width="1.5" PointX="6.46430415774896" PointY="13.266311592080776" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.RdrDutyCode" Width="1.5" PointX="9.8519972217511373" PointY="3.0250823213835631" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.RdrEventLog" Width="1.5" PointX="0.10872052614983196" PointY="15.941601373228059" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Reader" Width="1.5" PointX="0.82542079539290669" PointY="23.652394901799223" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ReaderType" Width="1.5" PointX="5.2888677144836951" PointY="22.832088287375907" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ReaderVendor" Width="1.5" PointX="7.9506656452783684" PointY="29.474945052282393" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Reason" Width="1.5" PointX="7.9201072770730159" PointY="0.8714735064988367" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Region" Width="1.5" PointX="10.440636723507492" PointY="30.290526225366875" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Roster" Width="1.5" PointX="7.9144199210751891" PointY="7.9792399145566115" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.RosterApp" Width="1.5" PointX="0.16592830054738014" PointY="30.004216610455988" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.RosterDetail" Width="1.5" PointX="6.1414274527418549" PointY="23.689894985263187" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.RosterType" Width="1.5" PointX="2.1413645847427496" PointY="18.984381207723349" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Section" Width="1.5" PointX="2.5066656835873919" PointY="2.6345939946521977" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ServiceLog" Width="1.5" PointX="4.5346317405508048" PointY="9.9783873157475078" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Shift" Width="1.5" PointX="2.3974760893720557" PointY="11.661252638167353" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.sysdiagram" Width="1.5" PointX="6.4273743864276325" PointY="2.7548406882001277" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.User" Width="1.5" PointX="11.788973472914181" PointY="10.197992806415071" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.UserLocation" Width="1.5" PointX="6.8472962970134326" PointY="4.38465722109408" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.UserPermission" Width="1.5" PointX="4.6914345737041128" PointY="17.246846996828378" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.UserRole" Width="1.5" PointX="8.24827419791756" PointY="30.30441389898975" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.EmpView" Width="1.5" PointX="8.8398184817469758" PointY="12.612828379782302" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAbsent" Width="1.5" PointX="9.79863418163668" PointY="30.784610330492541" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAttData" Width="1.5" PointX="3.970621103407173" PointY="24.872163933176623" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAuditLog" Width="1.5" PointX="3.17926983310807" PointY="13.85166927327014" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewCard" Width="1.5" PointX="4.9082755208519639" PointY="29.715168266424524" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewCrew" Width="1.5" PointX="4.5954848102272887" PointY="27.573377979720654" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewDepartment" Width="1.5" PointX="1.3972329894999196" PointY="0.43669097145865249" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyIN" Width="1.5" PointX="0.12409408768829615" PointY="25.548249435400706" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyOut" Width="1.5" PointX="2.8335022622875412" PointY="7.2876113836130179" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEditAttendance" Width="1.5" PointX="10.627740186931444" PointY="29.655327408414021" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmergencyDetail" Width="1.5" PointX="1.4434687744097172" PointY="24.222734805300242" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpPic" Width="1.5" PointX="6.4721719988026525" PointY="2.4423946004558328" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpType" Width="1.5" PointX="2.134658721338333" PointY="18.446934365875524" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateComer" Width="1.5" PointX="11.264130921691717" PointY="10.92229326577964" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateOut" Width="1.5" PointX="5.4795062679236324" PointY="23.457040708259232" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveData" Width="1.5" PointX="6.6675127608084654" PointY="3.8582727927054616" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveQuota" Width="1.5" PointX="6.74394077004117" PointY="2.1380615691365961" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLocation" Width="1.5" PointX="2.4117627471740186" PointY="3.764311494195979" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvApplication" Width="1.5" PointX="11.085076437837014" PointY="6.9256952288214562" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvConsumed" Width="1.5" PointX="3.1485218494890823" PointY="13.812277889723088" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMissingAtt" Width="1.5" PointX="9.8087029148865028" PointY="30.24068203486534" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMonthlyData" Width="1.5" PointX="10.833619722553353" PointY="8.6781013052342928" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMonthlyDataPer" Width="1.5" PointX="11.777484929085469" PointY="21.566287050753033" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMultipleInOut" Width="1.5" PointX="11.635832268575129" PointY="31.000571622979162" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewOverTime" Width="1.5" PointX="3.7001532147173553" PointY="24.711207356635111" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPollData" Width="1.5" PointX="10.810744195622739" PointY="5.2228808129312849" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPresentEmp" Width="1.5" PointX="7.8398274368791965" PointY="24.340070452699472" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSection" Width="1.5" PointX="9.9206864377114385" PointY="31.350114479358361" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewServiceLog" Width="1.5" PointX="10.257638643615712" PointY="23.687296550575315" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSLData" Width="1.5" PointX="9.40957015259637" PointY="24.141388576543605" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSummary" Width="1.5" PointX="10.062930553249517" PointY="29.55575962250855" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewUserLocation" Width="1.5" PointX="11.714869709552671" PointY="21.63169401401267" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_AttData_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_AttDataManEdit_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_AttMnData_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpPosting_Cadre" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Card_CardType" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Card_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Card_Reason" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpType_Category" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_City_Region" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Location_City" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Crew_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Designation_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpType_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Grade_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Reader_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_User_Company" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Crew" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Shift_DaysName" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Shift_DaysName1" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Department_Division" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Section_Department" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Designation1" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpPosting_Domicile" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmergencyDetail_Emergency" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmergencyDetail_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_EmpPhoto" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Grade" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_JobTitle" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Location" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_Section" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_ShiftID" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Emp_TypeID" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpAccess_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpFace_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpFp_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpPosting_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvApplication_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvConsumed_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvShort_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_User_Emp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpPosting_Project" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_EmpRdr_Reader" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Reader_Location" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Shift_Location" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvApplication_User" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvApplications_LvType" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvData_LvApplications" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_LvData_LvCode" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Reader_RdrID" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Reader_RdrDutyCode" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Reader_ReaderType1" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_ReaderType_ReaderVendor" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_RosterApp_RosterType" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_RosterApp_Shift" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_RosterDetail_RosterApp" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_Shift_RosterType" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_User_UserRole1" />
+        <AssociationConnector Association="TAS2013_NHAModel.FK_UserPermission_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
