@@ -146,6 +146,27 @@ namespace WMS.CustomClass
             }
             return query;
         }
+        public string QueryForCitySegration(User _user)
+        {
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserLocation> ulocs = new List<UserLocation>();
+            List<string> _CriteriaForOrLoc = new List<string>();
+            ulocs = db.UserLocations.Where(aa => aa.UserID == _user.UserID).ToList();
+            string query = " where ";
+            foreach (var uloc in ulocs)
+            {
+                Location addloc = db.Locations.Where(aa => aa.LocID == uloc.LocationID).First();
+                _CriteriaForOrLoc.Add(" CityID = " + addloc.CityID + " ");
+            
+            }
+            for (int i = 0; i < _CriteriaForOrLoc.Count - 1; i++)
+            {
+                query = query + _CriteriaForOrLoc[i] + " or ";
+            }
+            query = query + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1];
+            return query;
+        
+        }
         public string QueryForLocationSegeration(User _user)
         {
             TAS2013Entities db = new TAS2013Entities();
@@ -155,6 +176,7 @@ namespace WMS.CustomClass
             string query = " where ";
             foreach (var uloc in ulocs)
             {
+
                 _CriteriaForOrLoc.Add(" LocationID = " + uloc.LocationID + " ");
             }
             for (int i = 0; i < _CriteriaForOrLoc.Count - 1; i++)

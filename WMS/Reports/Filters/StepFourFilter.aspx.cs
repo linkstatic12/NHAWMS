@@ -111,16 +111,16 @@ namespace WMS.Reports.Filters
             //    }
             //    _View = _TempView.ToList();
             //}
-            if (fm.DivisionFilter.Count > 0)
-            {
-                _TempView.Clear();
-                foreach (var comp in fm.DivisionFilter)
-                {
-                    short _compID = Convert.ToInt16(comp.ID);
-                    _TempView.AddRange(_View.Where(aa => aa.DivID == _compID).ToList());
-                }
-                _View = _TempView.ToList();
-            }
+            //if (fm.DivisionFilter.Count > 0)
+            //{
+            //    _TempView.Clear();
+            //    foreach (var comp in fm.DivisionFilter)
+            //    {
+            //        short _compID = Convert.ToInt16(comp.ID);
+            //        _TempView.AddRange(_View.Where(aa => aa.DivID == _compID).ToList());
+            //    }
+            //    _View = _TempView.ToList();
+            //}
             if (fm.DepartmentFilter.Count > 0)
             {
                 _TempView.Clear();

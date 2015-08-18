@@ -134,6 +134,8 @@
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\LogIn.css" />
+    <Content Include="Content\style\filter-navigation.css" />
+    <Content Include="Content\style\filters-page.css" />
     <Content Include="Reports\AttEdit.aspx" />
     <Content Include="Reports\AuditLog.aspx" />
     <Content Include="Reports\DAbsent.aspx" />
@@ -185,6 +187,7 @@
     <Content Include="Scripts\Employee\empTypeCategoryCreate.js" />
     <Content Include="Scripts\Employee\LocationCity.js" />
     <Content Include="Scripts\Employee\LocationCityCreate.js" />
+    <Content Include="Scripts\Filters\FilterScripts.js" />
     <Content Include="Scripts\globalize.min.js" />
     <Content Include="Scripts\HR\DeptCompany.js" />
     <Content Include="Scripts\HR\DeptCompanyCreate.js" />

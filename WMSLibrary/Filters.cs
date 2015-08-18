@@ -93,7 +93,6 @@ namespace WMSLibrary
                             filtersModel.DivisionFilter.RemoveAt(k);
                     }
                     break;
-                    break;
                 case "Department":
                     for (int k = 0; k < filtersModel.DepartmentFilter.Count; k++)
                     {
@@ -143,6 +142,29 @@ namespace WMSLibrary
                             filtersModel.EmployeeFilter.RemoveAt(k);
                     }
                     break;
+                case "Region":
+                    for (int k = 0; k < filtersModel.RegionFilter.Count; k++)
+                    {
+                        if (filtersModel.RegionFilter[k].ID == ItemID)
+                            filtersModel.RegionFilter.RemoveAt(k);
+                    }
+                    break;
+                case "City":
+                    for (int k = 0; k < filtersModel.CityFilter.Count; k++)
+                    {
+                        if (filtersModel.CityFilter[k].ID == ItemID)
+                            filtersModel.CityFilter.RemoveAt(k);
+                    }
+                    break;
+                case "Wing":
+                    for (int k = 0; k < filtersModel.WingFilter.Count; k++)
+                    {
+                        if (filtersModel.WingFilter[k].ID == ItemID)
+                            filtersModel.WingFilter.RemoveAt(k);
+                    }
+                    break;
+
+
             }
         }
 
@@ -186,6 +208,18 @@ namespace WMSLibrary
                     if (filtersModel.CrewFilter.Where(aa => aa.ID == ItemID).Count() == 0)
                         filtersModel.CrewFilter.Add(new FiltersAttributes() { ID = ItemID, FilterName = ItemName });
                     break;
+                case "Region":
+                    if (filtersModel.RegionFilter.Where(aa => aa.ID == ItemID).Count() == 0)
+                        filtersModel.RegionFilter.Add(new FiltersAttributes() { ID = ItemID, FilterName = ItemName });
+                    break;
+                case "City":
+                    if (filtersModel.CityFilter.Where(aa => aa.ID == ItemID).Count() == 0)
+                        filtersModel.CityFilter.Add(new FiltersAttributes() { ID = ItemID, FilterName = ItemName});
+                    break;
+                case "Wing":
+                    if (filtersModel.WingFilter.Where(aa => aa.ID == ItemID).Count() == 0)
+                        filtersModel.WingFilter.Add(new FiltersAttributes() { ID = ItemID, FilterName = ItemName });
+                    break;
 
             }
         }
@@ -222,6 +256,15 @@ namespace WMSLibrary
                     break;
                 case "Type":
                     SetGridViewCheckStateChild(gv, filtersModel, filtersModel.TypeFilter);
+                    break;
+                case "Region":
+                    SetGridViewCheckStateChild(gv, filtersModel, filtersModel.RegionFilter);
+                    break;
+                case "City":
+                    SetGridViewCheckStateChild(gv, filtersModel, filtersModel.CityFilter);
+                    break;
+                case "Wing":
+                    SetGridViewCheckStateChild(gv, filtersModel, filtersModel.WingFilter);
                     break;
             }
 
@@ -269,5 +312,6 @@ namespace WMSLibrary
         public List<FiltersAttributes> CrewFilter = new List<FiltersAttributes>();
         public List<FiltersAttributes> EmployeeFilter = new List<FiltersAttributes>();
         public List<FiltersAttributes> TypeFilter = new List<FiltersAttributes>();
+        public List<FiltersAttributes> WingFilter = new List<FiltersAttributes>();
     }
 }

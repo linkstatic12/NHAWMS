@@ -22,15 +22,15 @@ namespace WMS.Reports.Filters
             {
                 // Bind Grid View According to Filters
                 BindGridView("");
-                BindGridViewLocation("");
+                BindGridViewRegion("");
                 List<string> list = Session["ReportSession"] as List<string>;
                 dateFrom.Value = list[0];
                 dateTo.Value = list[1];
             }
             else
             {
-                SaveCompanyIDs();
-                SaveLocationIDs();
+                SaveShiftIDs();
+                SaveRegionIDs();
             }
             if (Session["FiltersModel"] != null)
             {
@@ -41,7 +41,8 @@ namespace WMS.Reports.Filters
 
                 // Check and Uncheck Items in grid view according to Session Filters Model
               //  WMSLibrary.Filters.SetGridViewCheckState(GridViewCompany, Session["FiltersModel"] as FiltersModel, "Company");
-                WMSLibrary.Filters.SetGridViewCheckState(GridViewLocation, Session["FiltersModel"] as FiltersModel, "Location");
+                WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Region");
+                WMSLibrary.Filters.SetGridViewCheckState(GridViewShift, Session["FiltersModel"] as FiltersModel, "Shift");
             }
         }
 
@@ -56,10 +57,10 @@ namespace WMS.Reports.Filters
            // WMSLibrary.Filters.SetGridViewCheckState(GridViewCompany, Session["FiltersModel"] as FiltersModel, "Company");
         }
 
-        protected void GridViewCompany_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GridViewShift_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             // Save selected Company ID and Name in Session
-            SaveCompanyIDs();
+            SaveShiftIDs();
 
             //change page index
            // GridViewCompany.PageIndex = e.NewPageIndex;
@@ -68,7 +69,7 @@ namespace WMS.Reports.Filters
            // WMSLibrary.Filters.SetGridViewCheckState(GridViewCompany, Session["FiltersModel"] as FiltersModel, "Company");
         }
 
-        protected void GridViewCompany_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void GridViewShift_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {
@@ -76,6 +77,11 @@ namespace WMS.Reports.Filters
             }
         }
 
+        private void SaveShiftIDs()
+        {
+           WMSLibrary.FiltersModel FM = WMSLibrary.Filters.SyncGridViewIDs(GridViewShift, Session["FiltersModel"] as FiltersModel, "Shift");
+           Session["FiltersModel"] = FM;
+        }
         private void SaveCompanyIDs()
         {
            // WMSLibrary.FiltersModel FM = WMSLibrary.Filters.SyncGridViewIDs(GridViewCompany, Session["FiltersModel"] as FiltersModel, "Company");
@@ -84,62 +90,62 @@ namespace WMS.Reports.Filters
 
         private void BindGridView(string search)
         {
-            //User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
-            //QueryBuilder qb = new QueryBuilder();
-            ////string query = qb.QueryForCompanyView(LoggedInUser);
-            //DataTable dt = qb.GetValuesfromDB("select * from Company ");
-            //List<Company> _View = dt.ToList<Company>();
-            //GridViewCompany.DataSource = _View.Where(aa => aa.CompName.Contains(search)).ToList();
-            //GridViewCompany.DataBind();
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            //string query = qb.QueryForCompanyView(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from Shift ");
+            List<Shift> _View = dt.ToList<Shift>();
+            GridViewShift.DataSource = _View;
+            GridViewShift.DataBind();
         }
 
         #endregion
 
-        #region --GridView Company--
-        protected void ButtonSearchLoc_Click(object sender, EventArgs e)
+        #region --GridView Region--
+        protected void ButtonSearchRegion_Click(object sender, EventArgs e)
         {
             // Save selected Company ID and Name in Session
-            SaveLocationIDs();
-            BindGridViewLocation(tbSearch_Location.Text.Trim());
+            SaveRegionIDs();
+            BindGridViewRegion(tbSearch_Region.Text.Trim());
             // Check and set Check box state
-            WMSLibrary.Filters.SetGridViewCheckState(GridViewLocation, Session["FiltersModel"] as FiltersModel, "Location");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Region");
         }
 
-        protected void GridViewLocation_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GridViewRegion_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             // Save selected Company ID and Name in Session
-            SaveLocationIDs();
+            SaveRegionIDs();
 
             //change page index
-            GridViewLocation.PageIndex = e.NewPageIndex;
-            BindGridViewLocation("");
+            GridViewRegion.PageIndex = e.NewPageIndex;
+            BindGridViewRegion("");
             // Check and set Check box state
-            WMSLibrary.Filters.SetGridViewCheckState(GridViewLocation, Session["FiltersModel"] as FiltersModel, "Location");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Region");
         }
 
-        protected void GridViewLocation_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void GridViewRegion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {
-                e.Row.Cells[0].Text = "Page " + (GridViewLocation.PageIndex + 1) + " of " + GridViewLocation.PageCount;
+                e.Row.Cells[0].Text = "Page " + (GridViewRegion.PageIndex + 1) + " of " + GridViewRegion.PageCount;
             }
         }
 
-        private void SaveLocationIDs()
+        private void SaveRegionIDs()
         {
-            WMSLibrary.FiltersModel FM = WMSLibrary.Filters.SyncGridViewIDs(GridViewLocation, Session["FiltersModel"] as FiltersModel, "Location");
+            WMSLibrary.FiltersModel FM = WMSLibrary.Filters.SyncGridViewIDs(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Region");
             Session["FiltersModel"] = FM;
         }
 
-        private void BindGridViewLocation(string search)
+        private void BindGridViewRegion(string search)
         {
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForLocationTableSegeration(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from Location " + query);
-            List<Location> _View = dt.ToList<Location>();
-            GridViewLocation.DataSource = _View.Where(aa => aa.LocName.Contains(search)).ToList();
-            GridViewLocation.DataBind();
+            //string query = qb.QueryForLocationTableSegeration(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from Region ");
+            List<Region> _View = dt.ToList<Region>();
+            GridViewRegion.DataSource = _View.Where(aa => aa.RegionName.Contains(search)).ToList();
+            GridViewRegion.DataBind();
         }
 
         #endregion
@@ -176,8 +182,8 @@ namespace WMS.Reports.Filters
         private void NavigationCommonCalls(string path)
         {
             SaveDateSession();
-            SaveCompanyIDs();
-            SaveLocationIDs();
+            //SaveCompanyIDs();
+            SaveRegionIDs();
             Response.Redirect(path);
         }
         protected void btnStepOne_Click(object sender, EventArgs e)
@@ -208,8 +214,8 @@ namespace WMS.Reports.Filters
         protected void btnStepSix_Click(object sender, EventArgs e)
         {
             SaveDateSession();
-            SaveCompanyIDs();
-            SaveLocationIDs();
+            //SaveCompanyIDs();
+            SaveRegionIDs();
             FiltersModel fm = Session["FiltersModel"] as FiltersModel;
             if (MyHelper.UserHasValuesInSession(fm))
             {
