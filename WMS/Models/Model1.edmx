@@ -2687,7 +2687,7 @@
           <Key>
             <PropertyRef Name="DeptID" />
           </Key>
-          <Property Name="DeptID" Type="smallint" Nullable="false" />
+          <Property Name="DeptID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
           <Property Name="DivID" Type="smallint" />
         </EntityType>
@@ -2695,7 +2695,7 @@
           <Key>
             <PropertyRef Name="DesignationID" />
           </Key>
-          <Property Name="DesignationID" Type="int" Nullable="false" />
+          <Property Name="DesignationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="DesignationName" Type="nvarchar" MaxLength="200" />
           <Property Name="CompanyID" Type="smallint" />
         </EntityType>
@@ -2786,7 +2786,7 @@
           <Key>
             <PropertyRef Name="EmpID" />
           </Key>
-          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="EmpNo" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="EmpName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="DesigID" Type="int" />
@@ -3246,7 +3246,7 @@
           <Key>
             <PropertyRef Name="SectionID" />
           </Key>
-          <Property Name="SectionID" Type="smallint" Nullable="false" />
+          <Property Name="SectionID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SectionName" Type="nvarchar" MaxLength="500" />
           <Property Name="DeptID" Type="smallint" />
         </EntityType>
@@ -6860,7 +6860,7 @@
           <Key>
             <PropertyRef Name="DeptID" />
           </Key>
-          <Property Name="DeptID" Type="Int16" Nullable="false" />
+          <Property Name="DeptID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="DeptName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="DivID" Type="Int16" />
           <NavigationProperty Name="Division" Relationship="TAS2013_NHAModel.FK_Department_Division" FromRole="Department" ToRole="Division" />
@@ -6870,7 +6870,7 @@
           <Key>
             <PropertyRef Name="DesignationID" />
           </Key>
-          <Property Name="DesignationID" Type="Int32" Nullable="false" />
+          <Property Name="DesignationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="DesignationName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CompanyID" Type="Int16" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_Designation_Company" FromRole="Designation" ToRole="Company" />
@@ -6967,7 +6967,7 @@
           <Key>
             <PropertyRef Name="EmpID" />
           </Key>
-          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="EmpName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="DesigID" Type="Int32" />
@@ -7495,7 +7495,7 @@
           <Key>
             <PropertyRef Name="SectionID" />
           </Key>
-          <Property Name="SectionID" Type="Int16" Nullable="false" />
+          <Property Name="SectionID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="SectionName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="DeptID" Type="Int16" />
           <NavigationProperty Name="Department" Relationship="TAS2013_NHAModel.FK_Section_Department" FromRole="Section" ToRole="Department" />

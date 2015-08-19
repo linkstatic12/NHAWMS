@@ -105,7 +105,12 @@ namespace WMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRoster,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
-            int count = Convert.ToInt32(Request.Form["uLocationCount"]);
+            int count;
+            String requestform = Request.Form["uLocationCount"];
+             bool isNumeric = int.TryParse(requestform, out count);
+            if(isNumeric)
+            {     
+            
             if (count > 0)
             {
                 bool check = false;
@@ -256,7 +261,7 @@ namespace WMS.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-            }
+            }}
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", user.EmpID);
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
