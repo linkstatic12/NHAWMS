@@ -1,0 +1,29 @@
+@model WMS.Models.Region
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Region</legend>
+
+    <div class="display-label">RegionName</div>
+    <div class="display-field">@Model.RegionName</div>
+
+    <div class="display-label">ZoneID</div>
+    <div class="display-field">@Model.ZoneID</div>
+
+    <div class="display-label">Cities</div>
+    <div class="display-field">@(Model.Cities == null ? "None" : Model.Cities.Count.ToString())</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

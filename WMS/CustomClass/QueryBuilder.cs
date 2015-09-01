@@ -60,22 +60,22 @@ namespace WMS.CustomClass
             }
             _CriteriaForOr.Add(" CatID=1 ");
             
-            switch (_user.RoleID)
-            {
-                case 1:
-                    break;
-                case 2:
-                    _Criteria.Add(" CompanyID= 1 or CompanyID = 2 ");
-                    break;
-                case 3:
-                    _Criteria.Add(" CompanyID>= 3");
-                    break;
-                case 4:
-                    _Criteria.Add(" CompanyID = "+_user.CompanyID.ToString());
-                    break;
-                case 5:
-                    break;
-            }
+            //switch (_user.RoleID)
+            //{
+            //    case 1:
+            //        break;
+            //    case 2:
+            //        _Criteria.Add(" CompanyID= 1 or CompanyID = 2 ");
+            //        break;
+            //    case 3:
+            //        _Criteria.Add(" CompanyID>= 3");
+            //        break;
+            //    case 4:
+            //        _Criteria.Add(" CompanyID = "+_user.CompanyID.ToString());
+            //        break;
+            //    case 5:
+            //        break;
+            //}
             for (int i = 0; i < _Criteria.Count; i++ )
             {
                 query = query + _Criteria[i] + " and ";

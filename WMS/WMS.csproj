@@ -47,6 +47,10 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidationNA, Version=1.2.16.24816, Culture=neutral, PublicKeyToken=0950390b87309e14, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidationNA.1.2.16\lib\net40\FluentValidationNA.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -68,6 +72,10 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Linq.Dynamic, Version=1.1.14.15853, Culture=neutral, PublicKeyToken=b72be0322d1b32a8, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.Library.1.1.14\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -124,7 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppForms\WebForm1.aspx" />
+    <Content Include="App_Start\AppForms\WebForm1.aspx" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -187,6 +195,7 @@
     <Content Include="Scripts\Employee\empTypeCategoryCreate.js" />
     <Content Include="Scripts\Employee\LocationCity.js" />
     <Content Include="Scripts\Employee\LocationCityCreate.js" />
+    <Content Include="Scripts\Employee\ZoneRegion.js" />
     <Content Include="Scripts\Filters\FilterScripts.js" />
     <Content Include="Scripts\globalize.min.js" />
     <Content Include="Scripts\HR\DeptCompany.js" />
@@ -249,6 +258,7 @@
       <DependentUpon>TASReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\as.pubxml" />
+    <None Include="Properties\PublishProfiles\NHAWMS.pubxml" />
     <None Include="Properties\PublishProfiles\WMSFatima.pubxml" />
     <None Include="Properties\PublishProfiles\WMSNHA.pubxml" />
     <Content Include="ReportingEngine.Master" />
@@ -327,11 +337,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppForms\WebForm1.aspx.cs">
+    <Compile Include="App_Start\AppForms\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppForms\WebForm1.aspx.designer.cs">
+    <Compile Include="App_Start\AppForms\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\DatePickerHelperBundleConfig.cs" />
@@ -370,6 +380,7 @@
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="CustomClass\CustomFunc.cs" />
     <Compile Include="CustomClass\DatatableToList.cs" />
     <Compile Include="CustomClass\QueryBuilder.cs" />
@@ -603,6 +614,9 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserAccess.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserLocation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -697,6 +711,10 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewUserLocation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WMSContext.cs" />
+    <Compile Include="Models\Zone.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportingEngine.Master.cs">
@@ -1176,6 +1194,16 @@
     <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Zones\Create.cshtml" />
+    <Content Include="Views\Zones\Edit.cshtml" />
+    <Content Include="Views\Zones\Delete.cshtml" />
+    <Content Include="Views\Zones\Details.cshtml" />
+    <Content Include="Views\Zones\Index.cshtml" />
+    <Content Include="Views\Zones\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Regions\Delete.cshtml" />
+    <Content Include="Views\Regions\Details.cshtml" />
+    <Content Include="Views\Regions\Index.cshtml" />
+    <Content Include="Views\Regions\_CreateOrEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

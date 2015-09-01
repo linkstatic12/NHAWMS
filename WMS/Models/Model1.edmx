@@ -228,8 +228,22 @@
           <EntitySet Name="Shift" EntityType="TAS2013_NHAModel.Store.Shift" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="TAS2013_NHAModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="TAS2013_NHAModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" store:Schema="dbo" store:Name="UserAccess">
+            <DefiningQuery>SELECT 
+      [UserAccess].[UserDataID] AS [UserDataID], 
+      [UserAccess].[UserID] AS [UserID], 
+      [UserAccess].[Criteria] AS [Criteria], 
+      [UserAccess].[CriteriaData] AS [CriteriaData]
+      FROM [dbo].[UserAccess] AS [UserAccess]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRole" EntityType="TAS2013_NHAModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" store:Schema="dbo" store:Name="Zone">
+            <DefiningQuery>SELECT 
+      [Zone].[ZoneID] AS [ZoneID], 
+      [Zone].[ZoneName] AS [ZoneName]
+      FROM [dbo].[Zone] AS [Zone]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="EmpView" EntityType="TAS2013_NHAModel.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
             <DefiningQuery>SELECT 
       [EmpView].[DesignationName] AS [DesignationName], 
@@ -3185,6 +3199,7 @@
           </Key>
           <Property Name="RegionID" Type="tinyint" Nullable="false" />
           <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZoneID" Type="tinyint" />
         </EntityType>
         <EntityType Name="Roster">
           <Key>
@@ -3342,6 +3357,21 @@
           <Property Name="LocationID" Type="smallint" />
           <Property Name="MRoster" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TAS2013_NHA.dbo.UserAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="UserAccess">
+          <Key>
+            <PropertyRef Name="UserDataID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Criteria" />
+            <PropertyRef Name="CriteriaData" />
+          </Key>
+          <Property Name="UserDataID" Type="smallint" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Criteria" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="CriteriaData" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserLocation">
           <Key>
             <PropertyRef Name="UserLocID" />
@@ -3357,6 +3387,16 @@
           <Property Name="RoleID" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TAS2013_NHA.dbo.Zone' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneName" Type="nchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.EmpView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5965,8 +6005,10 @@
           <EntitySet Name="Shifts" EntityType="TAS2013_NHAModel.Shift" />
           <EntitySet Name="sysdiagrams" EntityType="TAS2013_NHAModel.sysdiagram" />
           <EntitySet Name="Users" EntityType="TAS2013_NHAModel.User" />
+          <EntitySet Name="UserAccesses" EntityType="TAS2013_NHAModel.UserAccess" />
           <EntitySet Name="UserLocations" EntityType="TAS2013_NHAModel.UserLocation" />
           <EntitySet Name="UserRoles" EntityType="TAS2013_NHAModel.UserRole" />
+          <EntitySet Name="Zones" EntityType="TAS2013_NHAModel.Zone" />
           <EntitySet Name="EmpViews" EntityType="TAS2013_NHAModel.EmpView" />
           <EntitySet Name="ViewAbsents" EntityType="TAS2013_NHAModel.ViewAbsent" />
           <EntitySet Name="ViewAttDatas" EntityType="TAS2013_NHAModel.ViewAttData" />
@@ -7427,6 +7469,7 @@
           </Key>
           <Property Name="RegionID" Type="Byte" Nullable="false" />
           <Property Name="RegionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ZoneID" Type="Byte" />
           <NavigationProperty Name="Cities" Relationship="TAS2013_NHAModel.FK_City_Region" FromRole="Region" ToRole="City" />
         </EntityType>
         <EntityType Name="Roster">
@@ -7604,6 +7647,18 @@
           <NavigationProperty Name="LvApplications" Relationship="TAS2013_NHAModel.FK_LvApplication_User" FromRole="User" ToRole="LvApplication" />
           <NavigationProperty Name="UserRole" Relationship="TAS2013_NHAModel.FK_User_UserRole1" FromRole="User" ToRole="UserRole" />
         </EntityType>
+        <EntityType Name="UserAccess">
+          <Key>
+            <PropertyRef Name="UserDataID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Criteria" />
+            <PropertyRef Name="CriteriaData" />
+          </Key>
+          <Property Name="UserDataID" Type="Int16" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Criteria" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="CriteriaData" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserLocation">
           <Key>
             <PropertyRef Name="UserLocID" />
@@ -7621,6 +7676,13 @@
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Users" Relationship="TAS2013_NHAModel.FK_User_UserRole1" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
         </EntityType>
         <EntityType Name="EmpView">
           <Key>
@@ -11189,6 +11251,7 @@
               <MappingFragment StoreEntitySet="Region">
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11357,6 +11420,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserAccesses">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.UserAccess">
+              <MappingFragment StoreEntitySet="UserAccess">
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Criteria" ColumnName="Criteria" />
+                <ScalarProperty Name="CriteriaData" ColumnName="CriteriaData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserLocations">
             <EntityTypeMapping TypeName="TAS2013_NHAModel.UserLocation">
               <MappingFragment StoreEntitySet="UserLocation">
@@ -11372,6 +11445,14 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.Zone">
+              <MappingFragment StoreEntitySet="Zone">
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

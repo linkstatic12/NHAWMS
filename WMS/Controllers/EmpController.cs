@@ -65,11 +65,10 @@ namespace WMS.Controllers
                 {
                     try
                     {
+
                         emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
                          || s.EmpNo.Contains(searchString.ToUpper())
-                         || s.SectionName.ToUpper().Contains(searchString.ToUpper())
-                         || s.ShiftName.ToUpper().Contains(searchString.ToUpper())
-                         || s.DesignationName.ToUpper().Contains(searchString.ToUpper())).ToList();
+                        ).ToList();
                     }
                     catch(Exception ex)
                     {
@@ -169,6 +168,8 @@ namespace WMS.Controllers
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
             ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+            ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName");
+            ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName");
             return View();
         }
 
@@ -463,7 +464,20 @@ namespace WMS.Controllers
         }
 
         #region --Cascade DropDown--
+        public ActionResult RegionList(string ID)
+        {
+        
+        int Code = Convert.ToInt32(ID);
+            var states = db.Regions.Where(aa => aa.ZoneID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                states.ToArray(),
+                                "RegionID",
+                                "RegionName")
+                           , JsonRequestBehavior.AllowGet);
 
+            return RedirectToAction("Index");
+        }
         public ActionResult GradeList(string ID)
         {
             int Code = Convert.ToInt32(ID);

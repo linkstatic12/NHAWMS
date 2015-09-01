@@ -1,0 +1,12 @@
+@model WMS.Models.Zone
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ZoneName)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ZoneName)
+    @Html.ValidationMessageFor(model => model.ZoneName)
+</div>
+

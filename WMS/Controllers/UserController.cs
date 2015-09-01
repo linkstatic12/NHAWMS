@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq.Dynamic;
 using WMS.Models;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
@@ -490,6 +491,61 @@ namespace WMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        
+        
+        }
+
+        public ActionResult UserCityList()
+        {  
+             int count;
+             String requestform = Request.Form["uLocationCount"];
+             bool isNumeric = int.TryParse(requestform, out count);
+
+            if(isNumeric)
+            {
+
+                if (count > 0)
+                {
+                    List<Location> locs = new List<Location>();
+                    locs = db.Locations.ToList();
+                    string query = "where ";
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uLocID = "uLocation" + i;
+                        string LocName = Request.Form[uLocID].ToString();
+                        short CityID = (short)locs.Where(aa => aa.LocName == LocName).FirstOrDefault().CityID;
+                        query = query + "CityID=" + CityID + " and ";
+                    }
+                    var states = db.Locations.Where(query).ToList();
+                    return Json(new SelectList(
+                                    states.ToArray(),
+                                    "LocID",
+                                    "LocName")
+                               , JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var states = db.Locations.ToList();
+                    return Json(new SelectList(
+                                    states.ToArray(),
+                                    "LocID",
+                                    "LocName")
+                               , JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            else
+            {
+                var states = db.Locations.ToList();
+                return Json(new SelectList(
+                                states.ToArray(),
+                                "LocID",
+                                "LocName")
+                           , JsonRequestBehavior.AllowGet);
+
+            }
+           
+        
         }
 
         public ActionResult UserLocationList()

@@ -12,17 +12,9 @@ namespace WMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class Zone
     {
-        public Region()
-        {
-            this.Cities = new HashSet<City>();
-        }
-    
-        public byte RegionID { get; set; }
-        public string RegionName { get; set; }
-        public Nullable<byte> ZoneID { get; set; }
-    
-        public virtual ICollection<City> Cities { get; set; }
+        public short ZoneID { get; set; }
+        public string ZoneName { get; set; }
     }
 }
