@@ -142,8 +142,8 @@ namespace WMS.Reports.Filters
             List<ViewCrew> _TempView = new List<ViewCrew>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForCompanySegeration(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from ViewCrew " + query);
+            
+            DataTable dt = qb.GetValuesfromDB("select * from ViewCrew");
             _View = dt.ToList<ViewCrew>();
             if (fm.CompanyFilter.Count > 0)
             {

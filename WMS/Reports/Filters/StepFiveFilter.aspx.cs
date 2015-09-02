@@ -71,8 +71,8 @@ namespace WMS.Reports.Filters
             List<EmpView> _TempView = new List<EmpView>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForCompanyFilters(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+           // string query = qb.QueryForCompanyFilters(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView");
             _View = dt.ToList<EmpView>();
             if (fm.CompanyFilter.Count > 0)
             {

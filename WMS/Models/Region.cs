@@ -19,9 +19,10 @@ namespace WMS.Models
             this.Cities = new HashSet<City>();
         }
     
-        public byte RegionID { get; set; }
+        public int RegionID { get; set; }
         public string RegionName { get; set; }
         public Nullable<byte> ZoneID { get; set; }
+        public string ZoneName { get; set; }
     
         public virtual ICollection<City> Cities { get; set; }
     }

@@ -330,6 +330,7 @@
     <Content Include="Scripts\site.avatar.js" />
     <Content Include="Scripts\Employee\wingSection.js" />
     <Content Include="Scripts\Employee\wingSectionCreate.js" />
+    <Content Include="Scripts\User\Access.js" />
     <Content Include="UIReports\IndexReport.aspx" />
     <Content Include="UIReports\WebForm1.aspx" />
     <Content Include="Web.config">

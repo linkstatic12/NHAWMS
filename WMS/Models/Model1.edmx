@@ -228,22 +228,10 @@
           <EntitySet Name="Shift" EntityType="TAS2013_NHAModel.Store.Shift" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="TAS2013_NHAModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="TAS2013_NHAModel.Store.User" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" store:Schema="dbo" store:Name="UserAccess">
-            <DefiningQuery>SELECT 
-      [UserAccess].[UserDataID] AS [UserDataID], 
-      [UserAccess].[UserID] AS [UserID], 
-      [UserAccess].[Criteria] AS [Criteria], 
-      [UserAccess].[CriteriaData] AS [CriteriaData]
-      FROM [dbo].[UserAccess] AS [UserAccess]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRole" EntityType="TAS2013_NHAModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" store:Schema="dbo" store:Name="Zone">
-            <DefiningQuery>SELECT 
-      [Zone].[ZoneID] AS [ZoneID], 
-      [Zone].[ZoneName] AS [ZoneName]
-      FROM [dbo].[Zone] AS [Zone]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EmpView" EntityType="TAS2013_NHAModel.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
             <DefiningQuery>SELECT 
       [EmpView].[DesignationName] AS [DesignationName], 
@@ -251,7 +239,6 @@
       [EmpView].[CompName] AS [CompName], 
       [EmpView].[JobTitle] AS [JobTitle], 
       [EmpView].[CityName] AS [CityName], 
-      [EmpView].[RegionName] AS [RegionName], 
       [EmpView].[LocName] AS [LocName], 
       [EmpView].[CrewName] AS [CrewName], 
       [EmpView].[TypeName] AS [TypeName], 
@@ -299,9 +286,10 @@
       [EmpView].[CrewID] AS [CrewID], 
       [EmpView].[EmpID] AS [EmpID], 
       [EmpView].[CityID] AS [CityID], 
+      [EmpView].[RegionName] AS [RegionName], 
+      [EmpView].[ZoneName] AS [ZoneName], 
       [EmpView].[RegionID] AS [RegionID], 
-      [EmpView].[Expr1] AS [Expr1], 
-      [EmpView].[Expr2] AS [Expr2]
+      [EmpView].[ZoneID] AS [ZoneID]
       FROM [dbo].[EmpView] AS [EmpView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewAbsent" EntityType="TAS2013_NHAModel.Store.ViewAbsent" store:Type="Views" store:Schema="dbo" store:Name="ViewAbsent">
@@ -2629,7 +2617,7 @@
           </Key>
           <Property Name="CityID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CityName" Type="nvarchar" MaxLength="50" />
-          <Property Name="RegionID" Type="tinyint" />
+          <Property Name="RegionID" Type="int" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -2842,6 +2830,9 @@
           <Property Name="LastEntryDateTime" Type="datetime" />
           <Property Name="IsSafe" Type="bit" />
           <Property Name="HasOT" Type="bit" />
+          <Property Name="RegionID" Type="smallint" />
+          <Property Name="CityID" Type="smallint" />
+          <Property Name="ZoneID" Type="smallint" />
         </EntityType>
         <EntityType Name="EmpAccess">
           <Key>
@@ -3197,9 +3188,10 @@
           <Key>
             <PropertyRef Name="RegionID" />
           </Key>
-          <Property Name="RegionID" Type="tinyint" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
           <Property Name="ZoneID" Type="tinyint" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Roster">
           <Key>
@@ -3357,17 +3349,11 @@
           <Property Name="LocationID" Type="smallint" />
           <Property Name="MRoster" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'TAS2013_NHA.dbo.UserAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="UserAccess">
           <Key>
             <PropertyRef Name="UserDataID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="Criteria" />
-            <PropertyRef Name="CriteriaData" />
           </Key>
-          <Property Name="UserDataID" Type="smallint" Nullable="false" />
+          <Property Name="UserDataID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Criteria" Type="nchar" Nullable="false" MaxLength="5" />
           <Property Name="CriteriaData" Type="int" Nullable="false" />
@@ -3388,9 +3374,6 @@
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'TAS2013_NHA.dbo.Zone' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="Zone">
           <Key>
             <PropertyRef Name="ZoneID" />
@@ -3410,15 +3393,12 @@
             <PropertyRef Name="EmpName" />
             <PropertyRef Name="ProcessAtt" />
             <PropertyRef Name="EmpID" />
-            <PropertyRef Name="RegionID" />
-            <PropertyRef Name="Expr1" />
           </Key>
           <Property Name="DesignationName" Type="nvarchar" MaxLength="200" />
           <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
           <Property Name="CompName" Type="nvarchar" MaxLength="50" />
           <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="CityName" Type="nvarchar" MaxLength="50" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
           <Property Name="LocName" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
           <Property Name="TypeName" Type="nvarchar" Nullable="false" MaxLength="500" />
@@ -3466,9 +3446,10 @@
           <Property Name="CrewID" Type="smallint" />
           <Property Name="EmpID" Type="int" Nullable="false" />
           <Property Name="CityID" Type="smallint" />
-          <Property Name="RegionID" Type="tinyint" Nullable="false" />
-          <Property Name="Expr1" Type="tinyint" Nullable="false" />
-          <Property Name="Expr2" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionID" Type="smallint" />
+          <Property Name="ZoneID" Type="smallint" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewAbsent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -6817,7 +6798,7 @@
           </Key>
           <Property Name="CityID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="CityName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="RegionID" Type="Byte" />
+          <Property Name="RegionID" Type="Int32" />
           <NavigationProperty Name="Region" Relationship="TAS2013_NHAModel.FK_City_Region" FromRole="City" ToRole="Region" />
           <NavigationProperty Name="Locations" Relationship="TAS2013_NHAModel.FK_Location_City" FromRole="City" ToRole="Location" />
         </EntityType>
@@ -7051,6 +7032,9 @@
           <Property Name="LastEntryDateTime" Type="DateTime" Precision="3" />
           <Property Name="IsSafe" Type="Boolean" />
           <Property Name="HasOT" Type="Boolean" />
+          <Property Name="RegionID" Type="Int16" />
+          <Property Name="CityID" Type="Int16" />
+          <Property Name="ZoneID" Type="Int16" />
           <NavigationProperty Name="AttDatas" Relationship="TAS2013_NHAModel.FK_AttData_Emp" FromRole="Emp" ToRole="AttData" />
           <NavigationProperty Name="AttDataManEdits" Relationship="TAS2013_NHAModel.FK_AttDataManEdit_Emp" FromRole="Emp" ToRole="AttDataManEdit" />
           <NavigationProperty Name="AttMnDatas" Relationship="TAS2013_NHAModel.FK_AttMnData_Emp" FromRole="Emp" ToRole="AttMnData" />
@@ -7467,9 +7451,10 @@
           <Key>
             <PropertyRef Name="RegionID" />
           </Key>
-          <Property Name="RegionID" Type="Byte" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="RegionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ZoneID" Type="Byte" />
+          <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Cities" Relationship="TAS2013_NHAModel.FK_City_Region" FromRole="Region" ToRole="City" />
         </EntityType>
         <EntityType Name="Roster">
@@ -7650,11 +7635,8 @@
         <EntityType Name="UserAccess">
           <Key>
             <PropertyRef Name="UserDataID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="Criteria" />
-            <PropertyRef Name="CriteriaData" />
           </Key>
-          <Property Name="UserDataID" Type="Int16" Nullable="false" />
+          <Property Name="UserDataID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Criteria" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
           <Property Name="CriteriaData" Type="Int32" Nullable="false" />
@@ -7693,15 +7675,12 @@
             <PropertyRef Name="EmpName" />
             <PropertyRef Name="ProcessAtt" />
             <PropertyRef Name="EmpID" />
-            <PropertyRef Name="RegionID" />
-            <PropertyRef Name="Expr1" />
           </Key>
           <Property Name="DesignationName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="GradeName" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="CompName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="JobTitle" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="CityName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="RegionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="LocName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="CrewName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="TypeName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
@@ -7749,9 +7728,10 @@
           <Property Name="CrewID" Type="Int16" />
           <Property Name="EmpID" Type="Int32" Nullable="false" />
           <Property Name="CityID" Type="Int16" />
-          <Property Name="RegionID" Type="Byte" Nullable="false" />
-          <Property Name="Expr1" Type="Byte" Nullable="false" />
-          <Property Name="Expr2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RegionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RegionID" Type="Int16" />
+          <Property Name="ZoneID" Type="Int16" />
         </EntityType>
         <EntityType Name="ViewAbsent">
           <Key>
@@ -10865,6 +10845,9 @@
                 <ScalarProperty Name="LastEntryDateTime" ColumnName="LastEntryDateTime" />
                 <ScalarProperty Name="IsSafe" ColumnName="IsSafe" />
                 <ScalarProperty Name="HasOT" ColumnName="HasOT" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11252,6 +11235,7 @@
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11464,7 +11448,6 @@
                 <ScalarProperty Name="CompName" ColumnName="CompName" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="LocName" ColumnName="LocName" />
                 <ScalarProperty Name="CrewName" ColumnName="CrewName" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -11512,9 +11495,10 @@
                 <ScalarProperty Name="CrewID" ColumnName="CrewID" />
                 <ScalarProperty Name="EmpID" ColumnName="EmpID" />
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
-                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

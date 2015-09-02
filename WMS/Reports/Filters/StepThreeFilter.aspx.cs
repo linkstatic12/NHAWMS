@@ -131,8 +131,8 @@ namespace WMS.Reports.Filters
             List<Location> _TempView = new List<Location>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForLocationTableSegeration(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from Location " + query);
+           // string query = qb.QueryForUserAccess(LoggedInUser,"Location");
+            DataTable dt = qb.GetValuesfromDB("select * from Location");
             _View = dt.ToList<Location>();
             if (fm.CompanyFilter.Count > 0)
             {

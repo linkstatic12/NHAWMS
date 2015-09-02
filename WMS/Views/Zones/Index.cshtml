@@ -1,31 +1,40 @@
-@model IEnumerable<WMS.Models.Zone>
+@model PagedList.IPagedList<WMS.Models.Zone>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Zone";
 }
 
+ <div>
+      <form class ="form-inline" role="form">
+          <div class="form-group"> <h3>Zones</h3> </div>
+          <div class="form-group CreateBtnMargin"><p>@Html.ActionLink("Create New", "Create",null,new { @class = "btn btn-sm btn-success" })</p></div>
+          <div class="form-group pull-right SearchBtnMargin">
+              @using (Html.BeginForm("Index", "Zone", FormMethod.Get))
+                {<p>Find: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,new { @class = "form-control" })  
+                 <input class="btn btn-sm btn-success" type="submit" value="Search" /></p>}
+          </div> 
+      </form>  
+ </div>
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th></th>
+ <table class="table table-bordered table-hover table-condensed">
+     <tr class="table-header">
         <th>
-            ZoneName
+            @Html.ActionLink("Zone Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-    </tr>
+ <th>Edit | View | Delete</th>
+         </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ZoneID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ZoneID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ZoneID })
+         <td>
+            @Html.DisplayFor(modelItem => item.ZoneName)
         </td>
         <td>
-			@item.ZoneName
+            @Html.ActionLink(" ", "Edit", new { id=item.ZoneID }, new { @class = "glyphicon glyphicon-pencil btn btn-warning btn-sm" })
+            @Html.ActionLink(" ", "Details", new { id=item.ZoneID }, new { @class = "glyphicon glyphicon-list btn btn-primary btn-sm" })
+            @Html.ActionLink(" ", "Delete", new { id=item.ZoneID }, new { @class = "glyphicon glyphicon-trash btn btn-danger btn-sm" })
         </td>
     </tr>
 }
@@ -33,3 +42,8 @@
 </table>
 
 
+<div class="form-inline">
+          <div class="form-group ">@Html.PagedListPager(Model, page => Url.Action("Index", 
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))</div>
+          <div class="form-group pull-right">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+</div>

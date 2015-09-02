@@ -70,6 +70,9 @@ namespace WMS.Models
         public Nullable<System.DateTime> LastEntryDateTime { get; set; }
         public Nullable<bool> IsSafe { get; set; }
         public Nullable<bool> HasOT { get; set; }
+        public Nullable<short> RegionID { get; set; }
+        public Nullable<short> CityID { get; set; }
+        public Nullable<short> ZoneID { get; set; }
     
         public virtual ICollection<AttData> AttDatas { get; set; }
         public virtual ICollection<AttDataManEdit> AttDataManEdits { get; set; }

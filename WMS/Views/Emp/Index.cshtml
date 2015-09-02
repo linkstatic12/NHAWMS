@@ -38,7 +38,7 @@
                     FPID
                 </th>
                 <th>
-                    CNIC No
+                    Father's Name
                 </th>
                 <th>
                      @Html.ActionLink("Designation", "Index", new { sortOrder = ViewBag.DesigSortParm })
@@ -72,7 +72,7 @@
                     @Html.DisplayFor(modelItem => item.FpID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NicNo)
+                    @Html.DisplayFor(modelItem => item.FatherName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DesignationName)
