@@ -331,8 +331,6 @@
     <Content Include="Scripts\Employee\wingSection.js" />
     <Content Include="Scripts\Employee\wingSectionCreate.js" />
     <Content Include="Scripts\User\Access.js" />
-    <Content Include="UIReports\IndexReport.aspx" />
-    <Content Include="UIReports\WebForm1.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1038,20 +1036,6 @@
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
-    <Compile Include="UIReports\IndexReport.aspx.cs">
-      <DependentUpon>IndexReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UIReports\IndexReport.aspx.designer.cs">
-      <DependentUpon>IndexReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UIReports\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UIReports\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Views\CompanyController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1220,6 +1204,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\RDLC\RptTCAbsent.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCEarlyIn.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCEarlyOut.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCLateComers.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCLeave.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCOverTime.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\RptTCPresent.rdlc" />
     <None Include="DataAccess\Reports.dbml.layout">
       <DependentUpon>Reports.dbml</DependentUpon>
     </None>
