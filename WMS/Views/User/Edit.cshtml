@@ -76,7 +76,7 @@
                     @Html.ValidationMessageFor(model => model.RoleID)
                 </div>
         </div> 
-        <div class="form-group">
+       <div class="form-group" style="display:none;" id="LocationDiv"> 
             <div class="control-label col-md-4">Location</div>
             <div class="col-md-8">
                 <input type="hidden" placeholder="e.g Lahore" data-ng-model="location.name" id="uLocationCount" name="uLocationCount" class="form-control" value="{{locations.length}}">
@@ -93,18 +93,80 @@
                         <option ng-repeat="loc in AllLocations">{{loc.Text}}</option>
                     </select>
                     <a class="btn btn-default btn-sm" ng-click="addLocation()">Add</a>
-                    <a href="" ng-click="isAddingLocation = false">Done Adding</a>
+                    <a href="" style="margin-top:-5px;" ng-click="isAddingLocation = false">Done Adding</a>
                 </div>
                 <p><a href="" ng-click="isAddingLocation = true">+ Add Location</a></p>
             </div>
-        </div>
-       @*<div class="form-group">
-            <div class="control-label col-md-4">Location</div>
-            <div class="col-md-4">
-                @Html.DropDownList("LocationID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
-                @Html.ValidationMessageFor(model => model.LocationID)
+          </div>
+
+ <div class="form-group" style="display:none;" id="ZoneDiv"> 
+            <div class="control-label col-md-4">Zone</div>
+            <div class="col-md-8">
+                <input type="hidden" placeholder="e.g Lahore" data-ng-model="zone.name" id="uZoneCount" name="uZoneCount" class="form-control" value="{{zones.length}}">
+                <div class="input-group" ng-repeat="zone in zones">
+                    <input disabled type="text" placeholder="e.g Lahore" id="testZone{{$index + 1}}" data-ng-model="zone.name" class="form-control">
+                    <input type="hidden" placeholder="e.g Lahore" data-ng-model="zone.name" id="uZone{{$index + 1}}" name="uZone{{$index + 1}}" class="form-control" value="{{zone.name}}">
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="removeZone($index)" class="btn btn-default"><i class="fa fa-times"></i>[X]</button>
+                    </span>
+                </div>
+                 <div  ng-show="isAddingZone">
+                    @*<input type="text" placeholder="Add a Zone" data-ng-model="newZone.name" class="form-control">*@
+                    <select type="text" placeholder="Add a Zone" data-ng-model="newZone.name" class="form-control">
+                        <option ng-repeat="zon in AllZones">{{zon.Text}}</option>
+                    </select>
+                    <a class="btn btn-default btn-sm" ng-click="addZone()">Add</a>
+                    <a href="" style="margin-top:-5px;" ng-click="isAddingZone = false">Done Adding</a>
+                </div>
+                <p><a href="" ng-click="isAddingZone = true">+ Add Zone</a></p>
             </div>
-        </div> *@
+          </div>
+ <div class="form-group" style="display:none;" id="RegionDiv"> 
+            <div class="control-label col-md-4">Region</div>
+            <div class="col-md-8">
+                <input type="hidden" placeholder="e.g Lahore" data-ng-model="region.name" id="uRegionCount" name="uRegionCount" class="form-control" value="{{regions.length}}">
+                <div class="input-group" ng-repeat="region in regions">
+                    <input disabled type="text" placeholder="e.g Lahore" id="testRegion{{$index + 1}}" data-ng-model="region.name" class="form-control">
+                    <input type="hidden" placeholder="e.g Lahore" data-ng-model="region.name" id="uRegion{{$index + 1}}" name="uRegion{{$index + 1}}" class="form-control" value="{{region.name}}">
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="removeRegion($index)" class="btn btn-default"><i class="fa fa-times"></i>[X]</button>
+                    </span>
+                </div>
+                 <div  ng-show="isAddingRegion">
+                    @*<input type="text" placeholder="Add a Region" data-ng-model="newRegion.name" class="form-control">*@
+                    <select type="text" placeholder="Add a Region" data-ng-model="newRegion.name" class="form-control">
+                        <option ng-repeat="reg in AllRegions">{{reg.Text}}</option>
+                    </select>
+                    <a class="btn btn-default btn-sm" ng-click="addRegion()">Add</a>
+                    <a href="" style="margin-top:-5px;" ng-click="isAddingRegion = false">Done Adding</a>
+                </div>
+                <p><a href="" ng-click="isAddingRegion = true">+ Add Region</a></p>
+            </div>
+          </div>
+
+ <div class="form-group" style="display:none;" id="CityDiv"> 
+            <div class="control-label col-md-4">City</div>
+            <div class="col-md-8">
+                <input type="hidden" placeholder="e.g Lahore" data-ng-model="city.name" id="uCityCount" name="uCityCount" class="form-control" value="{{cities.length}}">
+                <div class="input-group" ng-repeat="city in cities">
+                    <input disabled type="text" placeholder="e.g Lahore" id="testCity{{$index + 1}}" data-ng-model="city.name" class="form-control">
+                    <input type="hidden" placeholder="e.g Lahore" data-ng-model="city.name" id="uCity{{$index + 1}}" name="uCity{{$index + 1}}" class="form-control" value="{{city.name}}">
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="removeCity($index)" class="btn btn-default"><i class="fa fa-times"></i>[X]</button>
+                    </span>
+                </div>
+                 <div  ng-show="isAddingCity">
+                  
+                    <select type="text" placeholder="Add a City" data-ng-model="newCity.name" class="form-control">
+                        <option ng-repeat="cit in AllCities">{{cit.Text}}</option>
+                    </select>
+                    <a class="btn btn-default btn-sm" ng-click="addCity()">Add</a>
+                    <a href="" style="margin-top:-5px;" ng-click="isAddingCity = false">Done Adding</a>
+                </div>
+                <p><a href="" ng-click="isAddingCity = true">+ Add City</a></p>
+            </div>
+          </div>
+      
         <div class="form-group">
             <div class="control-label col-md-4">Permanent Staff</div>
             <div class="col-md-6">
@@ -377,7 +439,7 @@
 <script type="text/javascript">
     var app = angular.module('UserLocation', []);
     app.controller('myCtrl', function ($scope,$http) {
-        //Add specialities
+        //Add Location
         $scope.addLocation = function () {
             if (!$scope.locations) $scope.locations = [];
             if ($scope.newLocation.name != '') {
@@ -387,14 +449,67 @@
                 };
             }
         };
-        //Remove Speciality
+        //Remove Location
         $scope.removeLocation = function (index) {
             $scope.locations.splice(index, 1);
+        };
+        //Add Zone
+        $scope.addZone = function () {
+            if (!$scope.zones) $scope.zones = [];
+            if ($scope.newZone.name != '') {
+                $scope.zones.push($scope.newZone);
+                $scope.newZone = {
+                    name: ''
+                };
+            }
+        };
+        //Remove Zone 
+        $scope.removeZone = function (index) {
+            $scope.zones.splice(index, 1);
+        };
+        //Add Region
+        $scope.addRegion = function () {
+            if (!$scope.regions) $scope.regions = [];
+            if ($scope.newRegion.name != '') {
+                $scope.regions.push($scope.newRegion);
+                $scope.newRegion = {
+                    name: ''
+                };
+            }
+        };
+        //Remove Region 
+        $scope.removeRegion = function (index) {
+            $scope.regions.splice(index, 1);
+        };
+        //Add City
+        $scope.addCity = function () {
+            if (!$scope.cities) $scope.cities = [];
+            if ($scope.newCity.name != '') {
+                $scope.cities.push($scope.newCity);
+                $scope.newCity = {
+                    name: ''
+                };
+            }
+        };
+        //Remove Region 
+        $scope.removeCity = function (index) {
+            $scope.cities.splice(index, 1);
         };
         // init function
         $scope.initFunction = function (ID)
         {
-            //console.log(UserID);
+            $http.get('/WMS/User/UserZoneList').success(function (res) {
+                $scope.AllZones = res;
+                console.log(res);
+            });
+            $http.get('/WMS/User/UserRegionList').success(function (res) {
+                $scope.AllRegions = res;
+                console.log(res);
+            });
+            $http.get('/WMS/User/UserCityList').success(function (res) {
+                $scope.AllCities = res;
+                console.log(res);
+            });
             $http.get('/WMS/User/UserLocationList/').success(function (res) {
                 $scope.AllLocations = res;
                 console.log(res);
@@ -406,6 +521,27 @@
                 }
                 console.log(res);
             });
+            $http.get('/WMS/User/SelectedUserCityList/' + ID).success(function (res) {
+                $scope.cities = [];
+                for (i = 0 ; i < res.length; i++) {
+                    $scope.cities.push({ name: res[i].Text });
+                }
+                console.log(res);
+            });
+            $http.get('/WMS/User/SelectedUserRegionList/' + ID).success(function (res) {
+                $scope.regions = [];
+                for (i = 0 ; i < res.length; i++) {
+                    $scope.regions.push({ name: res[i].Text });
+                }
+                console.log(res);
+            });
+            $http.get('/WMS/User/SelectedUserZoneList/' + ID).success(function (res) {
+                $scope.zones = [];
+                for (i = 0 ; i < res.length; i++) {
+                    $scope.zones.push({ name: res[i].Text });
+                }
+                console.log(res);
+            });
         }
     });
-</script>
+</script><script src="@Url.Content("~/Scripts/User/Access.js")"></script><script src="@Url.Content("~/Scripts/Employee/ZoneRegion.js")"></script>

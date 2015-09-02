@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Linq.Dynamic;
 using System.Web.Mvc;
 using WMS.Models;
 using PagedList;
@@ -32,9 +33,12 @@ namespace WMS.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-
-            var region = db.Regions.AsQueryable();
-
+            User LoggedInUser = HttpContext.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForUserAccess(LoggedInUser,"Region");
+            DataTable dt = qb.GetValuesfromDB("Select * FROM Region where " + query);
+             var region = dt.ToList<Region>().AsQueryable();
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 region = region.Where(s => s.RegionName.ToUpper().Contains(searchString.ToUpper()));
@@ -74,7 +78,8 @@ namespace WMS.Controllers
         // GET: /Region/Create
          [CustomActionAttribute]
         public ActionResult Create()
-        {
+         {
+             ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName");
             return View();
         }
 
@@ -84,8 +89,9 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include = "RegionID,RegionName")] Region region)
-        {
+        public ActionResult Create([Bind(Include = "RegionID,RegionName,ZoneID")] Region region)
+         {
+            
             if (string.IsNullOrEmpty(region.RegionName))
                 ModelState.AddModelError("RegionName", "Required");
             if (region.RegionName != null)
@@ -101,11 +107,14 @@ namespace WMS.Controllers
             }
             if (ModelState.IsValid)
             {
+                Zone zone = db.Zones.Where(aa => aa.ZoneID == region.ZoneID).FirstOrDefault();
+                region.ZoneName = zone.ZoneName;
                 db.Regions.Add(region);
                 db.SaveChanges();
+                ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName");
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName");
             return View(region);
         }
         private bool CheckDuplicate(string _Name)
@@ -157,7 +166,8 @@ namespace WMS.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(region).State = EntityState.Modified;
+                Region region2 = db.Regions.Where(aa => aa.RegionID == region.RegionID).FirstOrDefault();
+                region2.RegionName = region.RegionName;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

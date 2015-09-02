@@ -107,18 +107,29 @@ namespace WMS.Controllers
         public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRoster,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
             int count;
-            String requestform = Request.Form["uLocationCount"];
+            String requestform = "";
+            int role = (int)user.RoleID;
+            switch ((int)user.RoleID)
+            {
+                case 4: requestform = Request.Form["uZoneCount"]; break;
+                case 5: requestform = Request.Form["uRegionCount"]; break;
+                case 6: requestform = Request.Form["uCityCount"]; break;
+                case 7: requestform = Request.Form["uLocationCount"]; break;
+                default: requestform = "-1"; break;
+             }
+
              bool isNumeric = int.TryParse(requestform, out count);
             if(isNumeric)
             {     
             
-            if (count > 0)
+            if (count > -2)
             {
                 bool check = false;
                 string _EmpNo = Request.Form["EmpNo"].ToString();
                 List<Emp> _emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo).ToList();
                 if (_emp.Count == 0)
                 {
+                    user.EmpID = null;
                     check = true;
                 }
                 if (user.UserName == null)
@@ -235,39 +246,225 @@ namespace WMS.Controllers
                     user.ViewContractual = false;
                
 
-                if (check == false)
+               // if (check == false)
+               // {
+                  //  string _dpName = FindADUser(user.UserName);
+                  //  if (_dpName != "No")
+                  //  {
+                if (!check)
                 {
-                    string _dpName = FindADUser(user.UserName);
-                    if (_dpName != "No")
-                    {
-                        user.Name = _dpName;
+                    user.Name = _emp.FirstOrDefault().EmpName;
+                    user.EmpID = _emp.FirstOrDefault().EmpID;
+                }
                         user.DateCreated = DateTime.Today;
-                        user.EmpID = _emp.FirstOrDefault().EmpID;
+                       
                         db.Users.Add(user);
                         db.SaveChanges();
                         //Save UserLoc
-                        List<Location> locs = new List<Location>();
-                        locs = db.Locations.ToList();
-                        for (int i = 1; i <= count; i++)
+                        switch ((int)user.RoleID)
                         {
-                            string uLocID = "uLocation" + i;
-                            string LocName = Request.Form[uLocID].ToString();
-                            int locID = locs.Where(aa => aa.LocName == LocName).FirstOrDefault().LocID;
-                            UserLocation uloc = new UserLocation();
-                            uloc.UserID = user.UserID;
-                            uloc.LocationID = (short)locID;
-                            db.UserLocations.Add(uloc);
-                            db.SaveChanges();
+                            case 4: SaveUserAccess(user, "Zone",count);
+                                    break;
+                            case 5: SaveUserAccess(user, "Region", count);
+                                    break;
+                            case 6: SaveUserAccess(user, "City", count);
+                                    break;
+                            case 7: SaveUserAccess(user, "Location", count);
+                                    break;
+                            default: SaveUserAccess(user, "SuperUser", count);
+                                    break;
                         }
+                       
                         return RedirectToAction("Index");
-                    }
-                }
+                   // }
+              //  }
             }}
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", user.EmpID);
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
            // ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
             return View(user);
+        }
+
+        private void SaveUserAccess(Models.User user, string p,int count)
+        {
+            switch (p)
+            {
+                case "Zone": List<Zone> locs = new List<Zone>();
+                    locs = db.Zones.ToList();
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uZoneID = "uZone" + i;
+                        string ZoneName = Request.Form[uZoneID].ToString();
+                        int zoneID = locs.Where(aa => aa.ZoneName == ZoneName).FirstOrDefault().ZoneID;
+                        UserAccess uAcc = new UserAccess();
+                        uAcc.UserID = user.UserID;
+                        uAcc.Criteria = "Z";
+                        
+                        uAcc.CriteriaData = zoneID;
+                        db.UserAccesses.Add(uAcc);
+                        db.SaveChanges();
+                    }
+                                         break;
+                case "Region": List<Region> region = new List<Region>();
+                                         region = db.Regions.ToList();
+                                         for (int i = 1; i <= count; i++)
+                                         {
+                                             string uRegionID = "uRegion" + i;
+                                             string RegionName = Request.Form[uRegionID].ToString();
+                                             int regionID = region.Where(aa => aa.RegionName == RegionName).FirstOrDefault().RegionID;
+                                             UserAccess uAcc = new UserAccess();
+                                             uAcc.UserID = user.UserID;
+                                             uAcc.Criteria = "R";
+                                             
+                                             uAcc.CriteriaData = regionID;
+                                             db.UserAccesses.Add(uAcc);
+                                             db.SaveChanges();
+                                         }
+                                         break;
+                case "City": List<City> city = new List<City>();
+                                         city = db.Cities.ToList();
+                                         for (int i = 1; i <= count; i++)
+                                         {
+                                             string uCityID = "uCity" + i;
+                                             string CityName = Request.Form[uCityID].ToString();
+                                             int cityID = city.Where(aa => aa.CityName == CityName).FirstOrDefault().CityID;
+                                             UserAccess uAcc = new UserAccess();
+                                             uAcc.UserID = user.UserID;
+                                             uAcc.Criteria = "C";
+                                           
+                                             uAcc.CriteriaData = cityID;
+                                             db.UserAccesses.Add(uAcc);
+                                             db.SaveChanges();
+                                         }
+                                         break;
+                case "Location": List<Location> loc = new List<Location>();
+                                         loc = db.Locations.ToList();
+                                         for (int i = 1; i <= count; i++)
+                                         {
+                                             string uLocationID = "uLocation" + i;
+                                             string LocationName = Request.Form[uLocationID].ToString();
+                                             int locationID = loc.Where(aa => aa.LocName == LocationName).FirstOrDefault().LocID;
+                                             UserAccess uAcc = new UserAccess();
+                                             uAcc.UserID = user.UserID;
+                                             uAcc.Criteria = "L";
+                                            
+                                             uAcc.CriteriaData = locationID;
+                                             db.UserAccesses.Add(uAcc);
+                                             db.SaveChanges();
+                                         }
+                                         break;
+                case "SuperUser":            UserAccess uAcc1 = new UserAccess();
+                                             uAcc1.UserID = user.UserID;
+                                             uAcc1.Criteria = "S";
+                                            
+                                             uAcc1.CriteriaData = -1;
+                                             db.UserAccesses.Add(uAcc1);
+                                             db.SaveChanges();
+                                         
+                                         break;            
+            
+            
+            
+            }
+
+
+
+        }
+        private void EditUserAccess(Models.User user, string p, int count)
+        {
+            
+            List<UserAccess> aCC = db.UserAccesses.Where(aa => aa.UserID == user.UserID).ToList();
+            foreach (var ac in aCC)
+            {
+                UserAccess uc = db.UserAccesses.Where(aa => aa.UserID == ac.UserID).FirstOrDefault();
+                db.UserAccesses.Remove(uc);
+                db.SaveChanges();
+
+            }
+            switch (p)
+            {
+                case "Zone": 
+                    List<Zone> locs = new List<Zone>();
+                    locs = db.Zones.ToList();
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uZoneID = "uZone" + i;
+                        string ZoneName = Request.Form[uZoneID].ToString();
+                        int zoneID = locs.Where(aa => aa.ZoneName == ZoneName).FirstOrDefault().ZoneID;
+                        UserAccess uAcc = new UserAccess();
+                        uAcc.UserID = user.UserID;
+                        uAcc.Criteria = "Z";
+
+                        uAcc.CriteriaData = zoneID;
+                        db.UserAccesses.Add(uAcc);
+                        db.SaveChanges();
+                    }
+                    break;
+                case "Region": List<Region> region = new List<Region>();
+                    region = db.Regions.ToList();
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uRegionID = "uRegion" + i;
+                        string RegionName = Request.Form[uRegionID].ToString();
+                        int regionID = region.Where(aa => aa.RegionName == RegionName).FirstOrDefault().RegionID;
+                        UserAccess uAcc = new UserAccess();
+                        uAcc.UserID = user.UserID;
+                        uAcc.Criteria = "R";
+
+                        uAcc.CriteriaData = regionID;
+                        db.UserAccesses.Add(uAcc);
+                        db.SaveChanges();
+                    }
+                    break;
+                case "City": List<City> city = new List<City>();
+                    city = db.Cities.ToList();
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uCityID = "uCity" + i;
+                        string CityName = Request.Form[uCityID].ToString();
+                        int cityID = city.Where(aa => aa.CityName == CityName).FirstOrDefault().CityID;
+                        UserAccess uAcc = new UserAccess();
+                        uAcc.UserID = user.UserID;
+                        uAcc.Criteria = "C";
+
+                        uAcc.CriteriaData = cityID;
+                        db.UserAccesses.Add(uAcc);
+                        db.SaveChanges();
+                    }
+                    break;
+                case "Location": List<Location> loc = new List<Location>();
+                    loc = db.Locations.ToList();
+                    for (int i = 1; i <= count; i++)
+                    {
+                        string uLocationID = "uLocation" + i;
+                        string LocationName = Request.Form[uLocationID].ToString();
+                        int locationID = loc.Where(aa => aa.LocName == LocationName).FirstOrDefault().LocID;
+                        UserAccess uAcc = new UserAccess();
+                        uAcc.UserID = user.UserID;
+                        uAcc.Criteria = "L";
+
+                        uAcc.CriteriaData = locationID;
+                        db.UserAccesses.Add(uAcc);
+                        db.SaveChanges();
+                    }
+                    break;
+                case "SuperUser": UserAccess uAcc1 = new UserAccess();
+                    uAcc1.UserID = user.UserID;
+                    uAcc1.Criteria = "S";
+
+                    uAcc1.CriteriaData = -1;
+                    db.UserAccesses.Add(uAcc1);
+                    db.SaveChanges();
+
+                    break;
+
+
+
+            }
+
+
+
         }
 
         private string FindADUser(string adUserName)
@@ -312,7 +509,7 @@ namespace WMS.Controllers
         public ActionResult Edit([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
             bool check = false;
-            user.RoleID = Convert.ToByte(Request.Form["RoleID"].ToString());
+            
             if (Request.Form["Status"].ToString() == "true")
                 user.Status = true;
             else
@@ -405,48 +602,70 @@ namespace WMS.Controllers
                 user.MRGraph = true;
             else
                 user.MRGraph = false;
+            string requestform;
+            
 
+            switch ((int)user.RoleID)
+            {
+                case 4: requestform = Request.Form["uZoneCount"]; break;
+                case 5: requestform = Request.Form["uRegionCount"]; break;
+                case 6: requestform = Request.Form["uCityCount"]; break;
+                case 7: requestform = Request.Form["uLocationCount"]; break;
+                default: requestform = "-1"; break;
+            }
+
+            
+            user.RoleID = Convert.ToByte(Request.Form["RoleID"].ToString());
             if (check == false)
             {
+               
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                int count = Convert.ToInt32(Request.Form["uLocationCount"]);
-                List<Location> locs = new List<Location>();
-                List<UserLocation> userLocs = db.UserLocations.Where(aa=>aa.UserID==user.UserID).ToList();
-                locs = db.Locations.ToList();
-                List<int> currentLocIDs = new List<int>();
-                foreach (var uloc in userLocs)
+               
+                switch ((int)user.RoleID)
                 {
-                    UserLocation ul = db.UserLocations.First(aa=>aa.UserLocID==uloc.UserLocID);
-                    db.UserLocations.Remove(ul);
-                    db.SaveChanges();
+                    case 4: EditUserAccess(user, "Zone", Convert.ToInt32(requestform));
+                        break;
+                    case 5:EditUserAccess(user, "Region", Convert.ToInt32(requestform));
+                        break;
+                    case 6: EditUserAccess(user, "City", Convert.ToInt32(requestform));
+                        break;
+                    case 7: EditUserAccess(user, "Location", Convert.ToInt32(requestform));
+                        break;
+                    default: EditUserAccess(user, "SuperUser", Convert.ToInt32(requestform));
+                        break;
                 }
-                for (int i = 1; i <= count; i++)
-                {
-                    string uLocID = "uLocation" + i;
-                    string LocName = Request.Form[uLocID].ToString();
-                    int locID = locs.Where(aa => aa.LocName == LocName).FirstOrDefault().LocID;
-                    currentLocIDs.Add(locID);
-                    if(userLocs.Where(aa=>aa.LocationID==locID).Count()>0)
-                    {
-                        
-                    }
-                    else
-                    {
-                        UserLocation uloc = new UserLocation();
-                        uloc.UserID = user.UserID;
-                        uloc.LocationID = (short)locID;
-                        db.UserLocations.Add(uloc);
-                        db.SaveChanges();
-                    }   
-                }
-                //foreach (var item in userLocs)
+                //int count = Convert.ToInt32(Request.Form["uLocationCount"]);
+                //List<Location> locs = new List<Location>();
+                //List<UserLocation> userLocs = db.UserLocations.Where(aa=>aa.UserID==user.UserID).ToList();
+                //locs = db.Locations.ToList();
+                //List<int> currentLocIDs = new List<int>();
+                //foreach (var uloc in userLocs)
                 //{
-                //    if (!currentLocIDs.Contains((int)item.LocationID))
+                //    UserLocation ul = db.UserLocations.First(aa=>aa.UserLocID==uloc.UserLocID);
+                //    db.UserLocations.Remove(ul);
+                //    db.SaveChanges();
+                //}
+                //for (int i = 1; i <= count; i++)
+                //{
+                //    string uLocID = "uLocation" + i;
+                //    string LocName = Request.Form[uLocID].ToString();
+                //    int locID = locs.Where(aa => aa.LocName == LocName).FirstOrDefault().LocID;
+                //    currentLocIDs.Add(locID);
+                //    if(userLocs.Where(aa=>aa.LocationID==locID).Count()>0)
                 //    {
                         
                 //    }
+                //    else
+                //    {
+                //        UserLocation uloc = new UserLocation();
+                //        uloc.UserID = user.UserID;
+                //        uloc.LocationID = (short)locID;
+                //        db.UserLocations.Add(uloc);
+                //        db.SaveChanges();
+                //    }   
                 //}
+               
                 return RedirectToAction("Index");
 
             }
@@ -494,57 +713,37 @@ namespace WMS.Controllers
         
         
         }
+        public ActionResult UserZoneList()
+        {
+            var states = db.Zones.ToList();
+            return Json(new SelectList(
+                            states.ToArray(),
+                            "ZoneID",
+                            "ZoneName")
+                       , JsonRequestBehavior.AllowGet);
+        
+        
+        }
+        public ActionResult UserRegionList()
+        {
+            var states = db.Regions.ToList();
+            return Json(new SelectList(
+                            states.ToArray(),
+                            "RegionID",
+                            "RegionName")
+                       , JsonRequestBehavior.AllowGet);
 
+
+        }
         public ActionResult UserCityList()
-        {  
-             int count;
-             String requestform = Request.Form["uLocationCount"];
-             bool isNumeric = int.TryParse(requestform, out count);
-
-            if(isNumeric)
-            {
-
-                if (count > 0)
-                {
-                    List<Location> locs = new List<Location>();
-                    locs = db.Locations.ToList();
-                    string query = "where ";
-                    for (int i = 1; i <= count; i++)
-                    {
-                        string uLocID = "uLocation" + i;
-                        string LocName = Request.Form[uLocID].ToString();
-                        short CityID = (short)locs.Where(aa => aa.LocName == LocName).FirstOrDefault().CityID;
-                        query = query + "CityID=" + CityID + " and ";
-                    }
-                    var states = db.Locations.Where(query).ToList();
-                    return Json(new SelectList(
-                                    states.ToArray(),
-                                    "LocID",
-                                    "LocName")
-                               , JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    var states = db.Locations.ToList();
-                    return Json(new SelectList(
-                                    states.ToArray(),
-                                    "LocID",
-                                    "LocName")
-                               , JsonRequestBehavior.AllowGet);
-                }
-
-            }
-            else
-            {
-                var states = db.Locations.ToList();
-                return Json(new SelectList(
-                                states.ToArray(),
-                                "LocID",
-                                "LocName")
-                           , JsonRequestBehavior.AllowGet);
-
-            }
-           
+        {
+            var states = db.Cities.ToList();
+            return Json(new SelectList(
+                            states.ToArray(),
+                            "CityID",
+                            "CityName")
+                       , JsonRequestBehavior.AllowGet);
+        
         
         }
 
@@ -557,17 +756,67 @@ namespace WMS.Controllers
                                 "LocName")
                            , JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult SelectedUserLocList(int id)
+        public ActionResult SelectedUserZoneList(int id)
         {
-            List<UserLocation> userLoc = db.UserLocations.Where(aa=>aa.UserID==id).ToList();
-            List<Location> _locs = db.Locations.ToList();
-            List<Location> locs = new List<Location>();
-            var uloc = new List<UserLocation>();
-
+            List<UserAccess> userLoc = db.UserAccesses.Where(aa => aa.UserID == id).ToList();
+            List<Zone> _locs = db.Zones.ToList();
+            List<Zone> locs = new List<Zone>();
+            if(userLoc.FirstOrDefault().Criteria.Contains("Z"))
             foreach (var loc in userLoc)
             {
-                Location ll = db.Locations.FirstOrDefault(aa => aa.LocID == loc.LocationID);
+                Zone ll = db.Zones.FirstOrDefault(aa => aa.ZoneID == loc.CriteriaData);
+                locs.Add(ll);
+            }
+            return Json(new SelectList(
+                           locs.ToArray(),
+                           "ZoneID",
+                           "ZoneName")
+                      , JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SelectedUserCityList(int id)
+        {
+            List<UserAccess> userLoc = db.UserAccesses.Where(aa => aa.UserID == id).ToList();
+            List<City> _locs = db.Cities.ToList();
+            List<City> locs = new List<City>();
+            if (userLoc.FirstOrDefault().Criteria.Contains("C"))
+                foreach (var loc in userLoc)
+                {
+                    City ll = db.Cities.FirstOrDefault(aa => aa.CityID == loc.CriteriaData);
+                    locs.Add(ll);
+                }
+            return Json(new SelectList(
+                           locs.ToArray(),
+                           "CityID",
+                           "CityName")
+                      , JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SelectedUserRegionList(int id)
+        {
+            List<UserAccess> userLoc = db.UserAccesses.Where(aa => aa.UserID == id).ToList();
+            List<Region> _locs = db.Regions.ToList();
+            List<Region> locs = new List<Region>();
+            if (userLoc.FirstOrDefault().Criteria.Contains("R"))
+                foreach (var loc in userLoc)
+                {
+                    Region ll = db.Regions.FirstOrDefault(aa => aa.RegionID == loc.CriteriaData);
+                    locs.Add(ll);
+                }
+            return Json(new SelectList(
+                           locs.ToArray(),
+                           "RegionID",
+                           "RegionName")
+                      , JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SelectedUserLocList(int id)
+        {
+            List<UserAccess> userLoc = db.UserAccesses.Where(aa => aa.UserID == id).ToList();
+            List<Location> _locs = db.Locations.ToList();
+            List<Location> locs = new List<Location>();
+
+            if (userLoc.FirstOrDefault().Criteria.Contains("L"))
+            foreach (var loc in userLoc)
+            {
+                Location ll = db.Locations.FirstOrDefault(aa => aa.LocID == loc.CriteriaData);
                 locs.Add(ll);
             }
             return Json(new SelectList(

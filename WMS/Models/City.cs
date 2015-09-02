@@ -21,7 +21,7 @@ namespace WMS.Models
     
         public short CityID { get; set; }
         public string CityName { get; set; }
-        public Nullable<byte> RegionID { get; set; }
+        public Nullable<int> RegionID { get; set; }
     
         public virtual Region Region { get; set; }
         public virtual ICollection<Location> Locations { get; set; }

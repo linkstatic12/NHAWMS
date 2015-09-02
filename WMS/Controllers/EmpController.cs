@@ -67,10 +67,10 @@ namespace WMS.Controllers
                     {
 
                         emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
-                         || s.EmpNo.Contains(searchString.ToUpper())
+                         || s.EmpNo.ToUpper().Contains(searchString.ToUpper())
                         ).ToList();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                     }
@@ -130,7 +130,7 @@ namespace WMS.Controllers
         }
 
         // GET: /Emp/Details/5
-         [CustomActionAttribute]
+        [CustomActionAttribute]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -146,7 +146,7 @@ namespace WMS.Controllers
         }
 
         // GET: /Emp/Create
-         [CustomActionAttribute]
+        [CustomActionAttribute]
         public ActionResult Create()
         {
             var _wings = new List<Division>();
@@ -179,7 +179,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include="EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT")] Emp emp)
+        public ActionResult Create([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID")] Emp emp)
         {
             string empNo = "";
             if (string.IsNullOrEmpty(emp.EmpNo))
@@ -190,7 +190,7 @@ namespace WMS.Controllers
             {
                 if (emp.EmpNo.Length > 15)
                     ModelState.AddModelError("EmpNo", "String length exceeds!");
-                if (db.Emps.Where(aa => aa.EmpNo.ToUpper() == emp.EmpNo.ToUpper() && aa.CompanyID==emp.CompanyID).Count() > 0)
+                if (db.Emps.Where(aa => aa.EmpNo.ToUpper() == emp.EmpNo.ToUpper() && aa.CompanyID == emp.CompanyID).Count() > 0)
                     ModelState.AddModelError("EmpNo", "Emp No should be unique!");
             }
             //if (emp.FpID != null)
@@ -210,7 +210,7 @@ namespace WMS.Controllers
                 if (emp.EmpName.Length > 40)
                     ModelState.AddModelError("EmpName", "String length exceeds!");
             }
-            if(emp.SecID== null)
+            if (emp.SecID == null)
                 ModelState.AddModelError("SecID", "Please Specify section!");
             if (emp.TypeID == null)
                 ModelState.AddModelError("TypeID", "Please Specify Type!");
@@ -232,7 +232,7 @@ namespace WMS.Controllers
                 {
                     ImageConversion _Image = new ImageConversion();
                     int imageID = _Image.UploadImageInDataBase(file, emp.EmpNo);
-                    if (imageID!=0)
+                    if (imageID != 0)
                     {
                         using (var ctx = new TAS2013Entities())
                         {
@@ -256,22 +256,22 @@ namespace WMS.Controllers
             using (TAS2013Entities context = new TAS2013Entities())
             {
                 _wings = context.Divisions.ToList();
-            ViewBag.Wing = new SelectList(_wings, "WingID", "WingName");
-            User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
-            //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
-            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+                ViewBag.Wing = new SelectList(_wings, "WingID", "WingName");
+                User LoggedInUser = Session["LoggedUser"] as User;
+                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+                //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
+                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
             }
             return View(emp);
             //if (ModelState.IsValid)
@@ -297,7 +297,7 @@ namespace WMS.Controllers
         }
 
         // GET: /Emp/Edit/5
-         [CustomActionAttribute]
+        [CustomActionAttribute]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -324,12 +324,15 @@ namespace WMS.Controllers
                 ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
                 ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
                 ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
-                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName",emp.Location.CityID);
+                ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName", emp.ZoneID);
+                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", emp.RegionID);
+               
+                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", emp.Location.CityID);
             }
-             catch(Exception ex)
+            catch (Exception ex)
             {
 
-             }
+            }
             return View(emp);
         }
 
@@ -339,7 +342,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-         public ActionResult Edit([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT")] Emp emp)
+        public ActionResult Edit([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID")] Emp emp)
         {
             try
             {
@@ -349,9 +352,9 @@ namespace WMS.Controllers
                 {
                     ImageConversion _Image = new ImageConversion();
                     int imageid = _Image.UploadImageInDataBase(file, emp);
-                    if (imageid!=0)
+                    if (imageid != 0)
                     {
-                        emp.EmpImageID= imageid;
+                        emp.EmpImageID = imageid;
                     }
                     else
                     {
@@ -427,7 +430,7 @@ namespace WMS.Controllers
         }
 
         // GET: /Emp/Delete/5
-         [CustomActionAttribute]
+        [CustomActionAttribute]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -466,8 +469,8 @@ namespace WMS.Controllers
         #region --Cascade DropDown--
         public ActionResult RegionList(string ID)
         {
-        
-        int Code = Convert.ToInt32(ID);
+
+            int Code = Convert.ToInt32(ID);
             var states = db.Regions.Where(aa => aa.ZoneID == Code);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
@@ -511,7 +514,7 @@ namespace WMS.Controllers
             string[] words = ID.Split('s');
             short CatID = Convert.ToInt16(words[0]);
             short compID = Convert.ToInt16(words[1]);
-            var secs = db.EmpTypes.Where(aa => aa.CatID == CatID && aa.CompanyID==compID);
+            var secs = db.EmpTypes.Where(aa => aa.CatID == CatID && aa.CompanyID == compID);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
                                 secs.ToArray(),

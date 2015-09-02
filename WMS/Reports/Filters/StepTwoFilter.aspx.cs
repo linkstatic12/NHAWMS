@@ -124,8 +124,8 @@ namespace WMS.Reports.Filters
            
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForCompanyFilters(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView");
             _View = dt.ToList<EmpView>();
             if (fm.RegionFilter.Count() > 0)
             {
@@ -198,8 +198,8 @@ namespace WMS.Reports.Filters
             List<City> _TempView = new List<City>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            string query = qb.QueryForCitySegration(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from City " + query);
+           // string query = qb.QueryForUserAccess(LoggedInUser,"City");
+            DataTable dt = qb.GetValuesfromDB("select * from City");
             _View = dt.ToList<City>();
             if (fm.RegionFilter.Count > 0)
             {

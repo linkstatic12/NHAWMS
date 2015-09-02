@@ -33,8 +33,14 @@ namespace WMS.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-
-            var cities = db.Cities.AsQueryable();
+            ViewBag.CurrentFilter = searchString;
+            User LoggedInUser = HttpContext.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForUserAccess(LoggedInUser, "City");
+            DataTable dt = qb.GetValuesfromDB("Select * FROM City where " + query);
+            var cities = dt.ToList<City>().AsQueryable();
+           
+          
             if (!String.IsNullOrEmpty(searchString))
             {
                 cities = cities.Where(s => s.CityName.ToUpper().Contains(searchString.ToUpper())

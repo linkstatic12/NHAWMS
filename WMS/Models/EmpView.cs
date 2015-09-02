@@ -19,7 +19,6 @@ namespace WMS.Models
         public string CompName { get; set; }
         public string JobTitle { get; set; }
         public string CityName { get; set; }
-        public string RegionName { get; set; }
         public string LocName { get; set; }
         public string CrewName { get; set; }
         public string TypeName { get; set; }
@@ -67,8 +66,9 @@ namespace WMS.Models
         public Nullable<short> CrewID { get; set; }
         public int EmpID { get; set; }
         public Nullable<short> CityID { get; set; }
-        public byte RegionID { get; set; }
-        public byte Expr1 { get; set; }
-        public string Expr2 { get; set; }
+        public string RegionName { get; set; }
+        public string ZoneName { get; set; }
+        public Nullable<short> RegionID { get; set; }
+        public Nullable<short> ZoneID { get; set; }
     }
 }

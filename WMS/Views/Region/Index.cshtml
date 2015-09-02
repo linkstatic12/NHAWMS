@@ -23,6 +23,9 @@
         <th>
             @Html.ActionLink("Region Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
+            <th>
+           Zone
+        </th>
         <th>Edit | View | Delete</th>
     </tr>
 
@@ -30,6 +33,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.RegionName)
+        </td>
+ <td>
+            @Html.DisplayFor(modelItem => item.ZoneName)
         </td>
         <td>
             @Html.ActionLink(" ", "Edit", new { id=item.RegionID }, new { @class = "glyphicon glyphicon-pencil btn btn-warning btn-sm" })
