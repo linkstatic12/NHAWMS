@@ -87,7 +87,8 @@
                 <p><a href="" ng-click="isAddingLocation = true">+ Add Location</a></p>
             </div>
           </div>
-
+ String SQLQuerycomplete = "INSERT INTO DEVICE_TRANSACTION (MACHINE_NUMBER, ENROLL_NUMBER, VERIFY_MODE, INOUT_MODE, REC_YEAR, REC_MONTH,REC_DAY,REC_HOUR,REC_MINUTE,REC_SECOND,WORK_CODE,DEVICE_IP,PORT,IS_ASSOCIATED,CREATED_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,DEVICE_TRANSACTION_ID) VALUES ('" + trans.MACHINE_NUMBER + "','" + trans.ENROLL_NUMBER + "','" + trans.VERIFY_MODE + "','" + trans.INOUT_MODE + "','" + trans.REC_YEAR + "','" + trans.REC_MONTH + "','" + trans.REC_HOUR + "','" + trans.REC_MINUTE + "','" + trans.REC_SECOND + "','" + trans.WORK_CODE + "','" + trans.DEVICE_IP + "','" + trans.PORT + "','" + trans.IS_ASSOCIATED + "','" + trans.CREATED_BY + "','" + trans.CREATE_DATE + "','" + trans.UPDATE_BY + "','" + trans.UPDATE_DATE + "','" + trans.DEVICE_TRANSACTION_ID + "')";
+ 
         <div class="form-group">
             <div class="control-label col-md-4">Permanent Staff</div>
             <div class="col-md-4">

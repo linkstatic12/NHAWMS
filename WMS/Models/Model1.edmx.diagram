@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dd91f4cf40d148d98ec340feb96cf970" Name="Diagram1" ZoomLevel="87">
+      <Diagram DiagramId="a451d77631844d00afba1f866e863e33" Name="Diagram1">
         <EntityTypeShape EntityType="TAS2013_NHAModel.AccessEmp" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.AttCode" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.AttData" Width="1.5" PointX="7.5" PointY="32.375" IsExpanded="true" />
@@ -75,37 +75,38 @@
         <EntityTypeShape EntityType="TAS2013_NHAModel.User" Width="1.5" PointX="13.5" PointY="57.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.UserLocation" Width="1.5" PointX="8" PointY="17.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.UserRole" Width="1.5" PointX="11.25" PointY="65.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.Zone" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.EmpView" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAbsent" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAttData" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewAuditLog" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewCard" Width="1.5" PointX="10.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewCrew" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewDepartment" Width="1.5" PointX="12.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewDetailAttData" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyIN" Width="1.5" PointX="18.75" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyOut" Width="1.5" PointX="20.75" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEditAttendance" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmergencyDetail" Width="1.5" PointX="2.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpPic" Width="1.5" PointX="22.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpType" Width="1.5" PointX="12.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateComer" Width="1.5" PointX="22.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateOut" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveData" Width="1.5" PointX="24.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveQuota" Width="1.5" PointX="24.75" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvApplication" Width="1.5" PointX="12.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvConsumed" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMissingAtt" Width="1.5" PointX="4.75" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMonthlyData" Width="1.5" PointX="26.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewCrew" Width="1.5" PointX="12.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewDepartment" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewDetailAttData" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyIN" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEarlyOut" Width="1.5" PointX="2.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEditAttendance" Width="1.5" PointX="12.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmergencyDetail" Width="1.5" PointX="22.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpPic" Width="1.5" PointX="22.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewEmpType" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateComer" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLateOut" Width="1.5" PointX="24.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveData" Width="1.5" PointX="18.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLeaveQuota" Width="1.5" PointX="20.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvApplication" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewLvConsumed" Width="1.5" PointX="4.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMissingAtt" Width="1.5" PointX="9.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMonthlyData" Width="1.5" PointX="26.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMonthlyDataPer" Width="1.5" PointX="14.75" PointY="27.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TAS2013_NHAModel.ViewMultipleInOut" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewOverTime" Width="1.5" PointX="9.75" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPollData" Width="1.5" PointX="28.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPresentEmp" Width="1.5" PointX="28.75" PointY="27.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSection" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSLData" Width="1.5" PointX="30.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSummary" Width="1.5" PointX="30.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewUserLocation" Width="1.5" PointX="30.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewOverTime" Width="1.5" PointX="28.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPollData" Width="1.5" PointX="22.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewPresentEmp" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSection" Width="1.5" PointX="30.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSLData" Width="1.5" PointX="30.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewSummary" Width="1.5" PointX="30.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAS2013_NHAModel.ViewUserLocation" Width="1.5" PointX="32.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="TAS2013_NHAModel.FK_AttData_Emp" ManuallyRouted="false" />
         <AssociationConnector Association="TAS2013_NHAModel.FK_AttDataManEdit_Emp" ManuallyRouted="false" />
         <AssociationConnector Association="TAS2013_NHAModel.FK_AttMnData_Emp" ManuallyRouted="false" />

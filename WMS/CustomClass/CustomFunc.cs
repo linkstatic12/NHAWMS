@@ -15,8 +15,7 @@ namespace WMS.CustomClass
         {
             //bool result = name.All(x => char.IsLetter(x) || x == ' ' || x == '.' || x == ',');
             bool result = s.All(x => char.IsLetter(x) || x == ' ');
-
-            //foreach (char c in s)
+           //foreach (char c in s)
             //{
             //    if (!Char.IsLetter(c))
             //        return false;

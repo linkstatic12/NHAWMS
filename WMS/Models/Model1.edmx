@@ -230,6 +230,13 @@
           <EntitySet Name="User" EntityType="TAS2013_NHAModel.Store.User" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRole" EntityType="TAS2013_NHAModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" store:Schema="dbo" store:Name="Zone">
+            <DefiningQuery>SELECT 
+      [Zone].[ZoneID] AS [ZoneID], 
+      [Zone].[ZoneName] AS [ZoneName], 
+      [Zone].[RegionID] AS [RegionID]
+      FROM [dbo].[Zone] AS [Zone]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="EmpView" EntityType="TAS2013_NHAModel.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
             <DefiningQuery>SELECT 
       [EmpView].[DesignationName] AS [DesignationName], 
@@ -3359,6 +3366,17 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+      warning 6002: The table/view 'TAS2013_NHA.dbo.Zone' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneName" Type="nchar" MaxLength="50" />
+          <Property Name="RegionID" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.EmpView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="EmpView">
@@ -5967,6 +5985,7 @@
           <EntitySet Name="Users" EntityType="TAS2013_NHAModel.User" />
           <EntitySet Name="UserLocations" EntityType="TAS2013_NHAModel.UserLocation" />
           <EntitySet Name="UserRoles" EntityType="TAS2013_NHAModel.UserRole" />
+          <EntitySet Name="Zones" EntityType="TAS2013_NHAModel.Zone" />
           <EntitySet Name="EmpViews" EntityType="TAS2013_NHAModel.EmpView" />
           <EntitySet Name="ViewAbsents" EntityType="TAS2013_NHAModel.ViewAbsent" />
           <EntitySet Name="ViewAttDatas" EntityType="TAS2013_NHAModel.ViewAttData" />
@@ -7621,6 +7640,14 @@
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Users" Relationship="TAS2013_NHAModel.FK_User_UserRole1" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="RegionID" Type="Int16" />
         </EntityType>
         <EntityType Name="EmpView">
           <Key>
@@ -11372,6 +11399,15 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.Zone">
+              <MappingFragment StoreEntitySet="Zone">
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
