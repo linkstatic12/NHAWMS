@@ -87,7 +87,33 @@
                 <p><a href="" ng-click="isAddingLocation = true">+ Add Location</a></p>
             </div>
           </div>
+<<<<<<< HEAD
  String SQLQuerycomplete = "INSERT INTO DEVICE_TRANSACTION (MACHINE_NUMBER, ENROLL_NUMBER, VERIFY_MODE, INOUT_MODE, REC_YEAR, REC_MONTH,REC_DAY,REC_HOUR,REC_MINUTE,REC_SECOND,WORK_CODE,DEVICE_IP,PORT,IS_ASSOCIATED,CREATED_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,DEVICE_TRANSACTION_ID) VALUES ('" + trans.MACHINE_NUMBER + "','" + trans.ENROLL_NUMBER + "','" + trans.VERIFY_MODE + "','" + trans.INOUT_MODE + "','" + trans.REC_YEAR + "','" + trans.REC_MONTH + "','" + trans.REC_HOUR + "','" + trans.REC_MINUTE + "','" + trans.REC_SECOND + "','" + trans.WORK_CODE + "','" + trans.DEVICE_IP + "','" + trans.PORT + "','" + trans.IS_ASSOCIATED + "','" + trans.CREATED_BY + "','" + trans.CREATE_DATE + "','" + trans.UPDATE_BY + "','" + trans.UPDATE_DATE + "','" + trans.DEVICE_TRANSACTION_ID + "')";
+=======
+@*  <div class="form-group">
+            <div class="control-label col-md-4">City</div>
+            <div class="col-md-8">
+                <input type="hidden" placeholder="e.g Lahore" data-ng-model="city.name" id="uCityCount" name="uCityCount" class="form-control" value="{{cities.length}}">
+                <div class="input-group" ng-repeat="location in locations">
+                    <input disabled type="text" placeholder="e.g Lahore" id="testLocation{{$index + 1}}" data-ng-model="City.name" class="form-control">
+                    <input type="hidden" placeholder="e.g Lahore" data-ng-model="city.name" id="uCity{{$index + 1}}" name="uCity{{$index + 1}}" class="form-control" value="{{City.name}}">
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="removeCity($index)" class="btn btn-default"><i class="fa fa-times"></i>[X]</button>
+                    </span>
+                </div>
+                 <div  ng-show="isAddingCity">
+                    @*<input type="text" placeholder="Add a City" data-ng-model="newCity.name" class="form-control">*@
+                    <select type="text" placeholder="Add a City" data-ng-model="newCity.name" class="form-control">
+                        <option ng-repeat="cit in AllCities">{{cit.Text}}</option>
+                    </select>
+                    <a class="btn btn-default btn-sm" ng-click="addCity()">Add</a>
+                    <a href="" ng-click="isAddingCity = false">Done Adding</a>
+                </div>
+                <p><a href="" ng-click="isAddingCity = true">+ Add Location</a></p>
+            </div>
+          </div>
+ *@
+>>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
  
         <div class="form-group">
             <div class="control-label col-md-4">Permanent Staff</div>
@@ -364,6 +390,7 @@
     var app = angular.module('UserLocation', []);
     app.controller('myCtrl', function ($scope,$http) {
         //Add specialities
+
         $scope.addLocation = function () {
             if (!$scope.locations) $scope.locations = [];
             if ($scope.newLocation.name != '') {
@@ -380,11 +407,26 @@
         // init function
         $scope.initFunction = function ()
         {
-            $http.get('/WMS/User/UserLocationList').success(function (res) {
+            $http.get('/User/UserLocationList').success(function (res) {
                 $scope.AllLocations = res;
                 console.log(res);
             });
+            $http.get('/User/UserCityList').success(function (res) {
+                $scope.AllCities = res;
+               
+            });
         }
+        //Add City
+        $scope.addCity = function () {
+            if (!$scope.cities)
+                $scope.cities = [];
+            if ($scope.newCity.name != '') {
+                $scope.cities.push($scope.newCity);
+                $scope.newCity = {
+                    name: ''
+                };
+            }
+        };
     });
 </script>
 

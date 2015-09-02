@@ -12,17 +12,11 @@ namespace WMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class UserAccess
     {
-        public Region()
-        {
-            this.Cities = new HashSet<City>();
-        }
-    
-        public byte RegionID { get; set; }
-        public string RegionName { get; set; }
-        public Nullable<byte> ZoneID { get; set; }
-    
-        public virtual ICollection<City> Cities { get; set; }
+        public short UserDataID { get; set; }
+        public int UserID { get; set; }
+        public string Criteria { get; set; }
+        public int CriteriaData { get; set; }
     }
 }

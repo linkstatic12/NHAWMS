@@ -1,0 +1,20 @@
+@model WMS.Models.Zone
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Zone</legend>
+
+    <div class="display-label">ZoneName</div>
+    <div class="display-field">@Model.ZoneName</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ZoneID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

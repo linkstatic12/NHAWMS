@@ -93,6 +93,7 @@ namespace WMS.Models
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserAccess> UserAccesses { get; set; }
         public DbSet<UserLocation> UserLocations { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Zone> Zones { get; set; }
