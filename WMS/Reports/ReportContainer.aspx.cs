@@ -43,7 +43,6 @@ namespace WMS.Reports
                                                                     PathString = "/Reports/RDLC/Employee.rdlc";
                                                                else
                                                                     PathString = "/WMS/Reports/RDLC/Employee.rdlc";
-                                                              
                                         LoadReport(PathString, ReportsFilterImplementation(fm,_TempViewList, _ViewList) , _dateFrom+" TO "+_dateTo);
                                
                            break;
@@ -381,16 +380,100 @@ namespace WMS.Reports
                                                          LoadReport(PathString, GYL(ReportsFilterImplementation(fm, _TempViewList1, _ViewList1)));
                                                         // LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                          break;
-                  
-                
-                
+                    case "top_present": 
+                        dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCPresent.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCPresent.rdlc";
+                       LoadReport("Reports/Reports/TopCriteria/RptTCPresent.rdlc", EmpSummDT);
+                            break;
+                    case "top_absent":
+                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCAbsent.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCAbsent.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCAbsent.rdlc", EmpSummDT);
+                        break;
+                    case "top_leave":
+                        dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCLeave.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCLeave.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCLeave.rdlc", EmpSummDT);
+                        break;
+                    case "top_earlyIn":
+                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCEarlyIn.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCEarlyIn.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyIn.rdlc", EmpSummDT);
+                        break;
+                    case "top_earlyOut":
+                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCEarlyOut.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCEarlyOut.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyOut.rdlc", EmpSummDT);
+                        break;
+                    case "top_lateIn":
+                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCLateComers.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCLateComers.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCLateComers.rdlc", EmpSummDT);
+                        break;
+                    case "top_overtime":
+                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+                        
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCOverTime.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCOverTime.rdlc";
+                        LoadReport("Reports/Reports/TopCriteria/RptTCOverTime.rdlc", EmpSummDT);
+                        break;
                 }
               
-                  
-                
-                
-               
-              
+                 
                
                 
             }
@@ -1790,6 +1873,83 @@ namespace WMS.Reports
         #endregion
 
 
+        #region --Top Criteria--
+        DataTable EmpSummDT = new DataTable();
+        public void CreateEmpSummaryTable()
+        {
+            EmpSummDT.Columns.Add("FPID", typeof(string));
+            EmpSummDT.Columns.Add("EmpName", typeof(string));
+            EmpSummDT.Columns.Add("Designation", typeof(string));
+            EmpSummDT.Columns.Add("Wing", typeof(string));
+            EmpSummDT.Columns.Add("Section", typeof(string));
+            EmpSummDT.Columns.Add("TotalDays", typeof(Int32));
+            EmpSummDT.Columns.Add("Present", typeof(Int32));
+            EmpSummDT.Columns.Add("Absent", typeof(Int32));
+            EmpSummDT.Columns.Add("Leave", typeof(Int32));
+            EmpSummDT.Columns.Add("LateComer", typeof(Int32));
+            EmpSummDT.Columns.Add("Earlyout", typeof(Int32));
+            EmpSummDT.Columns.Add("EarlyIn", typeof(Int32));
+            EmpSummDT.Columns.Add("OverTime", typeof(Int32));
+            EmpSummDT.Columns.Add("Grade", typeof(Int32));
+            EmpSummDT.Columns.Add("WorkDays", typeof(Int32));
+        }
+        public void AddDataToDT(string _EmpNo, string _EmpName, string _Designation, string _Wing, string _Section, Int32 _TotalDays, Int32 _Present, Int32 _Absent, Int32 _Leave, Int32 _LateComer, Int32 _EarlyOut, Int32 EarlyIn, Int32 _OverTime, Int32 _Grade, Int32 _WrkDays)
+        {
+            EmpSummDT.Rows.Add(_EmpNo, _EmpName, _Designation, _Wing, _Section, _TotalDays, _Present, _Absent, _Leave, _LateComer, _EarlyOut, EarlyIn, _OverTime, _Grade, _WrkDays);
 
+        }
+        List<ViewPresentEmp> _PrEmp = new List<ViewPresentEmp>();
+        private void FillDataTable(List<EmpView> _EmpView,DateTime dateFrom, DateTime dateTo)
+        {
+            TAS2013Entities context = new TAS2013Entities();
+            _PreEmp = context.ViewPresentEmps.Where(aa => aa.AttDate >= dateFrom && aa.AttDate <= dateTo).ToList();
+            foreach (var _Employee in _EmpView)
+            {
+                _PrEmp = _PreEmp;
+                int FPID = (int)_Employee.FpID;
+                _PrEmp = _PrEmp.Where(aa => aa.FpID == FPID).ToList();
+                TDays = _PrEmp.Count();
+                PCount = _PrEmp.Where(aa => aa.TimeIn != null).Count();
+                ACount = _PrEmp.Where(aa => (aa.TimeIn == null || aa.TimeOut== null) && (aa.DutyCode == "D")).Count();
+                LCount = _PrEmp.Where(aa => aa.DutyCode == "L").Count();
+                EarlyInCount = _PrEmp.Where(aa => aa.EarlyIn >= 10).Count();
+                EarlyOutCount = _PrEmp.Where(aa => aa.EarlyOut >= 10).Count();
+                LateCCount = _PrEmp.Where(aa => aa.StatusLI ==true).Count();
+                ExtraCount = _PrEmp.Where(aa => aa.StatusOT ==true).Count();
+                WrkDaysCount = _PrEmp.Where(aa => aa.DutyCode == "D").Count();
+                EmpSummDT.Rows.Add(_Employee.FpID, _Employee.EmpName, _Employee.DesignationName, _Employee.DeptName, _Employee.SectionName, TDays, PCount, ACount, LCount, LateCCount, EarlyOutCount, EarlyInCount, ExtraCount, _Employee.GradeName, WrkDaysCount);
+                _PrEmp.Clear();
+            }
+            //LoadReport("~/Reports/Reports/RptSummaryW.rdlc", _SummaryEmp);
+        }
+
+
+        private void LoadReport(string path, DataTable _PresentEmp, string DateToFor)
+        {
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _PresentEmp);
+            ReportParameter rp = new ReportParameter("Date", DateToFor, false);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportViewer1.LocalReport.ReportPath = path;
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp });
+            ReportViewer1.LocalReport.Refresh();
+        }
+        List<EmpView> _Emps = new List<EmpView>();
+        int TDays;
+        int PCount;
+        int ACount;
+        int LCount;
+        int EarlyInCount;
+        int EarlyOutCount;
+        int LateCCount;
+        int ExtraCount;
+        int WrkDaysCount;
+        DateTime CurrentDate = DateTime.Today;
+        #endregion
+
+
+
+        public List<ViewPresentEmp> _PreEmp { get; set; }
     }
+
 }

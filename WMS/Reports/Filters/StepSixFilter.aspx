@@ -83,6 +83,19 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <h5>Top Criteria</h5>
+                                    <ul>
+
+                                        <li><a href="../ReportContainer.aspx?reportname=top_present">Top Present</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_absent">Top Absent</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_leave">Top Leave</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_earlyIn">Top Early In</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_earlyOut">Top Early Out</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_lateIn">Top Late In</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_overtime">Top Overtime</a></li>
+                                    </ul>
+                                </li>
+                                <li>
                                     <h5>Deatiled</h5>
                                     <ul>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_att">Employee Attendance</a></li>

@@ -24,33 +24,7 @@ namespace WMS.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            //TAS2013Entities db = new TAS2013Entities();
-            //Class1 c = new Class1();
-            //c.CreateDatatable();
-            //DataTable dt = c.GetLV(db.Emps.ToList(), DateTime.Now.Month);
-            
-            //using (var ctx = new TAS2013Entities())
-            //{
-            //    DateTime refDate = new DateTime(2015,02,01);
-            //    List<AttDataManEdit> _ManAttData = new List<AttDataManEdit>();
-            //    List<AttDataManEdit> _TempAttData = new List<AttDataManEdit>();
-            //    _ManAttData = ctx.AttDataManEdits.Where(aa => aa.NewTimeIn >= refDate).ToList();
-            //    foreach(var item in _ManAttData)
-            //    {
-            //        if(_TempAttData.Where(aa=>aa.EmpDate == item.EmpDate).Count()>0)
-            //        {
-
-            //        }
-            //        else
-            //        {
-            //            _TempAttData.Add(item);
-            //        }
-            //    }
-            //    _TempAttData = _TempAttData.OrderBy(aa => aa.NewTimeIn).ToList();
-            //}
-
-            
-
+           
             try
             {
                 if (Session["LogedUserID"] == null)
