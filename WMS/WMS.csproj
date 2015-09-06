@@ -736,10 +736,8 @@
     <Compile Include="Models\ViewUserLocation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
+
     <Compile Include="Models\WMSContext.cs" />
->>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
     <Compile Include="Models\Zone.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

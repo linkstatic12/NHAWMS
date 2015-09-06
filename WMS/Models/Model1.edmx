@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TAS2013_NHAModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="TAS2013_NHAModelStoreContainer">
+      <EntityContainer Name="TAS2013_NHAModelStoreContainer">
           <EntitySet Name="AccessEmp" EntityType="TAS2013_NHAModel.Store.AccessEmp" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttCodes" EntityType="TAS2013_NHAModel.Store.AttCodes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttData" EntityType="TAS2013_NHAModel.Store.AttData" store:Type="Tables" Schema="dbo" />
@@ -231,21 +231,21 @@
           <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRole" EntityType="TAS2013_NHAModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
-<<<<<<< HEAD
+
           <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" store:Schema="dbo" store:Name="Zone">
             <DefiningQuery>SELECT 
       [Zone].[ZoneID] AS [ZoneID], 
-<<<<<<< HEAD
+
       [Zone].[ZoneName] AS [ZoneName], 
       [Zone].[RegionID] AS [RegionID]
-=======
+
       [Zone].[ZoneName] AS [ZoneName]
->>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
+
       FROM [dbo].[Zone] AS [Zone]</DefiningQuery>
           </EntitySet>
-=======
+
           <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" Schema="dbo" />
->>>>>>> 798788856be457e20a30705ea37878251511636d
+
           <EntitySet Name="EmpView" EntityType="TAS2013_NHAModel.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
             <DefiningQuery>SELECT 
       [EmpView].[DesignationName] AS [DesignationName], 
@@ -3394,10 +3394,7 @@
           </Key>
           <Property Name="ZoneID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ZoneName" Type="nchar" MaxLength="50" />
-<<<<<<< HEAD
-          <Property Name="RegionID" Type="smallint" />
-=======
->>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
+         <Property Name="RegionID" Type="smallint" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.EmpView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -7683,10 +7680,8 @@
           </Key>
           <Property Name="ZoneID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
-<<<<<<< HEAD
           <Property Name="RegionID" Type="Int16" />
-=======
->>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
+
         </EntityType>
         <EntityType Name="EmpView">
           <Key>
@@ -11459,10 +11454,8 @@
               <MappingFragment StoreEntitySet="Zone">
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
                 <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
-<<<<<<< HEAD
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-=======
->>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
+
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
