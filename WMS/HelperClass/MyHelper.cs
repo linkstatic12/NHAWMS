@@ -65,9 +65,14 @@ namespace WMS.HelperClass
                 check = true;
             if (fm.DivisionFilter.Count > 0)
                 check = true;
+            if (fm.CityFilter.Count > 0)
+                check = true;
+            if (fm.RegionFilter.Count > 0)
+                check = true;
+
             if (fm.ShiftFilter.Count > 0)
                 check = true;
-            if (fm.DepartmentFilter.Count > 0)
+            if (fm.WingFilter.Count > 0)
                 check = true;
             if (fm.SectionFilter.Count > 0)
                 check = true;
