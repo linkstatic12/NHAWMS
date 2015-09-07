@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TAS2013_NHAModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-      <EntityContainer Name="TAS2013_NHAModelStoreContainer">
+        <EntityContainer Name="TAS2013_NHAModelStoreContainer">
           <EntitySet Name="AccessEmp" EntityType="TAS2013_NHAModel.Store.AccessEmp" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttCodes" EntityType="TAS2013_NHAModel.Store.AttCodes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttData" EntityType="TAS2013_NHAModel.Store.AttData" store:Type="Tables" Schema="dbo" />
@@ -163,6 +163,7 @@
           <EntitySet Name="AttMnData" EntityType="TAS2013_NHAModel.Store.AttMnData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttMnDataPer" EntityType="TAS2013_NHAModel.Store.AttMnDataPer" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttProcess" EntityType="TAS2013_NHAModel.Store.AttProcess" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AttProcessor" EntityType="TAS2013_NHAModel.Store.AttProcessor" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditForm" EntityType="TAS2013_NHAModel.Store.AuditForm" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditLog" EntityType="TAS2013_NHAModel.Store.AuditLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditOperation" EntityType="TAS2013_NHAModel.Store.AuditOperation" store:Type="Tables" store:Schema="dbo" store:Name="AuditOperation">
@@ -231,21 +232,7 @@
           <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRole" EntityType="TAS2013_NHAModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
-
-          <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" store:Schema="dbo" store:Name="Zone">
-            <DefiningQuery>SELECT 
-      [Zone].[ZoneID] AS [ZoneID], 
-
-      [Zone].[ZoneName] AS [ZoneName], 
-      [Zone].[RegionID] AS [RegionID]
-
-      [Zone].[ZoneName] AS [ZoneName]
-
-      FROM [dbo].[Zone] AS [Zone]</DefiningQuery>
-          </EntitySet>
-
           <EntitySet Name="Zone" EntityType="TAS2013_NHAModel.Store.Zone" store:Type="Tables" Schema="dbo" />
-
           <EntitySet Name="EmpView" EntityType="TAS2013_NHAModel.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
             <DefiningQuery>SELECT 
       [EmpView].[DesignationName] AS [DesignationName], 
@@ -2567,6 +2554,20 @@
           </Key>
           <Property Name="ProcessDate" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="AttProcessor">
+          <Key>
+            <PropertyRef Name="ProcessorID" />
+          </Key>
+          <Property Name="DateFrom" Type="date" />
+          <Property Name="DateTo" Type="date" />
+          <Property Name="ProcessingDone" Type="bit" />
+          <Property Name="WhenToProcess" Type="date" />
+          <Property Name="MonthPeriod" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProcessorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="smallint" />
+          <Property Name="LocationID" Type="smallint" />
+          <Property Name="CatID" Type="smallint" />
+        </EntityType>
         <EntityType Name="AuditForm">
           <Key>
             <PropertyRef Name="FormID" />
@@ -3394,7 +3395,6 @@
           </Key>
           <Property Name="ZoneID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ZoneName" Type="nchar" MaxLength="50" />
-         <Property Name="RegionID" Type="smallint" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.EmpView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5941,6 +5941,7 @@
           <EntitySet Name="AttMnDatas" EntityType="TAS2013_NHAModel.AttMnData" />
           <EntitySet Name="AttMnDataPers" EntityType="TAS2013_NHAModel.AttMnDataPer" />
           <EntitySet Name="AttProcesses" EntityType="TAS2013_NHAModel.AttProcess" />
+          <EntitySet Name="AttProcessors" EntityType="TAS2013_NHAModel.AttProcessor" />
           <EntitySet Name="AuditForms" EntityType="TAS2013_NHAModel.AuditForm" />
           <EntitySet Name="AuditLogs" EntityType="TAS2013_NHAModel.AuditLog" />
           <EntitySet Name="AuditOperations" EntityType="TAS2013_NHAModel.AuditOperation" />
@@ -6746,6 +6747,20 @@
             <PropertyRef Name="ProcessDate" />
           </Key>
           <Property Name="ProcessDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="AttProcessor">
+          <Key>
+            <PropertyRef Name="ProcessorID" />
+          </Key>
+          <Property Name="DateFrom" Type="DateTime" Precision="0" />
+          <Property Name="DateTo" Type="DateTime" Precision="0" />
+          <Property Name="ProcessingDone" Type="Boolean" />
+          <Property Name="WhenToProcess" Type="DateTime" Precision="0" />
+          <Property Name="MonthPeriod" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ProcessorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int16" />
+          <Property Name="LocationID" Type="Int16" />
+          <Property Name="CatID" Type="Int16" />
         </EntityType>
         <EntityType Name="AuditForm">
           <Key>
@@ -7680,8 +7695,6 @@
           </Key>
           <Property Name="ZoneID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
-          <Property Name="RegionID" Type="Int16" />
-
         </EntityType>
         <EntityType Name="EmpView">
           <Key>
@@ -10568,6 +10581,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AttProcessors">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.AttProcessor">
+              <MappingFragment StoreEntitySet="AttProcessor">
+                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="ProcessingDone" ColumnName="ProcessingDone" />
+                <ScalarProperty Name="WhenToProcess" ColumnName="WhenToProcess" />
+                <ScalarProperty Name="MonthPeriod" ColumnName="MonthPeriod" />
+                <ScalarProperty Name="ProcessorID" ColumnName="ProcessorID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AuditForms">
             <EntityTypeMapping TypeName="TAS2013_NHAModel.AuditForm">
               <MappingFragment StoreEntitySet="AuditForm">
@@ -11454,8 +11482,6 @@
               <MappingFragment StoreEntitySet="Zone">
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
                 <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

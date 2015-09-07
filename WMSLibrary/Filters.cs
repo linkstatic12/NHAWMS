@@ -37,7 +37,21 @@ namespace WMSLibrary
             return DepartmentIDs;
         }
 
-
+        public FiltersModel DeleteAllFilters(FiltersModel filtersModel)
+        {
+            filtersModel.CityFilter = new List<FiltersAttributes>();
+            filtersModel.CompanyFilter = new List<FiltersAttributes>();
+            filtersModel.CrewFilter = new List<FiltersAttributes>();
+            filtersModel.DepartmentFilter = new List<FiltersAttributes>();
+            filtersModel.DivisionFilter = new List<FiltersAttributes>();
+            filtersModel.EmployeeFilter = new List<FiltersAttributes>();
+            filtersModel.LocationFilter = new List<FiltersAttributes>();
+            filtersModel.RegionFilter = new List<FiltersAttributes>();
+            filtersModel.SectionFilter = new List<FiltersAttributes>();
+            filtersModel.ShiftFilter = new List<FiltersAttributes>();
+            filtersModel.TypeFilter = new List<FiltersAttributes>();
+            return filtersModel;
+        }
         public static FiltersModel SyncGridViewIDs(GridView gv, FiltersModel filtersModel, string filterName)
         {
 

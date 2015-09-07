@@ -178,7 +178,7 @@ namespace WMS.Reports.Filters
             
             }
 
-            GridViewEmployeeType.DataSource = _ViewType;
+            GridViewEmployeeType.DataSource = _ViewType.Where(aa => aa.TypeName.ToUpper().Contains(search.ToUpper())).ToList(); ;
             GridViewEmployeeType.DataBind();
           
         }
@@ -210,7 +210,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewCity.DataSource = _View;
+            GridViewCity.DataSource = _View.Where(aa => aa.CityName.ToUpper().Contains(search.ToUpper())).ToList(); ;
             GridViewCity.DataBind();
            
         }

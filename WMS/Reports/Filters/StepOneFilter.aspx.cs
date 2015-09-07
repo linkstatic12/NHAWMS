@@ -95,7 +95,7 @@ namespace WMS.Reports.Filters
             //string query = qb.QueryForCompanyView(LoggedInUser);
             DataTable dt = qb.GetValuesfromDB("select * from Shift ");
             List<Shift> _View = dt.ToList<Shift>();
-            GridViewShift.DataSource = _View;
+            GridViewShift.DataSource = _View.Where(aa => aa.ShiftName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewShift.DataBind();
         }
 
@@ -110,7 +110,26 @@ namespace WMS.Reports.Filters
             // Check and set Check box state
             WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Region");
         }
+        #region --DeleteAll Filters--
+        protected void ButtonDeleteAll_Click(object sender, EventArgs e)
+        {
+            WMSLibrary.Filters filtersHelper = new WMSLibrary.Filters();
+            Session["FiltersModel"] = filtersHelper.DeleteAllFilters(Session["FiltersModel"] as FiltersModel);
 
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Company");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Location");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Division");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Shift");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Type");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Department");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Type");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Section");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Crew");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Employee");
+
+
+        }
+        #endregion
         protected void GridViewRegion_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             // Save selected Company ID and Name in Session
@@ -144,7 +163,7 @@ namespace WMS.Reports.Filters
             //string query = qb.QueryForLocationTableSegeration(LoggedInUser);
             DataTable dt = qb.GetValuesfromDB("select * from Region ");
             List<Region> _View = dt.ToList<Region>();
-            GridViewRegion.DataSource = _View.Where(aa => aa.RegionName.Contains(search)).ToList();
+            GridViewRegion.DataSource = _View.Where(aa => aa.RegionName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewRegion.DataBind();
         }
 

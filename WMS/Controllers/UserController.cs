@@ -618,8 +618,8 @@ namespace WMS.Controllers
             user.RoleID = Convert.ToByte(Request.Form["RoleID"].ToString());
             if (check == false)
             {
-               
-                db.Entry(user).State = EntityState.Modified;
+
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                
                 switch ((int)user.RoleID)

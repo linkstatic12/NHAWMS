@@ -120,7 +120,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewWing.DataSource = _View.Where(aa => aa.DeptName.Contains(search)).ToList();
+            GridViewWing.DataSource = _View.Where(aa => aa.DeptName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewWing.DataBind();
         }
 
@@ -134,7 +134,7 @@ namespace WMS.Reports.Filters
            // string query = qb.QueryForUserAccess(LoggedInUser,"Location");
             DataTable dt = qb.GetValuesfromDB("select * from Location");
             _View = dt.ToList<Location>();
-            if (fm.CompanyFilter.Count > 0)
+            if (fm.CityFilter.Count > 0)
             {
                 foreach (var citi in fm.CityFilter)
                 {
@@ -143,7 +143,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewLocation.DataSource = _View.Where(aa => aa.LocName.Contains(search)).ToList();
+            GridViewLocation.DataSource = _View.Where(aa => aa.LocName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewLocation.DataBind();
         }
 

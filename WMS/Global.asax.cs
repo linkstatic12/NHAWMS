@@ -52,7 +52,7 @@ namespace WMS
 
         protected void Session_Start()
         {
-            Session["FiltersModel"] = SessionManager.Init();
+            Session["FiltersModel"] = new WMSLibrary.FiltersModel();
             Session["CustomFilter"] = new DataAccess.CustomFilter();
             LoadSessionValues();
         }

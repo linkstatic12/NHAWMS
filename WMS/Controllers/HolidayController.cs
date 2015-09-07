@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -115,7 +113,7 @@ namespace WMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(holiday).State = EntityState.Modified;
+                db.Entry(holiday).State = System.Data.Entity.EntityState.Modified; 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

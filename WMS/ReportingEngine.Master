@@ -10,11 +10,11 @@
     </asp:ContentPlaceHolder>
     <link href="Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="../../Scripts/modernizr-2.6.2.js"></script>
+    <script src="../../Scripts/modernizr-2.8.3.js"></script>
     <script type="text/javascript" src="../../Scripts/Filters/FilterScripts.js" ></script>
     <link href="Content/style/filter-navigation.css" type="text/css" rel="stylesheet" />
     <link href="Content/style/filters-page.css" type="text/css" rel="stylesheet" />
-    <script src="../../Scripts/jquery-2.1.1.js"></script>
+    <script src="../../Scripts/jquery-2.1.4.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
 </head>
 <body>

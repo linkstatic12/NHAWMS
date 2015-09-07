@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -122,7 +120,7 @@ namespace WMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(jobtitle).State = EntityState.Modified;
+                db.Entry(jobtitle).State = System.Data.Entity.EntityState.Modified; 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

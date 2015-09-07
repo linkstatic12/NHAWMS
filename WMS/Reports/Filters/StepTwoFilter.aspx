@@ -259,7 +259,20 @@
                                { Response.Write("<a class='list-group-item'>" + item.FilterName + "</a>"); }
                            }  { Response.Write("</div></div></div><div>"); }
                     }%>
+ <div class="panel-group" id="Div8">
+                        <% if (((WMSLibrary.FiltersModel)HttpContext.Current.Session["FiltersModel"]).EmployeeFilter.Count > 0)
+                       {
+                           {
+                               int d = ((WMSLibrary.FiltersModel)HttpContext.Current.Session["FiltersModel"]).EmployeeFilter.Count;
+                               Response.Write("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#Div8' href='#collapseEmployee'>Employees</a><span style ='float:right;' class='badge'>" + d + "</span></h4></div><div id='collapseEmployee' class='panel-collapse collapse out'><div class='list-group'>");
+                           }
+                           foreach (var item in ((WMSLibrary.FiltersModel)HttpContext.Current.Session["FiltersModel"]).EmployeeFilter)
+                           {
+                               { Response.Write("<a class='list-group-item'>" + item.FilterName + "</a>"); }
+                           }   { Response.Write("</div></div></div>"); }
+                    }%>
 
+                         </div>
 
                 </section>
                 </div>

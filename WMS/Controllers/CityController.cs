@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -37,7 +35,7 @@ namespace WMS.Controllers
             User LoggedInUser = HttpContext.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
             string query = qb.QueryForUserAccess(LoggedInUser, "City");
-            DataTable dt = qb.GetValuesfromDB("Select * FROM City where " + query);
+            System.Data.DataTable dt = qb.GetValuesfromDB("Select * FROM City where " + query);
             var cities = dt.ToList<City>().AsQueryable();
            
           
@@ -167,7 +165,7 @@ namespace WMS.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(city).State = EntityState.Modified;
+                db.Entry(city).State = System.Data.Entity.EntityState.Modified; 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

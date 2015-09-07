@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -210,7 +209,7 @@ namespace WMS.Controllers
                 User LoggedInUser = Session["LoggedUser"] as User;
                 shift.CompanyID = LoggedInUser.CompanyID;
                 shift.GZDays = shift.Holiday;
-                db.Entry(shift).State = EntityState.Modified;
+                db.Entry(shift).State = System.Data.Entity.EntityState.Modified; 
                 db.SaveChanges();
                 int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
                 HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Shift, (byte)MyEnums.Operation.Edit, DateTime.Now);

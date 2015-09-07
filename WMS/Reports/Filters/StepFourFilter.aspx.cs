@@ -131,7 +131,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewSection.DataSource = _View.Where(aa => aa.SectionName.Contains(search)).ToList();
+            GridViewSection.DataSource = _View.Where(aa => aa.SectionName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewSection.DataBind();
         }
 
@@ -154,7 +154,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewCrew.DataSource = _View.Where(aa => aa.CrewName.Contains(search)).ToList();
+            GridViewCrew.DataSource = _View.Where(aa => aa.CrewName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewCrew.DataBind();
         }
 

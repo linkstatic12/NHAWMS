@@ -153,7 +153,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewEmployee.DataSource = _View.Where(aa => aa.EmpName.Contains(search)).ToList();
+            GridViewEmployee.DataSource = _View.Where(aa => aa.EmpName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewEmployee.DataBind();
         }
 

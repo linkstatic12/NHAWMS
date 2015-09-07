@@ -119,7 +119,7 @@ namespace WMS.Controllers
                     context.SaveChanges();
                 
                 }
-                context.Entry(zone).State = EntityState.Modified;
+                context.Entry(zone).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
 
                 return RedirectToAction("Index");
