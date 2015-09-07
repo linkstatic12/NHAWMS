@@ -16,5 +16,9 @@ namespace WMS.Models
     {
         public short ZoneID { get; set; }
         public string ZoneName { get; set; }
+<<<<<<< HEAD
+        public Nullable<short> RegionID { get; set; }
+=======
+>>>>>>> f2386b6df7c17d9c6a97b4400f2810bc70fb9fc2
     }
 }
