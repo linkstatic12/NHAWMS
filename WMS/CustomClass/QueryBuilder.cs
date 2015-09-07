@@ -84,6 +84,7 @@ namespace WMS.CustomClass
             {
                 subQueryLoc = subQueryLoc + _CriteriaForOrLoc[i] + " or ";
             }
+            if(_CriteriaForOrLoc.Count>0)
             subQueryLoc = " and  ( " + subQueryLoc + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1] + " ) ";
             //query = query + " ) and (";
             //query = query + _Criteria[_Criteria.Count-1];

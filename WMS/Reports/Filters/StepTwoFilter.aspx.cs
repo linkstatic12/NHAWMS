@@ -53,6 +53,19 @@ namespace WMS.Reports.Filters
             // Check and set Check box state
             WMSLibrary.Filters.SetGridViewCheckState(GridViewEmployeeType, Session["FiltersModel"] as FiltersModel, "Type");
         }
+
+        #region --DeleteAll Filters--
+        protected void ButtonDeleteAll_Click(object sender, EventArgs e)
+        {
+            WMSLibrary.Filters filtersHelper = new WMSLibrary.Filters();
+            Session["FiltersModel"] = filtersHelper.DeleteAllFilters(Session["FiltersModel"] as FiltersModel);
+
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewCity, Session["FiltersModel"] as FiltersModel, "City");
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewEmployeeType, Session["FiltersModel"] as FiltersModel, "Type");
+
+        }
+        #endregion
+
         protected void ButtonSearchCity_Click(object sender, EventArgs e)
         {
             // Save selected Company ID and Name in Session
