@@ -79,7 +79,7 @@
                                         <li><a href="../ReportContainer.aspx?reportname=monthlysummary_1-31">Monthly Summary (1st to 31th)</a></li>
                                         <%--<li><a href="../ReportContainer.aspx?reportname=monthly_21-20_excel">Monthly Sheet (21th to 20th)(Excel)</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=monthly_1-31_consolidated">Monthly Consolidated (1st to 31th)</a></li>
-                                       >
+                                       
                                     </ul>
                                 </li>
                                 <li>
@@ -96,6 +96,16 @@
                                     </ul>
                                 </li>
                                 <li>
+                                     <h5>Daily Summaries</h5>
+                                    <ul>
+                                        <li><a href="../ReportContainer.aspx?reportname=company_consolidated_summary">By Company Consolidated Summary</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=company_employee_summary">By Company Employee Strength Summary</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=company_worktime_summary">By Company WorkTime Summary</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=region_consolidated_summary">By Region Consolidated Summary</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=region_strength_summary">By Region Employee Strength Summary</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=region_worktime_summary">By Region WorkTime Summary</a></li>
+
+                                    </ul>
                                     <h5>Detailed</h5>
                                     <ul>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_att">Employee Attendance</a></li>

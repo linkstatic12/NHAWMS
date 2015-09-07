@@ -618,5 +618,6 @@ namespace WMS.CustomClass
             query = query + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1];
             return query;
         }
+        
     }
 }

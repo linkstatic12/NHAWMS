@@ -34,8 +34,81 @@ namespace WMS.Reports
 
 
                 switch (reportName)
+                
                 {
-                    case "emp_record":   DataTable dt = qb.GetValuesfromDB("select * from EmpView ");
+                    case "company_consolidated_summary": DataTable dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                        List<DailySummary> _ViewListSum = dt.ToList<DailySummary>();
+                        List<DailySummary> _TempViewListSum = new List<DailySummary>();
+                                        title = "Company Consolidated Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                                                    PathString = "/Reports/RDLC/DSConsolidated.rdlc";
+                                                               else
+                                             PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo,title);
+                        break;
+                    case "company_employee_summary": dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                         _ViewListSum = dt.ToList<DailySummary>();
+                         _TempViewListSum = new List<DailySummary>();
+                                        title = "Company Employee Strength";
+                                         if (GlobalVariables.DeploymentType == false)
+                                                                    PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
+                                                               else
+                                             PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo,title);
+                                         break;
+                    case "company_worktime_summary": dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Company Worktime Strength";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_consolidated_summary":
+                                         query = getRegionSql();
+                                         string df = "select * from DailySummary where Criteria='R' and " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )";
+                                         Console.WriteLine(df);
+                        dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Consolidated Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSConsolidated.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_strength_summary":
+                                         query = getRegionSql();
+                                         
+                                         
+                                         dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Emoployee Strength Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_worktime_summary":
+                                         query = getRegionSql();
+
+
+                                         dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Worktime Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "emp_record":   dt = qb.GetValuesfromDB("select * from EmpView ");
                                         List<EmpView> _ViewList = dt.ToList<EmpView>();
                                         List<EmpView> _TempViewList = new List<EmpView>();
                                         title = "Employee Report";
@@ -486,24 +559,51 @@ namespace WMS.Reports
             }
         }
 
+        private string getRegionSql()
+        {
+            List<WMSLibrary.FiltersAttributes> selectedRegions = (Session["FiltersModel"] as FiltersModel).RegionFilter;
+
+            string query = "and ";
+
+            foreach (var region in selectedRegions)
+            {
+                query = query + " CriteriaValue = " + region.ID + " or ";
+            }
+
+            if(query.Length > 4)   // to remove the last or
+                query = query.Substring(0, query.Length - 4);
+            if (selectedRegions.Count==0)
+            {
+                query = " CriteriaValue>0";
+            
+            }
+            return query;
+
+        }
+
+        
+
+        private void LoadReport(string PathString, List<DailySummary> _ViewListSum, string date,string title)
+        {
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath(PathString);
+            System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
+            ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _ViewListSum);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportParameter rp = new ReportParameter("CompanyName", "National Highway Authority", false);
+            ReportParameter rp1 = new ReportParameter("Title", title, false);
+            ReportParameter rp2 = new ReportParameter("Date", date, false);
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp, rp1, rp2 });
+            ReportViewer1.LocalReport.Refresh();  
+        }
+
+       
         private List<ViewLvApplication> ReportsFilterImplementation(FiltersModel fm, List<ViewLvApplication> _TempViewList, List<ViewLvApplication> _ViewList)
         {
-            //for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
-
-
-
             //for location
             if (fm.LocationFilter.Count > 0)
             {
