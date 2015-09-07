@@ -39,7 +39,7 @@
                     <div class="col-md-8">
                         <div class="row"> 
                             <div class="col-md-8">
-                                <h3>Choose Region</h3>
+                                <h3>Choose Regions & Shifts</h3>
                                 </div>
                             <div class="col-md-3">
                               <asp:Button ID="Button3" runat="server" style="margin-top:18px" Text="Clear All Filters" CssClass="btn-warning" OnClick="ButtonDeleteAll_Click" />

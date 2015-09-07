@@ -73,13 +73,13 @@
                                     <h5>Monthly</h5>
                                     <ul>
                                         <li><a href="../ReportContainer.aspx?reportname=monthly_leave_sheet">Monthly Leave Sheet</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=monthly_21-20">Monthly Sheet (21th to 20th)</a></li>
+                                        <%--<li><a href="../ReportContainer.aspx?reportname=monthly_21-20">Monthly Sheet (21th to 20th)</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=monthly_1-31">Monthly Sheet (1st to 31th)</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=monthlysummary_21-20">Monthly Summary (21th to 20th)</a></li>
+                                        <%--<li><a href="../ReportContainer.aspx?reportname=monthlysummary_21-20">Monthly Summary (21th to 20th)</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=monthlysummary_1-31">Monthly Summary (1st to 31th)</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=monthly_21-20_excel">Monthly Sheet (21th to 20th)(Excel)</a></li>
+                                        <%--<li><a href="../ReportContainer.aspx?reportname=monthly_21-20_excel">Monthly Sheet (21th to 20th)(Excel)</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=monthly_1-31_consolidated">Monthly Consolidated (1st to 31th)</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=monthly_21-20_consolidated">Monthly Consolidated (21th to 20th)(Excel)</a></li>
+                                       >
                                     </ul>
                                 </li>
                                 <li>

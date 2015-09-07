@@ -39,7 +39,7 @@
                     <div class="col-md-8">
                         <div class="row"> 
                             <div class="col-md-4">
-                                <h3>Apply Filters</h3>
+                                <h3>Choose Employees</h3>
                             </div>
                             <div class="col-md-3">
                               <asp:Button ID="Button3" runat="server" style="margin-top:18px" Text="Clear All Filters" CssClass="btn-warning" OnClick="ButtonDeleteAll_Click" />
@@ -59,7 +59,7 @@
                             <div class="filterHeader"><span class="FilterNameHeading">Employee</span>
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Employee" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchEmployee_Click" /></span></div>
                             <section>
-                            <asp:GridView ID="GridViewEmployee" runat="server" Width="450px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewEmployee_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewEmployee_RowDataBound" ShowFooter="True"  >
+                            <asp:GridView ID="GridViewEmployee" runat="server" Width="550px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewEmployee_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewEmployee_RowDataBound" ShowFooter="True"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -76,7 +76,7 @@
                                         <asp:BoundField DataField="EmpID" HeaderText="ID" />
                                         <asp:BoundField DataField="EmpName" HeaderText="Name" />
                                     <asp:BoundField DataField="SectionName" HeaderText="Section Name" />
-                                    <asp:BoundField DataField="DeptName" HeaderText="Department Name" />
+                                    <asp:BoundField DataField="FatherName" HeaderText="Father Name" />
                                     
                     
                                 </Columns>
