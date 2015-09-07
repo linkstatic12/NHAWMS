@@ -12,19 +12,14 @@ namespace WMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class City
+    public partial class ViewServiceLog
     {
-        public City()
-        {
-            this.Locations = new HashSet<Location>();
-        }
-    
-        public short CityID { get; set; }
-        public string CityName { get; set; }
-        public Nullable<int> RegionID { get; set; }
-        public string RegionName { get; set; }
-    
-        public virtual Region Region { get; set; }
-        public virtual ICollection<Location> Locations { get; set; }
+        public Nullable<bool> Processed { get; set; }
+        public System.DateTime DateTime { get; set; }
+        public string Description { get; set; }
+        public byte ErrorCode { get; set; }
+        public int LogID { get; set; }
+        public string RdrName { get; set; }
+        public string IpAdd { get; set; }
     }
 }

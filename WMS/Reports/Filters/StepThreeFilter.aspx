@@ -59,7 +59,7 @@
                             <div class="filterHeader"><span class="FilterNameHeading">Location</span>
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Location" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchLocation_Click" /></span></div>
                             <section>
-                            <asp:GridView ID="GridViewLocation" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewLocation_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewLocation_RowDataBound" ShowFooter="True"  >
+                            <asp:GridView ID="GridViewLocation" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewLocation_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewLocation_RowDataBound" ShowFooter="True"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -75,6 +75,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="LocID" HeaderText="ID" />
                                         <asp:BoundField DataField="LocName" HeaderText="Name" />
+                                        <asp:BoundField DataField="OfficeType" HeaderText="Office Type" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
@@ -97,7 +98,7 @@
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Wing" CssClass="input-field" runat="server" /> <asp:Button ID="Button2" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchWing_Click" /></span>
                         </div>
                              <section>
-                            <asp:GridView ID="GridViewWing" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewWing_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewWing_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
+                            <asp:GridView ID="GridViewWing" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewWing_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewWing_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -113,6 +114,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="DeptID" HeaderText="ID" />
                                         <asp:BoundField DataField="DeptName" HeaderText="Name" />
+                                        <asp:BoundField DataField="DivisionName" HeaderText="Division Name" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />

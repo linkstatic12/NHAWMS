@@ -99,7 +99,7 @@
                             <div class="filterHeader"><span class="FilterNameHeading">Sections</span>
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Section" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchSection_Click" /></span></div>
                             <section>
-                            <asp:GridView ID="GridViewSection" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewSection_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewSection_RowDataBound" ShowFooter="True"  >
+                            <asp:GridView ID="GridViewSection" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewSection_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewSection_RowDataBound" ShowFooter="True"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -115,6 +115,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="SectionID" HeaderText="ID" />
                                         <asp:BoundField DataField="SectionName" HeaderText="Name" />
+                                    <asp:BoundField DataField="DeptName" HeaderText="Department Name" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />

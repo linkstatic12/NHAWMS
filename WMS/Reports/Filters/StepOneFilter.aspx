@@ -62,7 +62,7 @@
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Region" CssClass="input-field" runat="server" /> <asp:Button ID="Button2" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchRegion_Click" /></span>
                         </div>
                              <section>
-                            <asp:GridView ID="GridViewRegion" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewRegion_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewRegion_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
+                            <asp:GridView ID="GridViewRegion" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewRegion_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewRegion_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -78,6 +78,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="RegionID" HeaderText="ID" />
                                         <asp:BoundField DataField="RegionName" HeaderText="Name" />
+                                        <asp:BoundField DataField="ZoneName" HeaderText="Zone Name" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
