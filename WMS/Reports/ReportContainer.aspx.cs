@@ -280,7 +280,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthlysummary_21-20": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Summary for Permanent Employees(21st to 20th)";
                                                 _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                 _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -292,7 +292,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                 break;
                     case "monthlysummary_1-31": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Summary for Permanent Employees(1st to 31st)";
                                                 _ViewListMonthlyData = dt.ToList<ViewMonthlyData>();
                                                 _TempViewListMonthlyData = new List<ViewMonthlyData>();
@@ -305,7 +305,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_21-20_excel": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Sheet for Permanent Employees(21st to 20th)";
                                                 _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                 _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -318,7 +318,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_1-31_consolidated": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                      dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
+                                                      dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                          title = "Monthly Consolidated (1st to 31th)";
                                                          _ViewListMonthlyData = dt.ToList<ViewMonthlyData>();
                                                          _TempViewListMonthlyData = new List<ViewMonthlyData>();
@@ -331,7 +331,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_21-20_consolidated": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                                   dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
+                                                                   dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                          title = "Monthly Consolidated (21th to 20th)(Excel)";
                                                         _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                         _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -393,7 +393,8 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCPresent.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCPresent.rdlc";
-                       LoadReport("Reports/Reports/TopCriteria/RptTCPresent.rdlc", EmpSummDT);
+                        title = "Top Present Employees";
+                        LoadReport(PathString, EmpSummDT);
                             break;
                     case "top_absent":
                          dt = qb.GetValuesfromDB("select * from EmpView ");
@@ -406,10 +407,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCAbsent.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCAbsent.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCAbsent.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT,_dateTo,1);
                         break;
                     case "top_leave":
                         dt = qb.GetValuesfromDB("select * from EmpView ");
+                        title = "Top On Leave Employees";
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -419,10 +421,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCLeave.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCLeave.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCLeave.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_earlyIn":
                          dt = qb.GetValuesfromDB("select * from EmpView");
+                         title = "Top Early Employees";
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -432,7 +435,7 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCEarlyIn.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCEarlyIn.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyIn.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_earlyOut":
                          dt = qb.GetValuesfromDB("select * from EmpView");
@@ -445,9 +448,10 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCEarlyOut.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCEarlyOut.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyOut.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_lateIn":
+                        title = "Top Late In Employees";
                          dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
@@ -458,9 +462,10 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCLateComers.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCLateComers.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCLateComers.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_overtime":
+                        title = "Top Overtime Employees";
                          dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
@@ -471,7 +476,7 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCOverTime.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCOverTime.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCOverTime.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                 }
               
@@ -1387,8 +1392,8 @@ namespace WMS.Reports
         }
         private void LoadReport(string path, DataTable _LvSummary)
         {
-            string _Header = "Year wise Leaves Summary";
-            this.ReportViewer1.LocalReport.DisplayName = "Leave Summary Report";
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
@@ -1397,7 +1402,24 @@ namespace WMS.Reports
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(datasource1);
             ReportParameter rp = new ReportParameter("Header", _Header, false);
+
             this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp });
+            ReportViewer1.LocalReport.Refresh();
+        }
+        private void LoadReport(string path, DataTable _LvSummary,string date,int i)
+        {
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
+            System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
+            ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _LvSummary);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportParameter rp = new ReportParameter("Header", _Header, false);
+            ReportParameter rp1 = new ReportParameter("Date", date, false);
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] {rp1, rp });
             ReportViewer1.LocalReport.Refresh();
         }
         //
