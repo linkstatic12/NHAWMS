@@ -27,6 +27,23 @@ namespace WMS.CustomClass
             }
             return dt;
         }
+        public string MakeCustomizeQueryForUserAccess(User _user)
+        {
+            TAS2013Entities db = new TAS2013Entities();
+            string query = "where";
+            List<UserAccess> uAcc = new List<UserAccess>();
+            uAcc = db.UserAccesses.Where(aa => aa.UserID == _user.UserID).ToList();
+            foreach (var access in uAcc)
+            {
+                if (access.Criteria.Contains("L"))
+                    query = query + " LocID = " + access.CriteriaData + " ";
+                 if (access.Criteria.Contains("S"))
+                       query = query + " LocID>0";
+            
+            }
+            return query;
+        
+        }
         public string MakeCustomizeQuery(User _user)
         {
             string query = " where ";
@@ -40,26 +57,17 @@ namespace WMS.CustomClass
             //     _Criteria.Add(" LocID = " + _user.LocationID.ToString());
             // }
             TAS2013Entities db = new TAS2013Entities();
-            List<UserLocation> ulocs = new List<UserLocation>();
-            ulocs = db.UserLocations.Where(aa => aa.UserID == _user.UserID).ToList();
+            List<UserAccess> ulocs = new List<UserAccess>();
+            ulocs = db.UserAccesses.Where(aa => aa.UserID == _user.UserID).ToList();
             foreach (var uloc in ulocs)
-            {
-                _CriteriaForOrLoc.Add(" LocID = " + uloc.LocationID + " ");
+            {      
+                if(uloc.Criteria == "Z")
+                _CriteriaForOrLoc.Add(" ZoneID = " + uloc.CriteriaData + " ");
+                if(uloc.Criteria == "R")
+                    _CriteriaForOrLoc.Add(" RegionID = " + uloc.CriteriaData + " ");
+                if (uloc.Criteria == "C")
+                    _CriteriaForOrLoc.Add(" CityID = " + uloc.CriteriaData + " ");
             }
-            if (_user.ViewContractual == true)
-            {
-                _CriteriaForOr.Add(" CatID = 3 ");
-            }
-            if (_user.ViewPermanentMgm == true)
-            {
-                _CriteriaForOr.Add(" CatID = 2  ");
-            }
-            if (_user.ViewPermanentStaff == true)
-            {
-                _CriteriaForOr.Add(" CatID = 4  ");
-            }
-            _CriteriaForOr.Add(" CatID=1 ");
-
             switch (_user.RoleID)
             {
                 case 1:
@@ -84,6 +92,7 @@ namespace WMS.CustomClass
             {
                 subQueryLoc = subQueryLoc + _CriteriaForOrLoc[i] + " or ";
             }
+            if(_CriteriaForOrLoc.Count>0)
             subQueryLoc = " and  ( " + subQueryLoc + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1] + " ) ";
             //query = query + " ) and (";
             //query = query + _Criteria[_Criteria.Count-1];
@@ -609,5 +618,6 @@ namespace WMS.CustomClass
             query = query + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1];
             return query;
         }
+        
     }
 }

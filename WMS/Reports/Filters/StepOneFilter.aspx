@@ -39,7 +39,7 @@
                     <div class="col-md-8">
                         <div class="row"> 
                             <div class="col-md-8">
-                                <h3>Choose Region</h3>
+                                <h3>Choose Regions & Shifts</h3>
                                 </div>
                             <div class="col-md-3">
                               <asp:Button ID="Button3" runat="server" style="margin-top:18px" Text="Clear All Filters" CssClass="btn-warning" OnClick="ButtonDeleteAll_Click" />
@@ -62,7 +62,7 @@
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Region" CssClass="input-field" runat="server" /> <asp:Button ID="Button2" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchRegion_Click" /></span>
                         </div>
                              <section>
-                            <asp:GridView ID="GridViewRegion" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewRegion_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewRegion_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
+                            <asp:GridView ID="GridViewRegion" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewRegion_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewRegion_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -78,6 +78,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="RegionID" HeaderText="ID" />
                                         <asp:BoundField DataField="RegionName" HeaderText="Name" />
+                                        <asp:BoundField DataField="ZoneName" HeaderText="Zone Name" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
@@ -97,7 +98,7 @@
                         <hr />
                          <div class="row">
                             <div class="filterHeader"><span class="FilterNameHeading">Shifts</span>
-                                 <span style="margin-left:10px"><asp:TextBox ID="TextBoxSearch" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearch_Click" /></span></div>
+                                 <span style="margin-left:10px"><asp:TextBox ID="tbSearch_Shift" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchShift_Click" /></span></div>
                             <section>
                             <asp:GridView ID="GridViewShift" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewShift_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewShift_RowDataBound" ShowFooter="True"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />

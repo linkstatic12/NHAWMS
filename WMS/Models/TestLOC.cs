@@ -12,19 +12,11 @@ namespace WMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class City
+    public partial class TestLOC
     {
-        public City()
-        {
-            this.Locations = new HashSet<Location>();
-        }
-    
-        public short CityID { get; set; }
-        public string CityName { get; set; }
-        public Nullable<int> RegionID { get; set; }
-        public string RegionName { get; set; }
-    
-        public virtual Region Region { get; set; }
-        public virtual ICollection<Location> Locations { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public Nullable<int> CityID { get; set; }
     }
 }

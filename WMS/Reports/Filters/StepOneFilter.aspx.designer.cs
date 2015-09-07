@@ -121,13 +121,13 @@ namespace WMS.Reports.Filters {
         protected global::System.Web.UI.WebControls.GridView GridViewRegion;
         
         /// <summary>
-        /// TextBoxSearch control.
+        /// tbSearch_Shift control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxSearch;
+        protected global::System.Web.UI.WebControls.TextBox tbSearch_Shift;
         
         /// <summary>
         /// Button1 control.

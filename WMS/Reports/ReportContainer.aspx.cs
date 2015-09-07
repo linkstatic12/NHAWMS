@@ -26,7 +26,7 @@ namespace WMS.Reports
                 CreateDataTable();
                 User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
                 QueryBuilder qb = new QueryBuilder();
-                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                string query = "where ";
                 _dateFrom = list[0];
                 string _dateTo = list[1];
                
@@ -34,8 +34,81 @@ namespace WMS.Reports
 
 
                 switch (reportName)
+                
                 {
-                    case "emp_record":   DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                    case "company_consolidated_summary": DataTable dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                        List<DailySummary> _ViewListSum = dt.ToList<DailySummary>();
+                        List<DailySummary> _TempViewListSum = new List<DailySummary>();
+                                        title = "Company Consolidated Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                                                    PathString = "/Reports/RDLC/DSConsolidated.rdlc";
+                                                               else
+                                             PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo,title);
+                        break;
+                    case "company_employee_summary": dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                         _ViewListSum = dt.ToList<DailySummary>();
+                         _TempViewListSum = new List<DailySummary>();
+                                        title = "Company Employee Strength";
+                                         if (GlobalVariables.DeploymentType == false)
+                                                                    PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
+                                                               else
+                                             PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo,title);
+                                         break;
+                    case "company_worktime_summary": dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Company Worktime Strength";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_consolidated_summary":
+                                         query = getRegionSql();
+                                         string df = "select * from DailySummary where Criteria='R' and " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )";
+                                         Console.WriteLine(df);
+                        dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Consolidated Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSConsolidated.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_strength_summary":
+                                         query = getRegionSql();
+                                         
+                                         
+                                         dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Emoployee Strength Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "region_worktime_summary":
+                                         query = getRegionSql();
+
+
+                                         dt = qb.GetValuesfromDB("select * from DailySummary where Criteria='R' " + query + " and (Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
+                                         _ViewListSum = dt.ToList<DailySummary>();
+                                         _TempViewListSum = new List<DailySummary>();
+                                         title = "Region Worktime Summary";
+                                         if (GlobalVariables.DeploymentType == false)
+                                             PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
+                                         else
+                                             PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
+                                         LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo, title);
+                                         break;
+                    case "emp_record":   dt = qb.GetValuesfromDB("select * from EmpView ");
                                         List<EmpView> _ViewList = dt.ToList<EmpView>();
                                         List<EmpView> _TempViewList = new List<EmpView>();
                                         title = "Employee Report";
@@ -47,7 +120,7 @@ namespace WMS.Reports
                                
                            break;
 
-                    case "emp_detail_excel": DataTable dt1 = qb.GetValuesfromDB("select * from EmpView " + query);
+                    case "emp_detail_excel": DataTable dt1 = qb.GetValuesfromDB("select * from EmpView ");
                                                List<EmpView> _ViewList1 = dt1.ToList<EmpView>();
                                                List<EmpView> _TempViewList1 = new List<EmpView>();
                                                title = "Employee Detail Report";
@@ -58,7 +131,7 @@ namespace WMS.Reports
                                                LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList1, _ViewList1), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "leave_application": dt1 = qb.GetValuesfromDB("select * from ViewLvApplication " + query + " and (FromDate >= '" + _dateFrom + "' and ToDate <= '" + _dateTo + "' )");
+                    case "leave_application": dt1 = qb.GetValuesfromDB("select * from ViewLvApplication " + query + "(FromDate >= '" + _dateFrom + "' and ToDate <= '" + _dateTo + "' )");
                                                List<ViewLvApplication> _ViewListLvApp = dt1.ToList<ViewLvApplication>();
                                                List<ViewLvApplication> _TempViewListLvApp = new List<ViewLvApplication>();
                                                 title = "Leave Application Report";
@@ -69,7 +142,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListLvApp, _ViewListLvApp), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "detailed_att": DataTable dt2 = qb.GetValuesfromDB("select * from ViewDetailAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "detailed_att": DataTable dt2 = qb.GetValuesfromDB("select * from ViewDetailAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )");
                                                 List<ViewDetailAttData> _ViewList2 = dt2.ToList<ViewDetailAttData>();
                                                 List<ViewDetailAttData> _TempViewList2 = new List<ViewDetailAttData>();
@@ -82,7 +155,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList2, _ViewList2), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "consolidated_att": DataTable dt3 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "consolidated_att": DataTable dt3 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" );
                                                 List<ViewAttData> _ViewList3 = dt3.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList3 = new List<ViewAttData>();
@@ -95,7 +168,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList3, _ViewList3), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "present": DataTable dt4 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "present": DataTable dt4 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" + " and StatusP = 1 ");
                                                 List<ViewAttData> _ViewList4 = dt4.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList4 = new List<ViewAttData>();
@@ -108,7 +181,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList4, _ViewList4), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "absent": DataTable dt5 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "absent": DataTable dt5 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" +" and StatusAB = 1 ");
                                                 List<ViewAttData> _ViewList5 = dt5.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList5 = new List<ViewAttData>();
@@ -121,7 +194,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList5, _ViewList5), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "lv_application":      DataTable dt6 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "lv_application":      DataTable dt6 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" + " and (StatusLeave=1 OR StatusHL=1)");
                                                 List<ViewAttData> _ViewList6 = dt6.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList6 = new List<ViewAttData>();
@@ -134,7 +207,7 @@ namespace WMS.Reports
                                                 //LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList6, _ViewList6), _dateFrom + " TO " + _dateTo);
                                               //To-do Develop Leave Attendance Report
                                                 break;
-                    case "short_lv": DataTable dt7 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "short_lv": DataTable dt7 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" + " and StatusSL=1");
                                                 List<ViewAttData> _ViewList7 = dt7.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList7 = new List<ViewAttData>();
@@ -147,7 +220,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList7, _ViewList7), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "late_in": DataTable dt8 = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "late_in": DataTable dt8 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                     + _dateTo + "'" + " )" + " and StatusLI=1 ");
                                                 List<ViewAttData> _ViewList8 = dt8.ToList<ViewAttData>();
                                                 List<ViewAttData> _TempViewList8 = new List<ViewAttData>();
@@ -161,7 +234,7 @@ namespace WMS.Reports
 
                                                 break;
 
-                    case "late_out":        dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "late_out":        dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                    + _dateTo + "'" + " )" + " and StatusLO=1 ");
                                                 _ViewList8 = dt.ToList<ViewAttData>();
                                                 _TempViewList8 = new List<ViewAttData>();
@@ -174,7 +247,7 @@ namespace WMS.Reports
 
                                                 break;
 
-                    case "early_in":          dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "early_in":          dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                     + _dateTo + "'" + " )" + " and StatusEI=1 ");
                                                 _ViewList8 = dt.ToList<ViewAttData>();
                                                 _TempViewList8 = new List<ViewAttData>();
@@ -186,7 +259,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "early_out":         dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "early_out":         dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" + " and StatusEO=1 ");
                                                 _ViewList8 = dt.ToList<ViewAttData>();
                                                 _TempViewList8 = new List<ViewAttData>();
@@ -198,7 +271,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "overtime":           dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "overtime":           dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                    + _dateTo + "'" + " )" + " and StatusOT=1 ");
                                                 _ViewList8 = dt.ToList<ViewAttData>();
                                                 _TempViewList8 = new List<ViewAttData>();
@@ -210,7 +283,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "missing_attendance": dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "missing_attendance": dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                     + _dateTo + "'" + " )" + " and ((TimeIn is null and TimeOut is not null) or (TimeIn is not null and TimeOut is null)) ");
                        
                                                 _ViewList8 = dt.ToList<ViewAttData>();
@@ -223,7 +296,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
                                                 break;
-                    case "multiple_in_out": dt = qb.GetValuesfromDB("select * from ViewDetailAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "multiple_in_out": dt = qb.GetValuesfromDB("select * from ViewDetailAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                      + _dateTo + "'" + " )" + " and (Tin1 is not null or TOut1 is not null)");
                                                 //change query for multiple_in_out
                                                 List<ViewDetailAttData> _ViewList9 = dt.ToList<ViewDetailAttData>();
@@ -239,7 +312,7 @@ namespace WMS.Reports
 
 
                     case "monthly_leave_sheet": string _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                                                dt = qb.GetValuesfromDB("select * from EmpView ");
                                                 title = "Monthly Leave Sheet for Permanent Employees";
                                                 _ViewList1 = dt.ToList<EmpView>();
                                                 _TempViewList1 = new List<EmpView>();
@@ -253,7 +326,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_21-20":       _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + "Period = " + _period);
                                                 title = "Monthly Sheet for Permanent Employees(21st to 20th)";
                                                 List<ViewMonthlyDataPer> _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                 List<ViewMonthlyDataPer> _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -267,7 +340,7 @@ namespace WMS.Reports
 
 
                     case "monthly_1-31":         _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + " and Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Sheet for Permanent Employees(1st to 31st)";
                                                 List<ViewMonthlyData> _ViewListMonthlyData = dt.ToList<ViewMonthlyData>();
                                                 List<ViewMonthlyData> _TempViewListMonthlyData = new List<ViewMonthlyData>();
@@ -280,7 +353,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthlysummary_21-20": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Summary for Permanent Employees(21st to 20th)";
                                                 _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                 _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -292,7 +365,7 @@ namespace WMS.Reports
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                 break;
                     case "monthlysummary_1-31": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Summary for Permanent Employees(1st to 31st)";
                                                 _ViewListMonthlyData = dt.ToList<ViewMonthlyData>();
                                                 _TempViewListMonthlyData = new List<ViewMonthlyData>();
@@ -305,7 +378,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_21-20_excel": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                 title = "Monthly Sheet for Permanent Employees(21st to 20th)";
                                                 _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                 _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -318,7 +391,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_1-31_consolidated": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                      dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                      dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                          title = "Monthly Consolidated (1st to 31th)";
                                                          _ViewListMonthlyData = dt.ToList<ViewMonthlyData>();
                                                          _TempViewListMonthlyData = new List<ViewMonthlyData>();
@@ -331,7 +404,7 @@ namespace WMS.Reports
                                                 break;
 
                     case "monthly_21-20_consolidated": _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                                   dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period = " + _period);
+                                                                   dt = qb.GetValuesfromDB("select * from ViewMonthlyData " + query + "Period = " + _period);
                                                          title = "Monthly Consolidated (21th to 20th)(Excel)";
                                                         _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
                                                         _TempViewListMonthlyDataPer = new List<ViewMonthlyDataPer>();
@@ -342,8 +415,10 @@ namespace WMS.Reports
                                                              PathString = "/WMS/Reports/RDLC/MRDetailExcelP.rdlc";
                                                           LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                          break;
-                    case "emp_att":                      dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                    case "emp_att":                      dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                         + _dateTo + "'" + " )");
+                                                         
+                        
                                                           title = "Employee Attendance";
                                                           _ViewList8 = dt.ToList<ViewAttData>();
                                                           _TempViewList8 = new List<ViewAttData>();
@@ -357,7 +432,7 @@ namespace WMS.Reports
 
                     case "emp_absent":                  
                                                        _period = Convert.ToDateTime(_dateFrom).Month.ToString() + Convert.ToDateTime(_dateFrom).Year.ToString();
-                                                         dt = qb.GetValuesfromDB("select * from ViewAttData " + query + " and (AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                                                         dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                         + _dateTo + "'" + " )" + " and StatusAB = 1 ");
                                                          title = "Employee Absent";
                                                          _ViewListMonthlyDataPer = dt.ToList<ViewMonthlyDataPer>();
@@ -381,7 +456,7 @@ namespace WMS.Reports
                                                         // LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                          break;
                     case "top_present": 
-                        dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        dt = qb.GetValuesfromDB("select * from EmpView ");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -391,10 +466,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCPresent.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCPresent.rdlc";
-                       LoadReport("Reports/Reports/TopCriteria/RptTCPresent.rdlc", EmpSummDT);
+                        title = "Top Present Employees";
+                        LoadReport(PathString, EmpSummDT);
                             break;
                     case "top_absent":
-                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                         dt = qb.GetValuesfromDB("select * from EmpView ");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -404,10 +480,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCAbsent.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCAbsent.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCAbsent.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT,_dateTo,1);
                         break;
                     case "top_leave":
-                        dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        dt = qb.GetValuesfromDB("select * from EmpView ");
+                        title = "Top On Leave Employees";
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -417,10 +494,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCLeave.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCLeave.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCLeave.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_earlyIn":
-                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                         dt = qb.GetValuesfromDB("select * from EmpView");
+                         title = "Top Early Employees";
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -430,10 +508,10 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCEarlyIn.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCEarlyIn.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyIn.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_earlyOut":
-                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                         dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -443,10 +521,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCEarlyOut.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCEarlyOut.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCEarlyOut.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_lateIn":
-                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        title = "Top Late In Employees";
+                         dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -456,10 +535,11 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCLateComers.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCLateComers.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCLateComers.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                     case "top_overtime":
-                         dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                        title = "Top Overtime Employees";
+                         dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -469,7 +549,7 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/RptTCOverTime.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/RptTCOverTime.rdlc";
-                        LoadReport("Reports/Reports/TopCriteria/RptTCOverTime.rdlc", EmpSummDT);
+                        LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
                 }
               
@@ -479,24 +559,51 @@ namespace WMS.Reports
             }
         }
 
+        private string getRegionSql()
+        {
+            List<WMSLibrary.FiltersAttributes> selectedRegions = (Session["FiltersModel"] as FiltersModel).RegionFilter;
+
+            string query = "and ";
+
+            foreach (var region in selectedRegions)
+            {
+                query = query + " CriteriaValue = " + region.ID + " or ";
+            }
+
+            if(query.Length > 4)   // to remove the last or
+                query = query.Substring(0, query.Length - 4);
+            if (selectedRegions.Count==0)
+            {
+                query = " CriteriaValue>0";
+            
+            }
+            return query;
+
+        }
+
+        
+
+        private void LoadReport(string PathString, List<DailySummary> _ViewListSum, string date,string title)
+        {
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath(PathString);
+            System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
+            ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _ViewListSum);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportParameter rp = new ReportParameter("CompanyName", "National Highway Authority", false);
+            ReportParameter rp1 = new ReportParameter("Title", title, false);
+            ReportParameter rp2 = new ReportParameter("Date", date, false);
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp, rp1, rp2 });
+            ReportViewer1.LocalReport.Refresh();  
+        }
+
+       
         private List<ViewLvApplication> ReportsFilterImplementation(FiltersModel fm, List<ViewLvApplication> _TempViewList, List<ViewLvApplication> _ViewList)
         {
-            //for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
-
-
-
             //for location
             if (fm.LocationFilter.Count > 0)
             {
@@ -1385,8 +1492,8 @@ namespace WMS.Reports
         }
         private void LoadReport(string path, DataTable _LvSummary)
         {
-            string _Header = "Year wise Leaves Summary";
-            this.ReportViewer1.LocalReport.DisplayName = "Leave Summary Report";
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
@@ -1395,7 +1502,24 @@ namespace WMS.Reports
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(datasource1);
             ReportParameter rp = new ReportParameter("Header", _Header, false);
+
             this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp });
+            ReportViewer1.LocalReport.Refresh();
+        }
+        private void LoadReport(string path, DataTable _LvSummary,string date,int i)
+        {
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
+            System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
+            ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _LvSummary);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportParameter rp = new ReportParameter("Header", _Header, false);
+            ReportParameter rp1 = new ReportParameter("Date", date, false);
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] {rp1, rp });
             ReportViewer1.LocalReport.Refresh();
         }
         //

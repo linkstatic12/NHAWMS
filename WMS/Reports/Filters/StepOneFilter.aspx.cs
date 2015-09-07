@@ -100,7 +100,14 @@ namespace WMS.Reports.Filters
         }
 
         #endregion
-
+        protected void ButtonSearchShift_Click(object sender, EventArgs e)
+        {
+            // Save selected Company ID and Name in Session
+            SaveRegionIDs();
+            BindGridView(tbSearch_Shift.Text.Trim());
+            // Check and set Check box state
+            WMSLibrary.Filters.SetGridViewCheckState(GridViewRegion, Session["FiltersModel"] as FiltersModel, "Shift");
+        }
         #region --GridView Region--
         protected void ButtonSearchRegion_Click(object sender, EventArgs e)
         {

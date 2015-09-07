@@ -40,6 +40,7 @@
                         <div class="row"> 
                             <div class="col-md-8">
                                 <h3>Choose Locations and Shifts</h3>
+
                             </div>
                             <div class="col-md-3">
                               <asp:Button ID="Button3" runat="server" style="margin-top:18px" Text="Clear All Filters" CssClass="btn-warning" OnClick="ButtonDeleteAll_Click" />
@@ -59,7 +60,7 @@
                             <div class="filterHeader"><span class="FilterNameHeading">City</span>
                                  <span style="margin-left:10px"><asp:TextBox ID="TextBoxSearchLocation" CssClass="input-field" runat="server" /> <asp:Button ID="Button1" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchCity_Click" /></span></div>
                             <section>
-                            <asp:GridView ID="GridViewCity" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewCity_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewCity_RowDataBound" ShowFooter="True"  >
+                            <asp:GridView ID="GridViewCity" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewCity_PageIndexChanging" ForeColor="Black" OnRowDataBound="GridViewCity_RowDataBound" ShowFooter="True"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -75,6 +76,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="CityID" HeaderText="ID" />
                                         <asp:BoundField DataField="CityName" HeaderText="Name" />
+                                    <asp:BoundField DataField="RegionName" HeaderText="Region Name"></asp:BoundField>
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
@@ -97,7 +99,7 @@
                                  <span style="margin-left:10px"><asp:TextBox ID="tbSearch_EmployeeType" CssClass="input-field" runat="server" /> <asp:Button ID="Button2" runat="server" Text="Search" CssClass="btn-primary" OnClick="ButtonSearchEmployeeType_Click" /></span>
                         </div>
                              <section>
-                            <asp:GridView ID="GridViewEmployeeType" runat="server" Width="300px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewEmployeeType_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewEmployeeType_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
+                            <asp:GridView ID="GridViewEmployeeType" runat="server" Width="350px" AutoGenerateColumns="False" PagerStyle-CssClass="pgr" CssClass="Grid"                              GridLines="None" AllowPaging="True" AllowSorting="True"                                                OnPageIndexChanging="GridViewEmployeeType_PageIndexChanging" BorderColor="#0094FF" BorderStyle="None" OnRowDataBound="GridViewEmployeeType_RowDataBound" ShowFooter="True" BorderWidth="1px"  >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -113,6 +115,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="TypeID" HeaderText="ID" />
                                         <asp:BoundField DataField="TypeName" HeaderText="Name" />
+                                        <asp:BoundField DataField="Category.CatName" HeaderText="Category Name" />
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
