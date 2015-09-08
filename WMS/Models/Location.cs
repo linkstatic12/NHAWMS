@@ -26,7 +26,6 @@ namespace WMS.Models
         public short LocID { get; set; }
         public string LocName { get; set; }
         public Nullable<short> CityID { get; set; }
-        public string OfficeType { get; set; }
     
         public virtual City City { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }

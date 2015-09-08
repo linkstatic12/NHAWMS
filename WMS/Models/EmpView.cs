@@ -68,7 +68,7 @@ namespace WMS.Models
         public Nullable<short> CityID { get; set; }
         public string RegionName { get; set; }
         public string ZoneName { get; set; }
-        public Nullable<short> RegionID { get; set; }
         public Nullable<short> ZoneID { get; set; }
+        public int RegionID { get; set; }
     }
 }

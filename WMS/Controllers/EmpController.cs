@@ -325,7 +325,9 @@ namespace WMS.Controllers
                 ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
                 ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
                 ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName", emp.ZoneID);
-                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", emp.RegionID);
+                Region region = db.Regions.Where(aa => aa.ZoneID == emp.ZoneID).FirstOrDefault();
+                      
+                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", region);
                
                 ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", emp.Location.CityID);
             }
