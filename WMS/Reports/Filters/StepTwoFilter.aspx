@@ -39,9 +39,8 @@
                     <div class="col-md-8">
                         <div class="row"> 
                             <div class="col-md-8">
-                                <div class="col-md-8">
-                                <h3>Choose Locations & Shifts</h3>
-                                    </div>
+                                <h3>Choose Locations and Shifts</h3>
+
                             </div>
                             <div class="col-md-3">
                               <asp:Button ID="Button3" runat="server" style="margin-top:18px" Text="Clear All Filters" CssClass="btn-warning" OnClick="ButtonDeleteAll_Click" />
