@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $('#GradeID').empty();
-    var URL = '/WMS/Emp/GradeList';
+    var URL = '/Emp/GradeList';
     //var URL = '/Emp/GradeList';
     $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
         var selectedItemID = document.getElementById("selectedGradeIdHidden").value;
@@ -20,7 +20,7 @@
 
     $('#CompanyID').change(function () {
         $('#GradeID').empty();
-        var URL = '/WMS/Emp/GradeList';
+        var URL = '/Emp/GradeList';
         //var URL = '/Emp/GradeList';
         $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
             var selectedItemID = document.getElementById("selectedGradeIdHidden").value;

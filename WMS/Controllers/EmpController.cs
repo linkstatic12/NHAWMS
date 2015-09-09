@@ -327,7 +327,7 @@ namespace WMS.Controllers
                 ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName", emp.ZoneID);
                 Region region = db.Regions.Where(aa => aa.ZoneID == emp.ZoneID).FirstOrDefault();
                       
-                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", region);
+                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", emp.Location.City.RegionID);
                
                 ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", emp.Location.CityID);
             }
@@ -407,6 +407,7 @@ namespace WMS.Controllers
                 ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
                 ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
                 ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName");
                 return View(emp);
             }
             catch (Exception ex)
@@ -468,7 +469,24 @@ namespace WMS.Controllers
             base.Dispose(disposing);
         }
 
+
+
         #region --Cascade DropDown--
+        public ActionResult CityList(string ID)
+        {
+
+
+            int Code = Convert.ToInt32(ID);
+            var states = db.Cities.Where(aa => aa.RegionID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                states.ToArray(),
+                                "CityID",
+                                "CityName")
+                           , JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Index");
+        }
         public ActionResult RegionList(string ID)
         {
 
