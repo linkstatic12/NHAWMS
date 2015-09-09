@@ -4,8 +4,8 @@
 
     $('#ZoneID').change(function () {
         $('#RegionID').empty();
-        var URL = '/WMS/Emp/RegionList';
-        //var URL = '/Emp/RegionList';
+       // var URL = '/WMS/Emp/RegionList';
+        var URL = '/Emp/RegionList';
         $.getJSON(URL + '/' + $('#ZoneID').val(), function (data) {
             var items;
             $.each(data, function (i, state) {

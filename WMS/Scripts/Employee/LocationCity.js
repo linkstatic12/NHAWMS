@@ -2,8 +2,8 @@
 
     $('#LocID').empty();
     var convalue = $('#CityID').val();
-    var URL = '/WMS/Emp/LocationList';
-    //var URL = '/Emp/LocationList';
+    //var URL = '/WMS/Emp/LocationList';
+    var URL = '/Emp/LocationList';
     $.getJSON(URL + '/' + convalue, function (data) {
         var selectedItemID = document.getElementById("selectedLocIdHidden").value;
         var items;
@@ -23,8 +23,8 @@
     $('#CityID').change(function () {
         $('#LocID').empty();
         var convalue = $('#CityID').val();
-        var URL = '/WMS/Emp/LocationList';
-        //var URL = '/Emp/LocationList';
+       // var URL = '/WMS/Emp/LocationList';
+        var URL = '/Emp/LocationList';
         $.getJSON(URL + '/' + convalue, function (data) {
             var selectedItemID = document.getElementById("selectedLocIdHidden").value;
             var items;

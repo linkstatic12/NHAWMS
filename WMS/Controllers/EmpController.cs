@@ -67,7 +67,7 @@ namespace WMS.Controllers
                     {
 
                         emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
-                         || s.EmpNo.ToUpper().Contains(searchString.ToUpper())
+                         || s.EmpNo.ToUpper().Contains(searchString.ToUpper()) || s.LocID.ToString().Contains(searchString)
                         ).ToList();
                     }
                     catch (Exception ex)

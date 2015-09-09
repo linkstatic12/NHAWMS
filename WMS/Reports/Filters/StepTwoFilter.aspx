@@ -76,7 +76,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="CityID" HeaderText="ID" />
                                         <asp:BoundField DataField="CityName" HeaderText="Name" />
-                                    <asp:BoundField DataField="RegionName" HeaderText="Region Name"></asp:BoundField>
+                                   
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />

@@ -2,8 +2,8 @@
 
     $('#LocID').empty();
     var convalue = $('#CityID').val();
-    var URL = '/WMS/Emp/LocationList';
-    //var URL = '/Emp/LocationList';
+    //var URL = '/WMS/Emp/LocationList';
+    var URL = '/Emp/LocationList';
     $.getJSON(URL + '/' + convalue, function (data) {
         var items;
         $.each(data, function (i, state) {
@@ -17,8 +17,8 @@
 
     $('#CityID').change(function () {
         $('#LocID').empty();
-        var URL = '/WMS/Emp/LocationList';
-        //var URL = '/Emp/LocationList';
+        //var URL = '/WMS/Emp/LocationList';
+        var URL = '/Emp/LocationList';
         var convalue = $('#CityID').val();
         $.getJSON(URL + '/' + convalue, function (data) {
             var items;

@@ -40,7 +40,7 @@ namespace WMS.Models
         public Nullable<byte> GradeID { get; set; }
         public Nullable<short> SecID { get; set; }
         public string CardNo { get; set; }
-        public Nullable<int> FpID { get; set; }
+        public int FpID { get; set; }
         public string PinCode { get; set; }
         public string NicNo { get; set; }
         public string FatherName { get; set; }
