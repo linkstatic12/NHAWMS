@@ -11,14 +11,15 @@
             // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
         });
         $('#LocID').html(items);
+            
         $('#LocDivID').show();
     });
     
 
     $('#CityID').change(function () {
         $('#LocID').empty();
-        //var URL = '/WMS/Emp/LocationList';
-        var URL = '/Emp/LocationList';
+       // var URL = '/WMS/Emp/LocationList';
+       var URL = '/Emp/LocationList';
         var convalue = $('#CityID').val();
         $.getJSON(URL + '/' + convalue, function (data) {
             var items;

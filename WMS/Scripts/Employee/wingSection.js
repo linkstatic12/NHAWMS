@@ -2,8 +2,8 @@
 
 
     $('#DeptID').empty();
-    //var URL = '/WMS/Emp/DepartmentList';
     var URL = '/Emp/DepartmentList';
+    //var URL = '/Emp/DepartmentList';
     $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
         var selectedItemID = document.getElementById("selectedDeptIDHidden").value;
         var items;
@@ -18,8 +18,8 @@
         $('#DeptID').html(items);
 
         $('#SecID').empty();
-        //var URL = '/WMS/Emp/SectionList';
         var URL = '/Emp/SectionList';
+        //var URL = '/Emp/SectionList';
         $.getJSON(URL + '/' + $('#DeptID').val(), function (data) {
             var selectedItemID = document.getElementById("selectedSectionIdHidden").value;
             var items;
