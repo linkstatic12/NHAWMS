@@ -70,6 +70,7 @@ namespace WMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             City city = db.Cities.Find(id);
+            
             if (city == null)
             {
                 return HttpNotFound();

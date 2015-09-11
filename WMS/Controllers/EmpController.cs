@@ -154,22 +154,23 @@ namespace WMS.Controllers
             {
                 _wings = context.Divisions.ToList();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+            ViewBag.CompanyID = new SelectList(db.Companies.OrderBy(aa=>aa.CompName), "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews.OrderBy(aa => aa.CrewName), "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades.OrderBy(aa => aa.GradeName), "GradeID", "GradeName");
+            ViewBag.JobID = new SelectList(db.JobTitles.OrderBy(aa => aa.JobTitle1), "JobID", "JobTitle1");
             //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+            ViewBag.SecID = new SelectList(db.Sections.OrderBy(aa => aa.SectionName), "SectionID", "SectionName");
+            ViewBag.ShiftID = new SelectList(db.Shifts.OrderBy(aa => aa.ShiftName), "ShiftID", "ShiftName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes.OrderBy(aa => aa.TypeName), "TypeID", "TypeName");
             ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
-            ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName");
-            ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName");
+            ViewBag.EmpID = new SelectList(db.EmpFps.OrderBy(aa => aa.Fp1), "EmpID", "Fp1");
+            ViewBag.CatID = new SelectList(db.Categories.OrderBy(aa => aa.CatName), "CatID", "CatName");
+            ViewBag.DeptID = new SelectList(db.Departments.OrderBy(aa => aa.DeptName), "DeptID", "DeptName");
+            ViewBag.CityID = new SelectList(db.Cities.OrderBy(aa => aa.CityName), "CityID", "CityName");
+            ViewBag.ZoneID = new SelectList(db.Zones.OrderBy(aa => aa.ZoneName), "ZoneID", "ZoneName");
+            ViewBag.RegionID = new SelectList(db.Regions.OrderBy(aa => aa.RegionName), "RegionID", "RegionName");
+            ViewBag.PostedAsID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
             return View();
         }
 
@@ -179,7 +180,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID")] Emp emp)
+        public ActionResult Create([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID,PostedAs")] Emp emp)
         {
             string empNo = "";
             if (string.IsNullOrEmpty(emp.EmpNo))
@@ -258,20 +259,23 @@ namespace WMS.Controllers
                 _wings = context.Divisions.ToList();
                 ViewBag.Wing = new SelectList(_wings, "WingID", "WingName");
                 User LoggedInUser = Session["LoggedUser"] as User;
-                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+                ViewBag.CompanyID = new SelectList(db.Companies.OrderBy(aa => aa.CompName), "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews.OrderBy(aa => aa.CrewName), "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades.OrderBy(aa => aa.GradeName), "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles.OrderBy(aa => aa.JobTitle1), "JobID", "JobTitle1");
                 //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
-                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.SecID = new SelectList(db.Sections.OrderBy(aa => aa.SectionName), "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts.OrderBy(aa => aa.ShiftName), "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes.OrderBy(aa => aa.TypeName), "TypeID", "TypeName");
                 ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
-                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+                ViewBag.EmpID = new SelectList(db.EmpFps.OrderBy(aa => aa.Fp1), "EmpID", "Fp1");
+                ViewBag.CatID = new SelectList(db.Categories.OrderBy(aa => aa.CatName), "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments.OrderBy(aa => aa.DeptName), "DeptID", "DeptName");
+                ViewBag.CityID = new SelectList(db.Cities.OrderBy(aa => aa.CityName), "CityID", "CityName");
+                ViewBag.ZoneID = new SelectList(db.Zones.OrderBy(aa => aa.ZoneName), "ZoneID", "ZoneName");
+                ViewBag.RegionID = new SelectList(db.Regions.OrderBy(aa => aa.RegionName), "RegionID", "RegionName");
+                ViewBag.PostedAs = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
             }
             return View(emp);
             //if (ModelState.IsValid)
@@ -311,25 +315,30 @@ namespace WMS.Controllers
             }
             try
             {
-                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
-                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", emp.EmpType.CatID);
-                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
-                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
-                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
-                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
-                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
-                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
-                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
-                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
-                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
-                ViewBag.ZoneID = new SelectList(db.Zones, "ZoneID", "ZoneName", emp.ZoneID);
-                Region region = db.Regions.Where(aa => aa.ZoneID == emp.ZoneID).FirstOrDefault();
-                      
-                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName", emp.Location.City.RegionID);
+                ViewBag.CompanyID = new SelectList(db.Companies.OrderBy(aa => aa.CompName), "CompID", "CompName",emp.CompanyID);
+                ViewBag.CrewID = new SelectList(db.Crews.OrderBy(aa => aa.CrewName), "CrewID", "CrewName",emp.CrewID);
+                ViewBag.DesigID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName",emp.DesigID);
+                ViewBag.GradeID = new SelectList(db.Grades.OrderBy(aa => aa.GradeName), "GradeID", "GradeName",emp.GradeID);
+                ViewBag.JobID = new SelectList(db.JobTitles.OrderBy(aa => aa.JobTitle1), "JobID", "JobTitle1",emp.JobID);
+                ViewBag.SecID = new SelectList(db.Sections.OrderBy(aa => aa.SectionName), "SectionID", "SectionName",emp.SecID);
+                ViewBag.ShiftID = new SelectList(db.Shifts.OrderBy(aa => aa.ShiftName), "ShiftID", "ShiftName",emp.ShiftID);
+                ViewBag.TypeID = new SelectList(db.EmpTypes.OrderBy(aa => aa.TypeName), "TypeID", "TypeName",emp.TypeID);
+                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1","Face1");
+                ViewBag.EmpID = new SelectList(db.EmpFps.OrderBy(aa => aa.Fp1), "EmpID", "Fp1");
+                ViewBag.CatID = new SelectList(db.Categories.OrderBy(aa => aa.CatName), "CatID", "CatName",emp.EmpType.CatID);
+                ViewBag.DeptID = new SelectList(db.Departments.OrderBy(aa => aa.DeptName), "DeptID", "DeptName",emp.Section.DeptID);
+                ViewBag.ZoneID = new SelectList(db.Zones.OrderBy(aa => aa.ZoneName), "ZoneID", "ZoneName",emp.ZoneID);
+                ViewBag.RegionID = new SelectList(db.Regions.OrderBy(aa => aa.RegionName), "RegionID", "RegionName",emp.Location.City.RegionID);
+                ViewBag.CityID = new SelectList(db.Cities.OrderBy(aa => aa.CityName), "CityID", "CityName", emp.Location.CityID);
+                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName",emp.LocID);
+                
+                ViewBag.PostedAs = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "PostedAsID", "PostedAsName",emp.PostedAs);
                
-                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", emp.Location.CityID);
+                int region = (int)emp.Location.City.RegionID;
+                Console.WriteLine(region);
+               
+               
+            
             }
             catch (Exception ex)
             {
@@ -344,7 +353,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Edit([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID")] Emp emp)
+        public ActionResult Edit([Bind(Include = "EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID,HasOT,RegionID,CityID,ZoneID,PostedAs")] Emp emp)
         {
             try
             {
@@ -393,41 +402,46 @@ namespace WMS.Controllers
                     return RedirectToAction("Index");
                 }
                 User LoggedInUser = Session["LoggedUser"] as User;
-                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+                ViewBag.CompanyID = new SelectList(db.Companies.OrderBy(aa => aa.CompName), "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews.OrderBy(aa => aa.CrewName), "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades.OrderBy(aa => aa.GradeName), "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles.OrderBy(aa => aa.JobTitle1), "JobID", "JobTitle1");
                 //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
-                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.SecID = new SelectList(db.Sections.OrderBy(aa => aa.SectionName), "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts.OrderBy(aa => aa.ShiftName), "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes.OrderBy(aa => aa.TypeName), "TypeID", "TypeName");
                 ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
-                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
-                ViewBag.RegionID = new SelectList(db.Regions, "RegionID", "RegionName");
+                ViewBag.EmpID = new SelectList(db.EmpFps.OrderBy(aa => aa.Fp1), "EmpID", "Fp1");
+                ViewBag.CatID = new SelectList(db.Categories.OrderBy(aa => aa.CatName), "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments.OrderBy(aa => aa.DeptName), "DeptID", "DeptName");
+                ViewBag.CityID = new SelectList(db.Cities.OrderBy(aa => aa.CityName), "CityID", "CityName");
+                ViewBag.ZoneID = new SelectList(db.Zones.OrderBy(aa => aa.ZoneName), "ZoneID", "ZoneName");
+                ViewBag.RegionID = new SelectList(db.Regions.OrderBy(aa => aa.RegionName), "RegionID", "RegionName");
+                ViewBag.PostedAsID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
                 return View(emp);
             }
             catch (Exception ex)
             {
                 ViewBag.Message = ex.InnerException.ToString();
                 User LoggedInUser = Session["LoggedUser"] as User;
-                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
-                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
-                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.CompanyID = new SelectList(db.Companies.OrderBy(aa => aa.CompName), "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews.OrderBy(aa => aa.CrewName), "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades.OrderBy(aa => aa.GradeName), "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles.OrderBy(aa => aa.JobTitle1), "JobID", "JobTitle1");
+                //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+                ViewBag.SecID = new SelectList(db.Sections.OrderBy(aa => aa.SectionName), "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts.OrderBy(aa => aa.ShiftName), "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes.OrderBy(aa => aa.TypeName), "TypeID", "TypeName");
                 ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
-                ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+                ViewBag.EmpID = new SelectList(db.EmpFps.OrderBy(aa => aa.Fp1), "EmpID", "Fp1");
+                ViewBag.CatID = new SelectList(db.Categories.OrderBy(aa => aa.CatName), "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments.OrderBy(aa => aa.DeptName), "DeptID", "DeptName");
+                ViewBag.CityID = new SelectList(db.Cities.OrderBy(aa => aa.CityName), "CityID", "CityName");
+                ViewBag.ZoneID = new SelectList(db.Zones.OrderBy(aa => aa.ZoneName), "ZoneID", "ZoneName");
+                ViewBag.RegionID = new SelectList(db.Regions.OrderBy(aa => aa.RegionName), "RegionID", "RegionName");
+                ViewBag.PostedAsID = new SelectList(db.Designations.OrderBy(aa => aa.DesignationName), "PostedAsID", "PostedAsName");
                 return View(emp);
             }
         }

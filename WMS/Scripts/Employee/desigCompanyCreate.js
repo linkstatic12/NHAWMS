@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    $('#PostedAs').empty();
     $('#DesigID').empty();
     var URL = '/Emp/DesignationList';
     //var URL = '/Emp/DesignationList';
@@ -10,10 +10,12 @@
             // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
         });
         $('#DesigID').html(items);
+        $('#PostedAs').html(items);
     });
 
 
     $('#CompanyID').change(function () {
+        $('#PostedAs').empty();
         $('#DesigID').empty();
         var URL = '/Emp/DesignationList';
         //var URL = '/Emp/DesignationList';
@@ -24,6 +26,7 @@
                 // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
             });
             $('#DesigID').html(items);
+            $('#PostedAs').html(items);
         });
     });
 

@@ -17,6 +17,7 @@ namespace WMS.Models
         public Designation()
         {
             this.Emps = new HashSet<Emp>();
+            this.Emps1 = new HashSet<Emp>();
         }
     
         public int DesignationID { get; set; }
@@ -25,5 +26,6 @@ namespace WMS.Models
     
         public virtual Company Company { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }
+        public virtual ICollection<Emp> Emps1 { get; set; }
     }
 }

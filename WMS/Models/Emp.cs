@@ -40,7 +40,7 @@ namespace WMS.Models
         public Nullable<byte> GradeID { get; set; }
         public Nullable<short> SecID { get; set; }
         public string CardNo { get; set; }
-        public int FpID { get; set; }
+        public Nullable<int> FpID { get; set; }
         public string PinCode { get; set; }
         public string NicNo { get; set; }
         public string FatherName { get; set; }
@@ -71,6 +71,7 @@ namespace WMS.Models
         public Nullable<bool> IsSafe { get; set; }
         public Nullable<bool> HasOT { get; set; }
         public Nullable<short> ZoneID { get; set; }
+        public Nullable<int> PostedAs { get; set; }
     
         public virtual ICollection<AttData> AttDatas { get; set; }
         public virtual ICollection<AttDataManEdit> AttDataManEdits { get; set; }
@@ -79,6 +80,7 @@ namespace WMS.Models
         public virtual Company Company { get; set; }
         public virtual Crew Crew { get; set; }
         public virtual Designation Designation { get; set; }
+        public virtual Designation Designation1 { get; set; }
         public virtual ICollection<EmergencyDetail> EmergencyDetails { get; set; }
         public virtual EmpPhoto EmpPhoto { get; set; }
         public virtual Grade Grade { get; set; }

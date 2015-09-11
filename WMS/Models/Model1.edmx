@@ -290,7 +290,8 @@
       [EmpView].[RegionName] AS [RegionName], 
       [EmpView].[ZoneName] AS [ZoneName], 
       [EmpView].[ZoneID] AS [ZoneID], 
-      [EmpView].[RegionID] AS [RegionID]
+      [EmpView].[RegionID] AS [RegionID], 
+      [EmpView].[PostedAs] AS [PostedAs]
       FROM [dbo].[EmpView] AS [EmpView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewAbsent" EntityType="TAS2013_NHAModel.Store.ViewAbsent" store:Type="Views" store:Schema="dbo" store:Name="ViewAbsent">
@@ -1558,9 +1559,9 @@
       [ViewMultipleInOut].[ShiftID] AS [ShiftID], 
       [ViewMultipleInOut].[SecID] AS [SecID], 
       [ViewMultipleInOut].[DivID] AS [DivID], 
-      [ViewMultipleInOut].[RegionID] AS [RegionID], 
       [ViewMultipleInOut].[ShifMin] AS [ShifMin], 
-      [ViewMultipleInOut].[StatusHL] AS [StatusHL]
+      [ViewMultipleInOut].[StatusHL] AS [StatusHL], 
+      [ViewMultipleInOut].[RegionID] AS [RegionID]
       FROM [dbo].[ViewMultipleInOut] AS [ViewMultipleInOut]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewOverTime" EntityType="TAS2013_NHAModel.Store.ViewOverTime" store:Type="Views" store:Schema="dbo" store:Name="ViewOverTime">
@@ -1908,6 +1909,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Crew" Association="TAS2013_NHAModel.Store.FK_Emp_Crew">
             <End Role="Crew" EntitySet="Crew" />
+            <End Role="Emp" EntitySet="Emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Designation" Association="TAS2013_NHAModel.Store.FK_Emp_Designation">
+            <End Role="Designation" EntitySet="Designation" />
             <End Role="Emp" EntitySet="Emp" />
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Designation1" Association="TAS2013_NHAModel.Store.FK_Emp_Designation1">
@@ -2686,7 +2691,7 @@
           <Property Name="AActualMins" Type="smallint" />
           <Property Name="ALossMins" Type="smallint" />
           <Property Name="CriteriaValue" Type="smallint" />
-          <Property Name="CriteriaName" Type="nchar" MaxLength="100" />
+          <Property Name="CriteriaName" Type="nvarchar" MaxLength="100" />
           <Property Name="AvgTimeIn" Type="time" />
           <Property Name="AvgTimeOut" Type="time" />
         </EntityType>
@@ -2812,7 +2817,7 @@
           <Property Name="GradeID" Type="tinyint" />
           <Property Name="SecID" Type="smallint" />
           <Property Name="CardNo" Type="char" MaxLength="10" />
-          <Property Name="FpID" Type="int" Nullable="false" />
+          <Property Name="FpID" Type="int" />
           <Property Name="PinCode" Type="char" MaxLength="4" />
           <Property Name="NicNo" Type="nvarchar" MaxLength="50" />
           <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
@@ -2843,6 +2848,7 @@
           <Property Name="IsSafe" Type="bit" />
           <Property Name="HasOT" Type="bit" />
           <Property Name="ZoneID" Type="smallint" />
+          <Property Name="PostedAs" Type="int" />
         </EntityType>
         <EntityType Name="EmpAccess">
           <Key>
@@ -2990,7 +2996,7 @@
           <Key>
             <PropertyRef Name="LocID" />
           </Key>
-          <Property Name="LocID" Type="smallint" Nullable="false" />
+          <Property Name="LocID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LocName" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="CityID" Type="smallint" />
           <Property Name="OfficeType" Type="nvarchar" MaxLength="50" />
@@ -3411,7 +3417,6 @@
             <PropertyRef Name="ShiftName" />
             <PropertyRef Name="EmpNo" />
             <PropertyRef Name="EmpName" />
-            <PropertyRef Name="FpID" />
             <PropertyRef Name="ProcessAtt" />
             <PropertyRef Name="EmpID" />
             <PropertyRef Name="RegionID" />
@@ -3432,7 +3437,7 @@
           <Property Name="JobID" Type="smallint" />
           <Property Name="Gender" Type="tinyint" />
           <Property Name="CardNo" Type="char" MaxLength="10" />
-          <Property Name="FpID" Type="int" Nullable="false" />
+          <Property Name="FpID" Type="int" />
           <Property Name="PinCode" Type="char" MaxLength="4" />
           <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
           <Property Name="NicNo" Type="nvarchar" MaxLength="50" />
@@ -3472,6 +3477,7 @@
           <Property Name="ZoneName" Type="nvarchar" MaxLength="50" />
           <Property Name="ZoneID" Type="smallint" />
           <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="PostedAs" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewAbsent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -4885,9 +4891,9 @@
           <Property Name="ShiftID" Type="tinyint" />
           <Property Name="SecID" Type="smallint" />
           <Property Name="DivID" Type="smallint" />
-          <Property Name="RegionID" Type="tinyint" />
           <Property Name="ShifMin" Type="smallint" />
           <Property Name="StatusHL" Type="bit" />
+          <Property Name="RegionID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewOverTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5397,6 +5403,18 @@
             </Principal>
             <Dependent Role="Emp">
               <PropertyRef Name="CrewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Designation">
+          <End Role="Designation" Type="TAS2013_NHAModel.Store.Designation" Multiplicity="0..1" />
+          <End Role="Emp" Type="TAS2013_NHAModel.Store.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="PostedAs" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6148,6 +6166,10 @@
           <AssociationSet Name="FK_Section_Department" Association="TAS2013_NHAModel.FK_Section_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Designation" Association="TAS2013_NHAModel.FK_Emp_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Emp" EntitySet="Emps" />
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Designation1" Association="TAS2013_NHAModel.FK_Emp_Designation1">
             <End Role="Designation" EntitySet="Designations" />
@@ -6910,7 +6932,7 @@
           <Property Name="AActualMins" Type="Int16" />
           <Property Name="ALossMins" Type="Int16" />
           <Property Name="CriteriaValue" Type="Int16" />
-          <Property Name="CriteriaName" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="CriteriaName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="AvgTimeIn" Type="Time" Precision="7" />
           <Property Name="AvgTimeOut" Type="Time" Precision="7" />
         </EntityType>
@@ -6941,7 +6963,8 @@
           <Property Name="DesignationName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CompanyID" Type="Int16" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_Designation_Company" FromRole="Designation" ToRole="Company" />
-          <NavigationProperty Name="Emps" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Designation" ToRole="Emp" />
+          <NavigationProperty Name="Emps" Relationship="TAS2013_NHAModel.FK_Emp_Designation" FromRole="Designation" ToRole="Emp" />
+          <NavigationProperty Name="Emps1" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Designation" ToRole="Emp" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -7046,7 +7069,7 @@
           <Property Name="GradeID" Type="Byte" />
           <Property Name="SecID" Type="Int16" />
           <Property Name="CardNo" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
-          <Property Name="FpID" Type="Int32" Nullable="false" />
+          <Property Name="FpID" Type="Int32" />
           <Property Name="PinCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
           <Property Name="NicNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="FatherName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
@@ -7077,13 +7100,15 @@
           <Property Name="IsSafe" Type="Boolean" />
           <Property Name="HasOT" Type="Boolean" />
           <Property Name="ZoneID" Type="Int16" />
+          <Property Name="PostedAs" Type="Int32" />
           <NavigationProperty Name="AttDatas" Relationship="TAS2013_NHAModel.FK_AttData_Emp" FromRole="Emp" ToRole="AttData" />
           <NavigationProperty Name="AttDataManEdits" Relationship="TAS2013_NHAModel.FK_AttDataManEdit_Emp" FromRole="Emp" ToRole="AttDataManEdit" />
           <NavigationProperty Name="AttMnDatas" Relationship="TAS2013_NHAModel.FK_AttMnData_Emp" FromRole="Emp" ToRole="AttMnData" />
           <NavigationProperty Name="Cards" Relationship="TAS2013_NHAModel.FK_Card_Emp" FromRole="Emp" ToRole="Card" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_Emp_Company" FromRole="Emp" ToRole="Company" />
           <NavigationProperty Name="Crew" Relationship="TAS2013_NHAModel.FK_Emp_Crew" FromRole="Emp" ToRole="Crew" />
-          <NavigationProperty Name="Designation" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Emp" ToRole="Designation" />
+          <NavigationProperty Name="Designation" Relationship="TAS2013_NHAModel.FK_Emp_Designation" FromRole="Emp" ToRole="Designation" />
+          <NavigationProperty Name="Designation1" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Emp" ToRole="Designation" />
           <NavigationProperty Name="EmergencyDetails" Relationship="TAS2013_NHAModel.FK_EmergencyDetail_Emp" FromRole="Emp" ToRole="EmergencyDetail" />
           <NavigationProperty Name="EmpPhoto" Relationship="TAS2013_NHAModel.FK_Emp_EmpPhoto" FromRole="Emp" ToRole="EmpPhoto" />
           <NavigationProperty Name="Grade" Relationship="TAS2013_NHAModel.FK_Emp_Grade" FromRole="Emp" ToRole="Grade" />
@@ -7257,7 +7282,7 @@
           <Key>
             <PropertyRef Name="LocID" />
           </Key>
-          <Property Name="LocID" Type="Int16" Nullable="false" />
+          <Property Name="LocID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="LocName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="CityID" Type="Int16" />
           <Property Name="OfficeType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
@@ -7725,7 +7750,6 @@
             <PropertyRef Name="ShiftName" />
             <PropertyRef Name="EmpNo" />
             <PropertyRef Name="EmpName" />
-            <PropertyRef Name="FpID" />
             <PropertyRef Name="ProcessAtt" />
             <PropertyRef Name="EmpID" />
             <PropertyRef Name="RegionID" />
@@ -7746,7 +7770,7 @@
           <Property Name="JobID" Type="Int16" />
           <Property Name="Gender" Type="Byte" />
           <Property Name="CardNo" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
-          <Property Name="FpID" Type="Int32" Nullable="false" />
+          <Property Name="FpID" Type="Int32" />
           <Property Name="PinCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
           <Property Name="FatherName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="NicNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
@@ -7786,6 +7810,7 @@
           <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ZoneID" Type="Int16" />
           <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="PostedAs" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewAbsent">
           <Key>
@@ -9130,9 +9155,9 @@
           <Property Name="ShiftID" Type="Byte" />
           <Property Name="SecID" Type="Int16" />
           <Property Name="DivID" Type="Int16" />
-          <Property Name="RegionID" Type="Byte" />
           <Property Name="ShifMin" Type="Int16" />
           <Property Name="StatusHL" Type="Boolean" />
+          <Property Name="RegionID" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewOverTime">
           <Key>
@@ -9702,6 +9727,18 @@
             </Principal>
             <Dependent Role="Section">
               <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Designation">
+          <End Role="Designation" Type="TAS2013_NHAModel.Designation" Multiplicity="0..1" />
+          <End Role="Emp" Type="TAS2013_NHAModel.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="PostedAs" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10917,6 +10954,7 @@
                 <ScalarProperty Name="IsSafe" ColumnName="IsSafe" />
                 <ScalarProperty Name="HasOT" ColumnName="HasOT" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="PostedAs" ColumnName="PostedAs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11579,6 +11617,7 @@
                 <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="PostedAs" ColumnName="PostedAs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -12892,9 +12931,9 @@
                 <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
                 <ScalarProperty Name="SecID" ColumnName="SecID" />
                 <ScalarProperty Name="DivID" ColumnName="DivID" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="ShifMin" ColumnName="ShifMin" />
                 <ScalarProperty Name="StatusHL" ColumnName="StatusHL" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
