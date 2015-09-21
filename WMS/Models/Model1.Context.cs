@@ -33,7 +33,6 @@ namespace WMS.Models
         public DbSet<AttMnData> AttMnDatas { get; set; }
         public DbSet<AttMnDataPer> AttMnDataPers { get; set; }
         public DbSet<AttProcess> AttProcesses { get; set; }
-        public DbSet<AttProcessor> AttProcessors { get; set; }
         public DbSet<AuditForm> AuditForms { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<AuditOperation> AuditOperations { get; set; }
@@ -93,6 +92,7 @@ namespace WMS.Models
         public DbSet<ServiceLog> ServiceLogs { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<TestLOC> TestLOCs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserAccess> UserAccesses { get; set; }
         public DbSet<UserLocation> UserLocations { get; set; }
@@ -126,6 +126,7 @@ namespace WMS.Models
         public DbSet<ViewPollData> ViewPollDatas { get; set; }
         public DbSet<ViewPresentEmp> ViewPresentEmps { get; set; }
         public DbSet<ViewSection> ViewSections { get; set; }
+        public DbSet<ViewServiceLog> ViewServiceLogs { get; set; }
         public DbSet<ViewSLData> ViewSLDatas { get; set; }
         public DbSet<ViewSummary> ViewSummaries { get; set; }
         public DbSet<ViewUserLocation> ViewUserLocations { get; set; }

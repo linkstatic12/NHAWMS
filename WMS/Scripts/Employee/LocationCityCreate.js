@@ -11,6 +11,7 @@
             // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
         });
         $('#LocID').html(items);
+            
         $('#LocDivID').show();
     });
     

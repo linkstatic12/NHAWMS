@@ -75,7 +75,7 @@
                                     </asp:TemplateField>
                                         <asp:BoundField DataField="LocID" HeaderText="ID" />
                                         <asp:BoundField DataField="LocName" HeaderText="Name" />
-                                        <asp:BoundField DataField="OfficeType" HeaderText="Office Type" />
+
                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />

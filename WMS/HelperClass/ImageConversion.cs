@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,13 +18,17 @@ namespace WMS.HelperClass
                 List<EmpPhoto> _empPhotoList = new List<EmpPhoto>();
                 EmpPhoto _EmpPhoto = new EmpPhoto();
                 int empPhotoID = 0;
+                
                 _empPhotoList = context.EmpPhotoes.Where(aa => aa.EmpID == _Emp.EmpID).ToList();
                 _EmpPhoto.EmpPic = ConvertToBytes(file);
                 if (_empPhotoList.Count > 0)
                 {
-                    //Update Existing Image
-                    _EmpPhoto.EmpID = _empPhotoList.FirstOrDefault().EmpID;
                     _EmpPhoto.PhotoID = _empPhotoList.FirstOrDefault().PhotoID;
+                    _empPhotoList.FirstOrDefault().EmpPic = _EmpPhoto.EmpPic;
+                    context.EmpPhotoes.Attach(_empPhotoList.FirstOrDefault());
+                    context.Entry(_empPhotoList.FirstOrDefault()).State = EntityState.Modified;
+                    context.SaveChanges();
+
                 }
                 else
                 {
@@ -33,6 +38,7 @@ namespace WMS.HelperClass
                 }
                 try
                 {
+
                     empPhotoID = _EmpPhoto.PhotoID;
                     context.SaveChanges();
                     return empPhotoID;
@@ -48,9 +54,23 @@ namespace WMS.HelperClass
         public byte[] ConvertToBytes(HttpPostedFileBase image)
         {
             byte[] imageBytes = null;
-            BinaryReader reader = new BinaryReader(image.InputStream);
-            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            image.InputStream.Position = 0;
+                
+            using (Stream inputStream = image.InputStream)
+            {
+                MemoryStream memoryStream = inputStream as MemoryStream;
+                if (memoryStream == null)
+                {
+                    memoryStream = new MemoryStream();
+                    inputStream.CopyTo(memoryStream);
+                }
+               imageBytes = memoryStream.ToArray();
+            }
             return imageBytes;
+        //    BinaryReader reader = new BinaryReader(image.InputStream);
+        //    imageBytes = reader.ReadBytes((int)image.ContentLength);
+        //    return imageBytes;
+        //
         }
 
         public int UploadImageInDataBase(HttpPostedFileBase file, string _empNo)

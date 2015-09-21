@@ -144,6 +144,38 @@ namespace WMS.Controllers
         public ActionResult DeleteConfirmed(short id)
         {
             Zone zone = context.Zones.Single(x => x.ZoneID == id);
+         
+            List<Region> regions = new List<Region>();
+            regions = context.Regions.Where(aa => aa.ZoneID == id).ToList();
+            foreach (var region in regions)
+            {
+
+                List<City> cities = new List<City>();
+                cities = context.Cities.Where(aa => aa.RegionID == region.RegionID).ToList();
+                foreach (var citi in cities)
+                {
+                    List<Location> locations = context.Locations.Where(aa => aa.CityID == citi.CityID).ToList();
+                    foreach (var loc in locations)
+                    {
+                        context.Locations.Remove(loc);
+                        context.SaveChanges();
+                    
+                    }
+                    context.Cities.Remove(citi);
+                    context.SaveChanges();
+                
+                }
+                context.Regions.Remove(region);
+                context.SaveChanges();
+            
+            }
+
+            List<Emp> employees = context.Emps.Where(aa => aa.ZoneID == zone.ZoneID).ToList();
+            foreach (var emp in employees)
+            {
+                context.Emps.Remove(emp);
+                context.SaveChanges();
+            }
             context.Zones.Remove(zone);
             context.SaveChanges();
             return RedirectToAction("Index");

@@ -70,5 +70,6 @@ namespace WMS.Models
         public string ZoneName { get; set; }
         public Nullable<short> ZoneID { get; set; }
         public int RegionID { get; set; }
+        public Nullable<int> PostedAs { get; set; }
     }
 }

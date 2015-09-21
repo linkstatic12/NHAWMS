@@ -223,7 +223,7 @@ namespace WMS.Reports.Filters
                 }
                 _View = _TempView.ToList();
             }
-            GridViewCity.DataSource = _View.Where(aa => aa.CityName.ToUpper().Contains(search.ToUpper())).ToList(); ;
+            GridViewCity.DataSource = _View.Where(aa => aa.CityName.ToUpper().Contains(search.ToUpper())).ToList(); 
             GridViewCity.DataBind();
            
         }

@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
     $('#DeptID').empty();
+
     var URL = '/Emp/DepartmentList';
     //var URL = '/Emp/DepartmentList';
     $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {

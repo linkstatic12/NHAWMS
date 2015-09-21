@@ -99,6 +99,15 @@
                         @Html.HiddenFor(model => model.DesigID , new { id = "selectedDesigIDHidden" })     
                             </div>
                          </div>
+  <div class="form-group">
+                            <label class="control-label col-md-3">Posted As</label>
+                            <div class="col-md-3">
+                                @*@Html.DropDownList("PostedAsID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                                @Html.ValidationMessageFor(model => model.PostedAs)*@
+                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="PostedAs" name="PostedAs"></select>
+                            @Html.HiddenFor(model => model.PostedAs , new { id = "selectedPostAsIDHidden" })     
+                            </div>
+                         </div>
                         <div class="form-group" id="GradesDivID">
                             <div class = "control-label col-md-3">
                                 <label for="Grades">Grade</label>

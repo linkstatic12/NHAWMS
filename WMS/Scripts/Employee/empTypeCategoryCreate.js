@@ -2,7 +2,6 @@
 
     $('#TypeID').empty();
     var convalue = $('#CatID').val() + "s" + $('#CompanyID').val();
-   // var URL = '/WMS/Emp/EmpTypeList';
     var URL = '/Emp/EmpTypeList';
     $.getJSON(URL + '/' + convalue, function (data) {
         var items;

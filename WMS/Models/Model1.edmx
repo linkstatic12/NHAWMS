@@ -163,7 +163,6 @@
           <EntitySet Name="AttMnData" EntityType="TAS2013_NHAModel.Store.AttMnData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttMnDataPer" EntityType="TAS2013_NHAModel.Store.AttMnDataPer" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AttProcess" EntityType="TAS2013_NHAModel.Store.AttProcess" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AttProcessor" EntityType="TAS2013_NHAModel.Store.AttProcessor" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditForm" EntityType="TAS2013_NHAModel.Store.AuditForm" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditLog" EntityType="TAS2013_NHAModel.Store.AuditLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AuditOperation" EntityType="TAS2013_NHAModel.Store.AuditOperation" store:Type="Tables" store:Schema="dbo" store:Name="AuditOperation">
@@ -228,6 +227,7 @@
           <EntitySet Name="ServiceLog" EntityType="TAS2013_NHAModel.Store.ServiceLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Shift" EntityType="TAS2013_NHAModel.Store.Shift" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="TAS2013_NHAModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TestLOC" EntityType="TAS2013_NHAModel.Store.TestLOC" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="TAS2013_NHAModel.Store.User" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserAccess" EntityType="TAS2013_NHAModel.Store.UserAccess" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLocation" EntityType="TAS2013_NHAModel.Store.UserLocation" store:Type="Tables" Schema="dbo" />
@@ -290,7 +290,8 @@
       [EmpView].[RegionName] AS [RegionName], 
       [EmpView].[ZoneName] AS [ZoneName], 
       [EmpView].[ZoneID] AS [ZoneID], 
-      [EmpView].[RegionID] AS [RegionID]
+      [EmpView].[RegionID] AS [RegionID], 
+      [EmpView].[PostedAs] AS [PostedAs]
       FROM [dbo].[EmpView] AS [EmpView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewAbsent" EntityType="TAS2013_NHAModel.Store.ViewAbsent" store:Type="Views" store:Schema="dbo" store:Name="ViewAbsent">
@@ -406,9 +407,9 @@
       [ViewAttData].[BreakMin] AS [BreakMin], 
       [ViewAttData].[SLMin] AS [SLMin], 
       [ViewAttData].[ShifMin] AS [ShifMin], 
-      [ViewAttData].[StatusHL] AS [StatusHL], 
       [ViewAttData].[StatusSL] AS [StatusSL], 
       [ViewAttData].[StatusOD] AS [StatusOD], 
+      [ViewAttData].[StatusHL] AS [StatusHL], 
       [ViewAttData].[StatusMN] AS [StatusMN], 
       [ViewAttData].[StatusIN] AS [StatusIN]
       FROM [dbo].[ViewAttData] AS [ViewAttData]</DefiningQuery>
@@ -1558,9 +1559,9 @@
       [ViewMultipleInOut].[ShiftID] AS [ShiftID], 
       [ViewMultipleInOut].[SecID] AS [SecID], 
       [ViewMultipleInOut].[DivID] AS [DivID], 
-      [ViewMultipleInOut].[RegionID] AS [RegionID], 
       [ViewMultipleInOut].[ShifMin] AS [ShifMin], 
-      [ViewMultipleInOut].[StatusHL] AS [StatusHL]
+      [ViewMultipleInOut].[StatusHL] AS [StatusHL], 
+      [ViewMultipleInOut].[RegionID] AS [RegionID]
       FROM [dbo].[ViewMultipleInOut] AS [ViewMultipleInOut]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewOverTime" EntityType="TAS2013_NHAModel.Store.ViewOverTime" store:Type="Views" store:Schema="dbo" store:Name="ViewOverTime">
@@ -1730,6 +1731,17 @@
       [ViewSection].[DivID] AS [DivID]
       FROM [dbo].[ViewSection] AS [ViewSection]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViewServiceLog" EntityType="TAS2013_NHAModel.Store.ViewServiceLog" store:Type="Views" store:Schema="dbo" store:Name="ViewServiceLog">
+            <DefiningQuery>SELECT 
+      [ViewServiceLog].[Processed] AS [Processed], 
+      [ViewServiceLog].[DateTime] AS [DateTime], 
+      [ViewServiceLog].[Description] AS [Description], 
+      [ViewServiceLog].[ErrorCode] AS [ErrorCode], 
+      [ViewServiceLog].[LogID] AS [LogID], 
+      [ViewServiceLog].[RdrName] AS [RdrName], 
+      [ViewServiceLog].[IpAdd] AS [IpAdd]
+      FROM [dbo].[ViewServiceLog] AS [ViewServiceLog]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ViewSLData" EntityType="TAS2013_NHAModel.Store.ViewSLData" store:Type="Views" store:Schema="dbo" store:Name="ViewSLData">
             <DefiningQuery>SELECT 
       [ViewSLData].[DesignationName] AS [DesignationName], 
@@ -1897,6 +1909,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Crew" Association="TAS2013_NHAModel.Store.FK_Emp_Crew">
             <End Role="Crew" EntitySet="Crew" />
+            <End Role="Emp" EntitySet="Emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Designation" Association="TAS2013_NHAModel.Store.FK_Emp_Designation">
+            <End Role="Designation" EntitySet="Designation" />
             <End Role="Emp" EntitySet="Emp" />
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Designation1" Association="TAS2013_NHAModel.Store.FK_Emp_Designation1">
@@ -2554,20 +2570,6 @@
           </Key>
           <Property Name="ProcessDate" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="AttProcessor">
-          <Key>
-            <PropertyRef Name="ProcessorID" />
-          </Key>
-          <Property Name="DateFrom" Type="date" />
-          <Property Name="DateTo" Type="date" />
-          <Property Name="ProcessingDone" Type="bit" />
-          <Property Name="WhenToProcess" Type="date" />
-          <Property Name="MonthPeriod" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="ProcessorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyID" Type="smallint" />
-          <Property Name="LocationID" Type="smallint" />
-          <Property Name="CatID" Type="smallint" />
-        </EntityType>
         <EntityType Name="AuditForm">
           <Key>
             <PropertyRef Name="FormID" />
@@ -2688,10 +2690,10 @@
           <Property Name="AExpectedMins" Type="smallint" />
           <Property Name="AActualMins" Type="smallint" />
           <Property Name="ALossMins" Type="smallint" />
-          <Property Name="AvgTimeIn" Type="time" />
-          <Property Name="AvgTimeOut" Type="time" />
           <Property Name="CriteriaValue" Type="smallint" />
           <Property Name="CriteriaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AvgTimeIn" Type="time" />
+          <Property Name="AvgTimeOut" Type="time" />
         </EntityType>
         <EntityType Name="DaysName">
           <Key>
@@ -2846,6 +2848,7 @@
           <Property Name="IsSafe" Type="bit" />
           <Property Name="HasOT" Type="bit" />
           <Property Name="ZoneID" Type="smallint" />
+          <Property Name="PostedAs" Type="int" />
         </EntityType>
         <EntityType Name="EmpAccess">
           <Key>
@@ -2882,7 +2885,7 @@
             <PropertyRef Name="PhotoID" />
           </Key>
           <Property Name="PhotoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="EmpPic" Type="varbinary(max)" />
+          <Property Name="EmpPic" Type="image" />
           <Property Name="EmpID" Type="int" />
         </EntityType>
         <EntityType Name="EmpPresence">
@@ -2993,9 +2996,10 @@
           <Key>
             <PropertyRef Name="LocID" />
           </Key>
-          <Property Name="LocID" Type="smallint" Nullable="false" />
+          <Property Name="LocID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LocName" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="CityID" Type="smallint" />
+          <Property Name="OfficeType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LvApplication">
           <Key>
@@ -3322,6 +3326,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TestLOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityID" Type="int" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -3392,7 +3405,7 @@
             <PropertyRef Name="ZoneID" />
           </Key>
           <Property Name="ZoneID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ZoneName" Type="nchar" MaxLength="50" />
+          <Property Name="ZoneName" Type="nchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.EmpView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3464,6 +3477,7 @@
           <Property Name="ZoneName" Type="nvarchar" MaxLength="50" />
           <Property Name="ZoneID" Type="smallint" />
           <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="PostedAs" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewAbsent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3587,9 +3601,9 @@
           <Property Name="BreakMin" Type="smallint" />
           <Property Name="SLMin" Type="time" />
           <Property Name="ShifMin" Type="smallint" />
-          <Property Name="StatusHL" Type="bit" />
           <Property Name="StatusSL" Type="bit" />
           <Property Name="StatusOD" Type="bit" />
+          <Property Name="StatusHL" Type="bit" />
           <Property Name="StatusMN" Type="bit" />
           <Property Name="StatusIN" Type="bit" />
         </EntityType>
@@ -4877,9 +4891,9 @@
           <Property Name="ShiftID" Type="tinyint" />
           <Property Name="SecID" Type="smallint" />
           <Property Name="DivID" Type="smallint" />
-          <Property Name="RegionID" Type="tinyint" />
           <Property Name="ShifMin" Type="smallint" />
           <Property Name="StatusHL" Type="bit" />
+          <Property Name="RegionID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewOverTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5066,6 +5080,26 @@
           <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
           <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
           <Property Name="DivID" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TAS2013_NHA.dbo.ViewServiceLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ViewServiceLog">
+          <Key>
+            <PropertyRef Name="DateTime" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="ErrorCode" />
+            <PropertyRef Name="LogID" />
+            <PropertyRef Name="RdrName" />
+            <PropertyRef Name="IpAdd" />
+          </Key>
+          <Property Name="Processed" Type="bit" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ErrorCode" Type="tinyint" Nullable="false" />
+          <Property Name="LogID" Type="int" Nullable="false" />
+          <Property Name="RdrName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IpAdd" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewSLData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5369,6 +5403,18 @@
             </Principal>
             <Dependent Role="Emp">
               <PropertyRef Name="CrewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Designation">
+          <End Role="Designation" Type="TAS2013_NHAModel.Store.Designation" Multiplicity="0..1" />
+          <End Role="Emp" Type="TAS2013_NHAModel.Store.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="PostedAs" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5940,7 +5986,6 @@
           <EntitySet Name="AttMnDatas" EntityType="TAS2013_NHAModel.AttMnData" />
           <EntitySet Name="AttMnDataPers" EntityType="TAS2013_NHAModel.AttMnDataPer" />
           <EntitySet Name="AttProcesses" EntityType="TAS2013_NHAModel.AttProcess" />
-          <EntitySet Name="AttProcessors" EntityType="TAS2013_NHAModel.AttProcessor" />
           <EntitySet Name="AuditForms" EntityType="TAS2013_NHAModel.AuditForm" />
           <EntitySet Name="AuditLogs" EntityType="TAS2013_NHAModel.AuditLog" />
           <EntitySet Name="AuditOperations" EntityType="TAS2013_NHAModel.AuditOperation" />
@@ -6000,6 +6045,7 @@
           <EntitySet Name="ServiceLogs" EntityType="TAS2013_NHAModel.ServiceLog" />
           <EntitySet Name="Shifts" EntityType="TAS2013_NHAModel.Shift" />
           <EntitySet Name="sysdiagrams" EntityType="TAS2013_NHAModel.sysdiagram" />
+          <EntitySet Name="TestLOCs" EntityType="TAS2013_NHAModel.TestLOC" />
           <EntitySet Name="Users" EntityType="TAS2013_NHAModel.User" />
           <EntitySet Name="UserAccesses" EntityType="TAS2013_NHAModel.UserAccess" />
           <EntitySet Name="UserLocations" EntityType="TAS2013_NHAModel.UserLocation" />
@@ -6033,6 +6079,7 @@
           <EntitySet Name="ViewPollDatas" EntityType="TAS2013_NHAModel.ViewPollData" />
           <EntitySet Name="ViewPresentEmps" EntityType="TAS2013_NHAModel.ViewPresentEmp" />
           <EntitySet Name="ViewSections" EntityType="TAS2013_NHAModel.ViewSection" />
+          <EntitySet Name="ViewServiceLogs" EntityType="TAS2013_NHAModel.ViewServiceLog" />
           <EntitySet Name="ViewSLDatas" EntityType="TAS2013_NHAModel.ViewSLData" />
           <EntitySet Name="ViewSummaries" EntityType="TAS2013_NHAModel.ViewSummary" />
           <EntitySet Name="ViewUserLocations" EntityType="TAS2013_NHAModel.ViewUserLocation" />
@@ -6119,6 +6166,10 @@
           <AssociationSet Name="FK_Section_Department" Association="TAS2013_NHAModel.FK_Section_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Designation" Association="TAS2013_NHAModel.FK_Emp_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Emp" EntitySet="Emps" />
           </AssociationSet>
           <AssociationSet Name="FK_Emp_Designation1" Association="TAS2013_NHAModel.FK_Emp_Designation1">
             <End Role="Designation" EntitySet="Designations" />
@@ -6747,20 +6798,6 @@
           </Key>
           <Property Name="ProcessDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EntityType Name="AttProcessor">
-          <Key>
-            <PropertyRef Name="ProcessorID" />
-          </Key>
-          <Property Name="DateFrom" Type="DateTime" Precision="0" />
-          <Property Name="DateTo" Type="DateTime" Precision="0" />
-          <Property Name="ProcessingDone" Type="Boolean" />
-          <Property Name="WhenToProcess" Type="DateTime" Precision="0" />
-          <Property Name="MonthPeriod" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="ProcessorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyID" Type="Int16" />
-          <Property Name="LocationID" Type="Int16" />
-          <Property Name="CatID" Type="Int16" />
-        </EntityType>
         <EntityType Name="AuditForm">
           <Key>
             <PropertyRef Name="FormID" />
@@ -6894,10 +6931,10 @@
           <Property Name="AExpectedMins" Type="Int16" />
           <Property Name="AActualMins" Type="Int16" />
           <Property Name="ALossMins" Type="Int16" />
-          <Property Name="AvgTimeIn" Type="Time" Precision="7" />
-          <Property Name="AvgTimeOut" Type="Time" Precision="7" />
           <Property Name="CriteriaValue" Type="Int16" />
           <Property Name="CriteriaName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="AvgTimeIn" Type="Time" Precision="7" />
+          <Property Name="AvgTimeOut" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="DaysName">
           <Key>
@@ -6926,7 +6963,8 @@
           <Property Name="DesignationName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CompanyID" Type="Int16" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_Designation_Company" FromRole="Designation" ToRole="Company" />
-          <NavigationProperty Name="Emps" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Designation" ToRole="Emp" />
+          <NavigationProperty Name="Emps" Relationship="TAS2013_NHAModel.FK_Emp_Designation" FromRole="Designation" ToRole="Emp" />
+          <NavigationProperty Name="Emps1" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Designation" ToRole="Emp" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -7062,13 +7100,15 @@
           <Property Name="IsSafe" Type="Boolean" />
           <Property Name="HasOT" Type="Boolean" />
           <Property Name="ZoneID" Type="Int16" />
+          <Property Name="PostedAs" Type="Int32" />
           <NavigationProperty Name="AttDatas" Relationship="TAS2013_NHAModel.FK_AttData_Emp" FromRole="Emp" ToRole="AttData" />
           <NavigationProperty Name="AttDataManEdits" Relationship="TAS2013_NHAModel.FK_AttDataManEdit_Emp" FromRole="Emp" ToRole="AttDataManEdit" />
           <NavigationProperty Name="AttMnDatas" Relationship="TAS2013_NHAModel.FK_AttMnData_Emp" FromRole="Emp" ToRole="AttMnData" />
           <NavigationProperty Name="Cards" Relationship="TAS2013_NHAModel.FK_Card_Emp" FromRole="Emp" ToRole="Card" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_Emp_Company" FromRole="Emp" ToRole="Company" />
           <NavigationProperty Name="Crew" Relationship="TAS2013_NHAModel.FK_Emp_Crew" FromRole="Emp" ToRole="Crew" />
-          <NavigationProperty Name="Designation" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Emp" ToRole="Designation" />
+          <NavigationProperty Name="Designation" Relationship="TAS2013_NHAModel.FK_Emp_Designation" FromRole="Emp" ToRole="Designation" />
+          <NavigationProperty Name="Designation1" Relationship="TAS2013_NHAModel.FK_Emp_Designation1" FromRole="Emp" ToRole="Designation" />
           <NavigationProperty Name="EmergencyDetails" Relationship="TAS2013_NHAModel.FK_EmergencyDetail_Emp" FromRole="Emp" ToRole="EmergencyDetail" />
           <NavigationProperty Name="EmpPhoto" Relationship="TAS2013_NHAModel.FK_Emp_EmpPhoto" FromRole="Emp" ToRole="EmpPhoto" />
           <NavigationProperty Name="Grade" Relationship="TAS2013_NHAModel.FK_Emp_Grade" FromRole="Emp" ToRole="Grade" />
@@ -7242,9 +7282,10 @@
           <Key>
             <PropertyRef Name="LocID" />
           </Key>
-          <Property Name="LocID" Type="Int16" Nullable="false" />
+          <Property Name="LocID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="LocName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="CityID" Type="Int16" />
+          <Property Name="OfficeType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="City" Relationship="TAS2013_NHAModel.FK_Location_City" FromRole="Location" ToRole="City" />
           <NavigationProperty Name="Emps" Relationship="TAS2013_NHAModel.FK_Emp_Location" FromRole="Location" ToRole="Emp" />
           <NavigationProperty Name="Readers" Relationship="TAS2013_NHAModel.FK_Reader_Location" FromRole="Location" ToRole="Reader" />
@@ -7614,6 +7655,15 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="TestLOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CityID" Type="Int32" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -7691,7 +7741,7 @@
             <PropertyRef Name="ZoneID" />
           </Key>
           <Property Name="ZoneID" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="ZoneName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
         </EntityType>
         <EntityType Name="EmpView">
           <Key>
@@ -7760,6 +7810,7 @@
           <Property Name="ZoneName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ZoneID" Type="Int16" />
           <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="PostedAs" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewAbsent">
           <Key>
@@ -7877,9 +7928,9 @@
           <Property Name="BreakMin" Type="Int16" />
           <Property Name="SLMin" Type="Time" Precision="7" />
           <Property Name="ShifMin" Type="Int16" />
-          <Property Name="StatusHL" Type="Boolean" />
           <Property Name="StatusSL" Type="Boolean" />
           <Property Name="StatusOD" Type="Boolean" />
+          <Property Name="StatusHL" Type="Boolean" />
           <Property Name="StatusMN" Type="Boolean" />
           <Property Name="StatusIN" Type="Boolean" />
         </EntityType>
@@ -9104,9 +9155,9 @@
           <Property Name="ShiftID" Type="Byte" />
           <Property Name="SecID" Type="Int16" />
           <Property Name="DivID" Type="Int16" />
-          <Property Name="RegionID" Type="Byte" />
           <Property Name="ShifMin" Type="Int16" />
           <Property Name="StatusHL" Type="Boolean" />
+          <Property Name="RegionID" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewOverTime">
           <Key>
@@ -9281,6 +9332,23 @@
           <Property Name="DeptName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="DivisionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="DivID" Type="Int16" />
+        </EntityType>
+        <EntityType Name="ViewServiceLog">
+          <Key>
+            <PropertyRef Name="DateTime" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="ErrorCode" />
+            <PropertyRef Name="LogID" />
+            <PropertyRef Name="RdrName" />
+            <PropertyRef Name="IpAdd" />
+          </Key>
+          <Property Name="Processed" Type="Boolean" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ErrorCode" Type="Byte" Nullable="false" />
+          <Property Name="LogID" Type="Int32" Nullable="false" />
+          <Property Name="RdrName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IpAdd" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="ViewSLData">
           <Key>
@@ -9659,6 +9727,18 @@
             </Principal>
             <Dependent Role="Section">
               <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Designation">
+          <End Role="Designation" Type="TAS2013_NHAModel.Designation" Multiplicity="0..1" />
+          <End Role="Emp" Type="TAS2013_NHAModel.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="PostedAs" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10579,21 +10659,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AttProcessors">
-            <EntityTypeMapping TypeName="TAS2013_NHAModel.AttProcessor">
-              <MappingFragment StoreEntitySet="AttProcessor">
-                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
-                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
-                <ScalarProperty Name="ProcessingDone" ColumnName="ProcessingDone" />
-                <ScalarProperty Name="WhenToProcess" ColumnName="WhenToProcess" />
-                <ScalarProperty Name="MonthPeriod" ColumnName="MonthPeriod" />
-                <ScalarProperty Name="ProcessorID" ColumnName="ProcessorID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="CatID" ColumnName="CatID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AuditForms">
             <EntityTypeMapping TypeName="TAS2013_NHAModel.AuditForm">
               <MappingFragment StoreEntitySet="AuditForm">
@@ -10719,10 +10784,10 @@
                 <ScalarProperty Name="AExpectedMins" ColumnName="AExpectedMins" />
                 <ScalarProperty Name="AActualMins" ColumnName="AActualMins" />
                 <ScalarProperty Name="ALossMins" ColumnName="ALossMins" />
-                <ScalarProperty Name="AvgTimeIn" ColumnName="AvgTimeIn" />
-                <ScalarProperty Name="AvgTimeOut" ColumnName="AvgTimeOut" />
                 <ScalarProperty Name="CriteriaValue" ColumnName="CriteriaValue" />
                 <ScalarProperty Name="CriteriaName" ColumnName="CriteriaName" />
+                <ScalarProperty Name="AvgTimeIn" ColumnName="AvgTimeIn" />
+                <ScalarProperty Name="AvgTimeOut" ColumnName="AvgTimeOut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10889,6 +10954,7 @@
                 <ScalarProperty Name="IsSafe" ColumnName="IsSafe" />
                 <ScalarProperty Name="HasOT" ColumnName="HasOT" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="PostedAs" ColumnName="PostedAs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11053,6 +11119,7 @@
                 <ScalarProperty Name="LocID" ColumnName="LocID" />
                 <ScalarProperty Name="LocName" ColumnName="LocName" />
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="OfficeType" ColumnName="OfficeType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11404,6 +11471,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TestLOCs">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.TestLOC">
+              <MappingFragment StoreEntitySet="TestLOC">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TAS2013_NHAModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -11540,6 +11617,7 @@
                 <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="PostedAs" ColumnName="PostedAs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11659,9 +11737,9 @@
                 <ScalarProperty Name="BreakMin" ColumnName="BreakMin" />
                 <ScalarProperty Name="SLMin" ColumnName="SLMin" />
                 <ScalarProperty Name="ShifMin" ColumnName="ShifMin" />
-                <ScalarProperty Name="StatusHL" ColumnName="StatusHL" />
                 <ScalarProperty Name="StatusSL" ColumnName="StatusSL" />
                 <ScalarProperty Name="StatusOD" ColumnName="StatusOD" />
+                <ScalarProperty Name="StatusHL" ColumnName="StatusHL" />
                 <ScalarProperty Name="StatusMN" ColumnName="StatusMN" />
                 <ScalarProperty Name="StatusIN" ColumnName="StatusIN" />
               </MappingFragment>
@@ -12853,9 +12931,9 @@
                 <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
                 <ScalarProperty Name="SecID" ColumnName="SecID" />
                 <ScalarProperty Name="DivID" ColumnName="DivID" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="ShifMin" ColumnName="ShifMin" />
                 <ScalarProperty Name="StatusHL" ColumnName="StatusHL" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13031,6 +13109,19 @@
                 <ScalarProperty Name="DeptName" ColumnName="DeptName" />
                 <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
                 <ScalarProperty Name="DivID" ColumnName="DivID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewServiceLogs">
+            <EntityTypeMapping TypeName="TAS2013_NHAModel.ViewServiceLog">
+              <MappingFragment StoreEntitySet="ViewServiceLog">
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="RdrName" ColumnName="RdrName" />
+                <ScalarProperty Name="IpAdd" ColumnName="IpAdd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
