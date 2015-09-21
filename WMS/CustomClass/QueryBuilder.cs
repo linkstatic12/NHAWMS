@@ -347,12 +347,12 @@ namespace WMS.CustomClass
                         Location loc = ctx.Locations.Where(aa => aa.LocID == uaccess.CriteriaData).FirstOrDefault();
                         City city = ctx.Cities.Where(aa => aa.CityID == loc.CityID).FirstOrDefault();
                         Region region = ctx.Regions.Where(aa => aa.RegionID == city.RegionID).FirstOrDefault();
-                        query = query + "ZoneID=" + region.ZoneID + " or ";
+                        query = query + "ZoneID= " + region.ZoneID + " or ";
 
 
                     } query = query.Substring(0, query.Length - 4);
                     return query;
-                case "SuperUser": query = "ZoneID>0";
+                case "SuperUser": query = "ZoneID > 0 ";
                     return query;
 
 
@@ -521,7 +521,35 @@ namespace WMS.CustomClass
         }
 
 
+        public string CheckForUserRole(User user)
+        {
+            string val = "";
+            using (var ctx = new TAS2013Entities())
+            {
+                string criteria = ctx.UserAccesses.Where(aa => aa.UserID == user.UserID).FirstOrDefault().Criteria;
+                switch (criteria.Trim())
+                {
+                    case "Z":
+                        val = "Zone";
+                        break;
 
+                    case "R":
+                        val="Region";
+                        break;
+                    case "C":
+                        val = "City";
+                        break;
+                    case "L":
+                        val = "Location";
+                        break;
+                        case "S":
+                        val = "SuperUser";
+                        break;
+                }
+                ctx.Dispose();
+            }
+            return val;
+        }
 
 
         public string QueryForCompanyViewForLinq(User _User)
