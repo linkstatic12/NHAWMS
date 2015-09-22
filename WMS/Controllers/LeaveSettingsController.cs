@@ -38,7 +38,7 @@ namespace WMS.Controllers
                 case "company":
                     string companyIDs = Request.Form["CompanyID"].ToString();
                     int compID = Convert.ToInt32(Request.Form["CompanyID"].ToString());
-                    _Emp = db.Emps.Where(aa => aa.CompanyID == compID && aa.EmpType.CatID == catID).ToList();
+                    _Emp = db.Emps.Where(aa => aa.CompanyID == compID).ToList();
                     break;
                 case "location":
                     int locID = Convert.ToInt32(Request.Form["LocationID"].ToString());
