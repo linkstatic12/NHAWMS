@@ -51,16 +51,23 @@ namespace WMS.Controllers
             decimal RemainingLeaves;
             using (var ctx = new TAS2013Entities())
             {
-                List<LvConsumed> _lvConsumed = new List<LvConsumed>();
-                string empLvType = _lvapp.EmpID.ToString() + _lvapp.LvType;
-                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
-                RemainingLeaves = (decimal)_lvConsumed.FirstOrDefault().YearRemaining;
-                if ((RemainingLeaves - Convert.ToDecimal(_lvapp.NoOfDays)) >= 0)
+                List<LvType> lvTypes = new List<LvType>();
+                lvTypes = ctx.LvTypes.Where(aa => aa.LvType1 == _lvapp.LvType).ToList();
+                if (lvTypes.First().UpdateBalance == true)
                 {
-                    balance= true;
+                    List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+                    string empLvType = _lvapp.EmpID.ToString() + _lvapp.LvType;
+                    _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
+                    RemainingLeaves = (decimal)_lvConsumed.FirstOrDefault().YearRemaining;
+                    if ((RemainingLeaves - Convert.ToDecimal(_lvapp.NoOfDays)) >= 0)
+                    {
+                        balance = true;
+                    }
+                    else
+                        balance = false;
                 }
                 else
-                    balance= false;
+                    balance = true;
 
             }
 
@@ -792,9 +799,20 @@ namespace WMS.Controllers
             using (var ctx = new TAS2013Entities())
             {
                 List<LvConsumed> lv = new List<LvConsumed>();
-                lv = ctx.LvConsumeds.Where(aa => aa.EmpID == empID && aa.LeaveType == lvType).ToList();
-                if (lv.Count > 0)
-                    check = true;
+                List<LvType> lvTypes = new List<LvType>();
+                lvTypes = ctx.LvTypes.Where(aa => aa.LvType1 == lvType).ToList();
+                if (lvTypes.Count > 0)
+                {
+                    if (lvTypes.First().UpdateBalance == true)
+                    {
+                        lv = ctx.LvConsumeds.Where(aa => aa.EmpID == empID && aa.LeaveType == lvType).ToList();
+                        if (lv.Count > 0)
+                            check = true;
+                    }
+                    else
+                        check = true;
+                }
+                
             }
             return check;
         }

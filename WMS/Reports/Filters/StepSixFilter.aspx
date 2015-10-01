@@ -61,6 +61,7 @@
                                         <%--<li><a href="../ReportContainer.aspx?reportname=lv_application">Leave Application</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=short_lv">Short Leave</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=late_in">Late In</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=late_in_short">Late In (Short Work Minutes)</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=late_out">Late Out</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=early_in">Early In</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=early_out">Early Out</a></li>

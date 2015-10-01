@@ -229,11 +229,22 @@ namespace WMS.Reports
                                                     PathString = "/Reports/RDLC/DRLateIn.rdlc";
                                                 else
                                                     PathString = "/WMS/Reports/RDLC/DRLateIn.rdlc";
-
+                        
                                                 LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
                                                 break;
+                         case "late_in_short": dt8 = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
+                                                    + _dateTo + "'" + " )" + " and StatusLI=1 and WorkMin < 480 ");
+                                                 _ViewList8 = dt8.ToList<ViewAttData>();
+                                                 _TempViewList8 = new List<ViewAttData>();
+                                                title = "Late In Report (Short Work Minutes)";
+                                                if (GlobalVariables.DeploymentType == false)
+                                                    PathString = "/Reports/RDLC/DRLateIn.rdlc";
+                                                else
+                                                    PathString = "/WMS/Reports/RDLC/DRLateIn.rdlc";
+                                                LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewList8, _ViewList8), _dateFrom + " TO " + _dateTo);
 
+                                                break;
                     case "late_out":        dt = qb.GetValuesfromDB("select * from ViewAttData " + query + "(AttDate >= " + "'" + _dateFrom + "'" + " and AttDate <= " + "'"
                                                    + _dateTo + "'" + " )" + " and StatusLO=1 ");
                                                 _ViewList8 = dt.ToList<ViewAttData>();
