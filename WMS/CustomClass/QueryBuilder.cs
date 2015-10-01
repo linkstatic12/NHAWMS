@@ -101,7 +101,7 @@ namespace WMS.CustomClass
             for (int i = 0; i < _CriteriaForOr.Count - 1; i++)
             {
                 subQuery = subQuery + _CriteriaForOr[i] + " or ";
-            }
+            } if (_CriteriaForOr.Count > 0)
             subQuery = subQuery + _CriteriaForOr[_CriteriaForOr.Count - 1];
             subQuery = subQuery + " ) ";
             query = query + subQuery + subQueryLoc;
