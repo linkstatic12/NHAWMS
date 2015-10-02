@@ -1,0 +1,41 @@
+@model IEnumerable<WMS.Models.Region>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            RegionName
+        </th>
+        <th>
+            Cities
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RegionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RegionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RegionID })
+        </td>
+        <td>
+			@item.RegionName
+        </td>
+        <td>
+			@(item.Cities == null ? "None" : item.Cities.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

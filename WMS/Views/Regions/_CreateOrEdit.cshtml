@@ -1,0 +1,23 @@
+@model WMS.Models.Region
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.RegionName)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.RegionName)
+    @Html.ValidationMessageFor(model => model.RegionName)
+</div>
+
+<div class="editor-label">
+    Zone
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.ZoneID, ((IEnumerable<WMS.Models.Zone>)ViewBag.PossibleZones).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option).ToString(), 
+        Value = option.ZoneID.ToString(),
+        Selected = (Model != null) && (option.ZoneID == Model.ZoneID)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.ZoneID)
+</div>

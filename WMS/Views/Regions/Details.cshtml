@@ -1,0 +1,23 @@
+@model WMS.Models.Region
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Region</legend>
+
+    <div class="display-label">RegionName</div>
+    <div class="display-field">@Model.RegionName</div>
+
+    <div class="display-label">Cities</div>
+    <div class="display-field">@(Model.Cities == null ? "None" : Model.Cities.Count.ToString())</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RegionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
