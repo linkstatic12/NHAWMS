@@ -1086,8 +1086,7 @@
       [ViewLvApplication].[LvStatus] AS [LvStatus], 
       [ViewLvApplication].[Active] AS [Active], 
       [ViewLvApplication].[LvDesc] AS [LvDesc], 
-      [ViewLvApplication].[UserName] AS [UserName], 
-      [ViewLvApplication].[ZoneID] AS [ZoneID]
+      [ViewLvApplication].[UserName] AS [UserName]
       FROM [dbo].[ViewLvApplication] AS [ViewLvApplication]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewLvConsumed" EntityType="TAS2013_NHAModel.Store.ViewLvConsumed" store:Type="Views" store:Schema="dbo" store:Name="ViewLvConsumed">
@@ -3006,7 +3005,7 @@
           <Key>
             <PropertyRef Name="LvID" />
           </Key>
-          <Property Name="LvID" Type="int" Nullable="false" />
+          <Property Name="LvID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LvDate" Type="date" Nullable="false" />
           <Property Name="LvType" Type="char" Nullable="false" MaxLength="1" />
           <Property Name="EmpID" Type="int" Nullable="false" />
@@ -4335,15 +4334,15 @@
             <PropertyRef Name="NoOfDays" />
             <PropertyRef Name="LvDesc" />
           </Key>
-          <Property Name="DesignationName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
           <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
           <Property Name="CompName" Type="nvarchar" MaxLength="50" />
           <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="CityName" Type="nvarchar" MaxLength="50" />
           <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LocName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LocName" Type="varchar" MaxLength="30" />
           <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
-          <Property Name="TypeName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TypeName" Type="varchar" MaxLength="30" />
           <Property Name="CatName" Type="nvarchar" MaxLength="50" />
           <Property Name="ShiftName" Type="nvarchar" MaxLength="50" />
           <Property Name="EmpNo" Type="nvarchar" MaxLength="50" />
@@ -4354,7 +4353,7 @@
           <Property Name="ResignDate" Type="date" />
           <Property Name="ProcessAtt" Type="bit" />
           <Property Name="Status" Type="bit" />
-          <Property Name="SectionName" Type="nvarchar" MaxLength="500" />
+          <Property Name="SectionName" Type="nvarchar" MaxLength="50" />
           <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
           <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
           <Property Name="CompanyID" Type="smallint" />
@@ -4385,7 +4384,6 @@
           <Property Name="Active" Type="bit" />
           <Property Name="LvDesc" Type="nvarchar" Nullable="false" MaxLength="30" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ZoneID" Type="smallint" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewLvConsumed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -7298,7 +7296,7 @@
           <Key>
             <PropertyRef Name="LvID" />
           </Key>
-          <Property Type="Int32" Name="LvID" Nullable="false" />
+          <Property Type="Int32" Name="LvID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="LvDate" Nullable="false" Precision="0" />
           <Property Type="String" Name="LvType" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="EmpID" Nullable="false" />
@@ -8614,15 +8612,15 @@
             <PropertyRef Name="NoOfDays" />
             <PropertyRef Name="LvDesc" />
           </Key>
-          <Property Type="String" Name="DesignationName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="GradeName" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CompName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="JobTitle" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CityName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="RegionName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LocName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LocName" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CrewName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="TypeName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TypeName" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CatName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ShiftName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EmpNo" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -8633,7 +8631,7 @@
           <Property Type="DateTime" Name="ResignDate" Precision="0" />
           <Property Type="Boolean" Name="ProcessAtt" />
           <Property Type="Boolean" Name="Status" />
-          <Property Type="String" Name="SectionName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SectionName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="DeptName" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int16" Name="CompanyID" />
@@ -8664,7 +8662,6 @@
           <Property Type="Boolean" Name="Active" />
           <Property Type="String" Name="LvDesc" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int16" Name="ZoneID" />
         </EntityType>
         <EntityType Name="ViewLvConsumed">
           <Key>
@@ -12401,7 +12398,6 @@
           <EntitySetMapping Name="ViewLvApplications">
             <EntityTypeMapping TypeName="TAS2013_NHAModel.ViewLvApplication">
               <MappingFragment StoreEntitySet="ViewLvApplication">
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LvDesc" ColumnName="LvDesc" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
