@@ -31,10 +31,10 @@
                     </div>
                 </div>
                  <div class="row" style="margin-left:10%; margin-bottom:3%">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label>Date</label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="DateFrom" name="DateFrom" value="@ViewData["datef"]" type="date" class="form-control"/>
 
                     </div>
@@ -62,7 +62,7 @@
         </article>
         }
     </section>
-    @*<section class="col-md-6">
+    <section class="col-md-6">
         <p style="font-size:16px; margin-bottom:15px;">Assign Job Card</p>
         @using (Html.BeginForm("EditAttJobCard", "EditAttendance", FormMethod.Post))
         {
@@ -75,18 +75,18 @@
                     <div class="radio"><label><input type="radio" checked value="employee" name="cars">By Employee</label></div>
                 </div>
                 <div class="row" style="margin-left:10%; margin-bottom:3%">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label>From</label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="JobDateFrom" name="JobDateFrom" value="@ViewData["JobDateFrom"]" type="date" class="form-control"/>
                     </div>
                 </div>
                  <div class="row" style="margin-left:10%; margin-bottom:3%">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label>To</label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="JobDateTo" name="JobDateTo" type="date" value="@ViewData["JobDateTo"]" class="form-control"/>
                     </div>
                 </div>
@@ -160,6 +160,6 @@
             </section>
         </article>
         }
-    </section>*@
+    </section>
 </article>
 <script src="@Url.Content("~/Scripts/EditAttendance.js")"></script>

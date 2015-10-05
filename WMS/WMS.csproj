@@ -184,6 +184,7 @@
     <Content Include="Reports\Filters\StepSixFilter.aspx" />
     <Content Include="Reports\Filters\StepThreeFilter.aspx" />
     <Content Include="Reports\Filters\StepTwoFilter.aspx" />
+    <Content Include="Reports\Filters\SummaryReports.aspx" />
     <Content Include="Reports\LeaveDatewise.aspx" />
     <Content Include="Reports\LvQuota.aspx" />
     <Content Include="Reports\MDetailExcelC.aspx" />
@@ -195,6 +196,7 @@
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
     <Content Include="Reports\ReportContainer.aspx" />
+    <Content Include="Reports\SummaryReports.aspx" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
@@ -976,6 +978,13 @@
     <Compile Include="Reports\Filters\StepTwoFilter.aspx.designer.cs">
       <DependentUpon>StepTwoFilter.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Filters\SummaryReports.aspx.cs">
+      <DependentUpon>SummaryReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Filters\SummaryReports.aspx.designer.cs">
+      <DependentUpon>SummaryReports.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\GlobalVariables.cs" />
     <Compile Include="Reports\LeaveDatewise.aspx.cs">
       <DependentUpon>LeaveDatewise.aspx</DependentUpon>
@@ -1060,6 +1069,13 @@
     </Compile>
     <Compile Include="Reports\ReportHome.aspx.designer.cs">
       <DependentUpon>ReportHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SummaryReports.aspx.cs">
+      <DependentUpon>SummaryReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\SummaryReports.aspx.designer.cs">
+      <DependentUpon>SummaryReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>

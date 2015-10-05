@@ -541,7 +541,7 @@ namespace WMS.Controllers
             if (Request.Form["MRoster"].ToString() == "true")
                 user.MRoster = true;
             else
-                user.MUser = false;
+                user.MRoster = false;
             if (Request.Form["MHR"].ToString() == "true")
                 user.MHR = true;
             else
