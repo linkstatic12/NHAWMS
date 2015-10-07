@@ -237,7 +237,8 @@ namespace WMS.CustomClass
                     return query;
                 case "City": query = UserAccessGetCity(_User, role);
                     return query;
-              
+                case "SuperUser": query = "CompanyID >0";
+                    return query;
             
             
             

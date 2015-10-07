@@ -81,7 +81,8 @@ namespace WMS.Controllers
                         {
                             using (TAS2013Entities dc = new TAS2013Entities())
                             {
-                                var v = dc.Users.Where(a => a.UserName.Equals(u.UserName) && a.Status == true && a.Password.Equals(u.Password)).FirstOrDefault();
+                                var v = dc.Users.Where(a => a.UserName.ToUpper()==u.UserName.ToUpper() && a.Status == true && a.Password.ToUpper() == u.Password.ToUpper()).FirstOrDefault();
+                                
                                 if (v != null)
                                 {
                                     Session["MDevice"] = "0";
