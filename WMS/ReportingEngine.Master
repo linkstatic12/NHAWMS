@@ -34,7 +34,7 @@
             <div class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
                     <li >
-                       <a href="/Reports/Filters/SummaryReports.aspx" class="dropdown-toggle"><span class="glyphicon glyphicon-tower"></span><span> Summary Reports</span></a>
+                       <a href="/WMS/Reports/Filters/SummaryReports.aspx" class="dropdown-toggle"><span class="glyphicon glyphicon-tower"></span><span> Summary Reports</span></a>
                     </li>
                      
                    <%--  <% if(Session["MREmployee"].ToString() == "1") %> 

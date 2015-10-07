@@ -570,21 +570,21 @@ namespace WMS.Reports
                             PathString = "/Reports/RDLC/DSConsolidated.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "C"), _dateFrom + " TO " + _dateTo, "Company Consolidated Summary");
+                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Consolidated Summary");
                         break;
                     case "company_strength":
                         if (GlobalVariables.DeploymentType == false)
                             PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "C"), _dateFrom + " TO " + _dateTo, "Company Strength Summary");
+                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Strength Summary");
                         break;
                     case "company_worktimes":
                         if (GlobalVariables.DeploymentType == false)
                             PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
                         else
                             PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "C"), _dateFrom + " TO " + _dateTo, "Company Work Times Summary");
+                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Work Times Summary");
                         break;
                     case "location_consolidated":
                         if (GlobalVariables.DeploymentType == false)
@@ -732,7 +732,7 @@ namespace WMS.Reports
             DataTable dt = new DataTable();
             switch (Criteria)
             {
-                case "C":
+                case "R":
                     //for company
                     dt = qb.GetValuesfromDB("select * from DailySummary " + " where Criteria = '" + Criteria + "' and (Date >= " + "'" + dateFrom + "'" + " and Date <= " + "'"
                                                      + dateTo + "'" + " )");

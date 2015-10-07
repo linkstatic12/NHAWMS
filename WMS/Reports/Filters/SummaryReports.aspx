@@ -42,11 +42,11 @@
                             <h2>Choose Daily Summary Report</h2>
                             <ul>
                                 <li>
-                                    <h5>Company Summary</h5>
+                                    <h5>Region Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_consolidated">Company Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_strength">Company Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_worktimes">Company Work Times</a></li>
+                                         <li><a href="../ReportContainer.aspx?reportname=company_consolidated">Region Consolidated</a></li>
+                                         <li><a href="../ReportContainer.aspx?reportname=company_strength">Region Strength</a></li>
+                                         <li><a href="../ReportContainer.aspx?reportname=company_worktimes">Region Work Times</a></li>
                                     </ul>
                                 </li>
                                 <li>
