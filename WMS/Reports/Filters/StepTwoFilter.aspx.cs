@@ -199,7 +199,7 @@ namespace WMS.Reports.Filters
         private void SaveDateSession()
         {
             List<string> list = Session["ReportSession"] as List<string>;
-            list[0] = DateFrom.ToString("yyyy-MM-dd");
+            list[0] = DateFrom.ToString("yyyy-M M-dd");
             list[1] = DateTo.ToString("yyyy-MM-dd");
             Session["ReportSession"] = list;
         }

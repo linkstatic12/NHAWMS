@@ -41,6 +41,14 @@
                         <section class="row">
                             <h2>Choose Daily Summary Report</h2>
                             <ul>
+                                <div class="row">
+                            <div class="col-md-6">
+                                From : <input id="dateFrom"  class="input-sm"  runat="server" type="date" />
+                            </div>
+                            <div class="col-md-6">
+                                To : <input id="dateTo" class="input-sm"  runat="server" type="date" />
+                            </div>
+                        </div>
                                 <li>
                                     <h5>Region Summary</h5>
                                     <ul>
