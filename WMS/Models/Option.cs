@@ -27,5 +27,6 @@ namespace WMS.Models
         public Nullable<System.DateTime> ContractualMonthlyClose { get; set; }
         public Nullable<short> CompanyID { get; set; }
         public Nullable<bool> EmergencyStart { get; set; }
+        public Nullable<bool> TwoShortLToOneCausal { get; set; }
     }
 }

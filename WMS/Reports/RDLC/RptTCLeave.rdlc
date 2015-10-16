@@ -30,9 +30,6 @@
               <Width>0.46875in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42708in</Width>
-            </TablixColumn>
-            <TablixColumn>
               <Width>0.36458in</Width>
             </TablixColumn>
             <TablixColumn>
@@ -395,10 +392,9 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <ColSpan>3</ColSpan>
+                    <ColSpan>2</ColSpan>
                   </CellContents>
                 </TablixCell>
-                <TablixCell />
                 <TablixCell />
                 <TablixCell>
                   <CellContents>
@@ -750,41 +746,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox43">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>WD</Value>
-                              <Style>
-                                <FontFamily>Signika</FontFamily>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox43</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Textbox15">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -827,7 +788,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>AD</Value>
+                              <Value>LD</Value>
                               <Style>
                                 <FontFamily>Signika</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -1280,41 +1241,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="WorkDays">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!WorkDays.Value</Value>
-                              <Style>
-                                <FontFamily>Signika</FontFamily>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>WorkDays</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Present">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -1350,14 +1276,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Absent">
+                    <Textbox Name="Leave">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Absent.Value</Value>
+                              <Value>=Fields!Leave.Value</Value>
                               <Style>
                                 <FontFamily>Signika</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -1369,7 +1295,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Absent</rd:DefaultName>
+                      <rd:DefaultName>Leave</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1381,6 +1307,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -1543,7 +1470,6 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
-            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -1571,7 +1497,7 @@
         <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>DataSet1</DataSetName>
         <Height>0.75in</Height>
-        <Width>9.55208in</Width>
+        <Width>9.125in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1676,7 +1602,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>TD: Total Days, WD: Work Days, PD: Present Days, AD: Absent Days, LC: Late Comers, EO: Early Out, EI: Early In, OT: Over Time</Value>
+                  <Value>TD: Total Days, WD: Work Days, PD: Present Days, AD: Absent Days, LC: Late Comers, EO: Early Out, EI: Early In, OT: Over Time,LD:Leave Days</Value>
                   <Style>
                     <FontFamily>Signika</FontFamily>
                   </Style>

@@ -30,7 +30,7 @@ namespace WMS.Models
         public Nullable<short> JobID { get; set; }
         public Nullable<byte> Gender { get; set; }
         public string CardNo { get; set; }
-        public Nullable<int> FpID { get; set; }
+        public int FpID { get; set; }
         public string PinCode { get; set; }
         public string FatherName { get; set; }
         public string NicNo { get; set; }
@@ -70,6 +70,5 @@ namespace WMS.Models
         public string ZoneName { get; set; }
         public Nullable<short> ZoneID { get; set; }
         public int RegionID { get; set; }
-        public Nullable<int> PostedAs { get; set; }
     }
 }

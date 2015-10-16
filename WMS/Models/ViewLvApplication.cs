@@ -64,6 +64,5 @@ namespace WMS.Models
         public Nullable<bool> Active { get; set; }
         public string LvDesc { get; set; }
         public string UserName { get; set; }
-        public Nullable<short> ZoneID { get; set; }
     }
 }

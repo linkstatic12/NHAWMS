@@ -467,7 +467,7 @@ namespace WMS.Reports
                                                         // LoadReport(PathString, ReportsFilterImplementation(fm, _TempViewListMonthlyDataPer, _ViewListMonthlyDataPer), _dateFrom);
                                                          break;
                     case "top_present": 
-                        dt = qb.GetValuesfromDB("select * from EmpView ");
+                        dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -481,7 +481,7 @@ namespace WMS.Reports
                         LoadReport(PathString, EmpSummDT);
                             break;
                     case "top_absent":
-                         dt = qb.GetValuesfromDB("select * from EmpView ");
+                         dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
@@ -514,7 +514,7 @@ namespace WMS.Reports
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
                         FillDataTable(_ViewList1, Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
-                        
+                       
                         if (GlobalVariables.DeploymentType == false)
                             PathString = "/Reports/RDLC/RptTCEarlyIn.rdlc";
                         else
@@ -2324,20 +2324,25 @@ namespace WMS.Reports
             _PreEmp = context.ViewPresentEmps.Where(aa => aa.AttDate >= dateFrom && aa.AttDate <= dateTo).ToList();
             foreach (var _Employee in _EmpView)
             {
-                _PrEmp = _PreEmp;
-                int FPID = (int)_Employee.FpID;
-                _PrEmp = _PrEmp.Where(aa => aa.FpID == FPID).ToList();
-                TDays = _PrEmp.Count();
-                PCount = _PrEmp.Where(aa => aa.TimeIn != null).Count();
-                ACount = _PrEmp.Where(aa => (aa.TimeIn == null || aa.TimeOut== null) && (aa.DutyCode == "D")).Count();
-                LCount = _PrEmp.Where(aa => aa.DutyCode == "L").Count();
-                EarlyInCount = _PrEmp.Where(aa => aa.EarlyIn >= 10).Count();
-                EarlyOutCount = _PrEmp.Where(aa => aa.EarlyOut >= 10).Count();
-                LateCCount = _PrEmp.Where(aa => aa.StatusLI ==true).Count();
-                ExtraCount = _PrEmp.Where(aa => aa.StatusOT ==true).Count();
-                WrkDaysCount = _PrEmp.Where(aa => aa.DutyCode == "D").Count();
-                EmpSummDT.Rows.Add(_Employee.FpID, _Employee.EmpName, _Employee.DesignationName, _Employee.DeptName, _Employee.SectionName, TDays, PCount, ACount, LCount, LateCCount, EarlyOutCount, EarlyInCount, ExtraCount, _Employee.GradeName, WrkDaysCount);
-                _PrEmp.Clear();
+                if (_Employee.FpID != null)
+                {
+                    _PrEmp = _PreEmp;
+                    int FPID = (int)_Employee.FpID;
+                    _PrEmp = _PrEmp.Where(aa => aa.FpID == FPID).ToList();
+                    TDays = _PrEmp.Count();
+                    PCount = _PrEmp.Where(aa => aa.TimeIn != null).Count();
+                    ACount = _PrEmp.Where(aa => (aa.TimeIn == null && aa.TimeOut == null) && (aa.DutyCode == "D")).Count();
+                    LCount = _PrEmp.Where(aa => aa.DutyCode == "L").Count();
+                    EarlyInCount = _PrEmp.Where(aa => aa.EarlyIn >= 10).Count();
+                    EarlyOutCount = _PrEmp.Where(aa => aa.EarlyOut >= 10).Count();
+                    LateCCount = _PrEmp.Where(aa => aa.TimeIn != null && aa.StatusLI == true).Count();
+                    ExtraCount = _PrEmp.Where(aa => aa.TimeIn != null && aa.StatusOT == true).Count();
+                    WrkDaysCount = _PrEmp.Where(aa => aa.DutyCode == "D").Count();
+                    EmpSummDT.Rows.Add(_Employee.FpID, _Employee.EmpName, _Employee.DesignationName, _Employee.DeptName, _Employee.SectionName, TDays, PCount, ACount, LCount, LateCCount, EarlyOutCount, EarlyInCount, ExtraCount, _Employee.GradeName, WrkDaysCount);
+
+                    _PrEmp.Clear();
+                }
+                
             }
             //LoadReport("~/Reports/Reports/RptSummaryW.rdlc", _SummaryEmp);
         }

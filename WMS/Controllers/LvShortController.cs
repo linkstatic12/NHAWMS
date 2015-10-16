@@ -109,15 +109,217 @@ namespace WMS.Controllers
                 lvshort.CreatedBy = _userID;
                 lvshort.CompanyID = LoggedInUser.CompanyID;
                 lvshort.Status = true;
-                db.LvShorts.Add(lvshort);
-                db.SaveChanges();
-                LvProcessController.AddShortLeaveToAttData(lvshort);
-                HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.ShortLeave, (byte)MyEnums.Operation.Add, DateTime.Now);
+               
+                //The below LvShort checks if there is an already existing Lvshort for
+                //this date. If there is an existing LvShort remove it from the database 
+                //, check if he has balance for causal leave and then add a causal leave
+                //
+               
+                if (db.Options.FirstOrDefault().TwoShortLToOneCausal == true)
+                {
 
-                return RedirectToAction("Index");
+                    if (db.LvShorts.Where(aa => aa.EmpDate == lvshort.EmpDate).Count() > 0)
+                    {
+                        if (CheckForLQuota(lvshort) == true)
+                        {
+                            ShortLRemove(lvshort.EmpDate);
+                            switch (AddCausalLeave(lvshort))
+                            {
+                                case 1: ModelState.AddModelError("Remarks", "Causal Leave Already exists");
+                                    break;
+                                case 2: db.SaveChanges();
+                                    break;
+                                case 3: ModelState.AddModelError("Remarks", "No Quota Defined for this Employee");
+                                    break;
+                            
+                            
+                            }
+                          
+                            
+                            return RedirectToAction("Index");
+                        }
+                        else 
+                        {
+                            ModelState.AddModelError("Remarks", "No Quota Defined for this Employee");
+                            return View(lvshort);
+                        }
+                        
+                    }
+
+               }
+                        //Check If its already made
+                    TimeSpan ehour = new TimeSpan(Convert.ToInt32(STimeOutH), Convert.ToInt32(STimeOutM), 0);
+                    TimeSpan shour = new TimeSpan(Convert.ToInt32(STimeInH), Convert.ToInt32(STimeInM), 0);
+                    if (db.LvShorts.Where(aa => aa.EmpDate == lvshort.EmpDate && (aa.SHour == shour || aa.EHour == ehour)).Count() > 0)
+                        ModelState.AddModelError("Remarks", "Short Leave Already Exists for this time duration");
+                    else
+                    {
+                        
+                        db.LvShorts.Add(lvshort);
+                        db.SaveChanges();
+                        LvProcessController.AddShortLeaveToAttData(lvshort);
+                        HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.ShortLeave, (byte)MyEnums.Operation.Add, DateTime.Now);
+                        return RedirectToAction("Index");
+                    }
+                
+
+                
+                
+                
+               
             }
 
             return View(lvshort);
+        }
+
+        private bool CheckForLQuota(LvShort lvshort)
+        {
+            string EmpLvType = lvshort.EmpID + "A";
+         
+            List<LvConsumed> consumed = db.LvConsumeds.Where(aa => aa.EmpLvType == EmpLvType).ToList();
+            if (consumed.Count() > 0)
+                return true;
+            else
+                return false;
+          
+        }
+
+        private void ShortLRemove(string p)
+        {
+            List<LvShort> removeShort = db.LvShorts.Where(aa => aa.EmpDate == p).ToList();
+            foreach(LvShort removes in removeShort)
+            {
+                db.LvShorts.Remove(removes);
+            
+            
+            }
+            db.SaveChanges();
+        }
+
+        private int AddCausalLeave(LvShort lvshort)
+        {
+            //find that bastard through the causal leave field in EmpLvType
+            string EmpLvType= lvshort.EmpID+"A";
+            //if there is some freak accident and now he has two or more records 
+            //cater for that by going through a list
+            List<LvConsumed> consumed = db.LvConsumeds.Where(aa => aa.EmpLvType == EmpLvType).ToList();
+            if (consumed.Count() > 0)
+            {
+                foreach (LvConsumed consume in consumed)
+                {
+                    consume.GrandTotalRemaining = consume.GrandTotalRemaining - 1;
+                    consume.YearRemaining = consume.YearRemaining - 1;
+                    LvConsumed refresh = new LvConsumed();
+                    refresh = CheckMonthAndAddOneLeave(consume);
+                    if (db.LvApplications.Where(aa => aa.LvDate == lvshort.DutyDate && aa.EmpID == lvshort.EmpID && aa.LvType == "A").Count() > 0)
+                    {
+                        return 1;
+
+                    }
+                    else
+                    {
+                        LvApplication lvapplication = new LvApplication();
+                        lvapplication.EmpID = (int)lvshort.EmpID;
+                        lvapplication.LvDate = (DateTime)lvshort.DutyDate;
+                        lvapplication.LvType = "A";
+                        lvapplication.FromDate = (DateTime)lvshort.DutyDate;
+                        lvapplication.ToDate = (DateTime)lvshort.DutyDate;
+                        lvapplication.NoOfDays = 1;
+                        lvapplication.IsHalf = false;
+                        lvapplication.HalfAbsent = false;
+                        lvapplication.LvReason = lvshort.Remarks;
+                        lvapplication.CreatedBy = lvshort.CreatedBy;
+                        lvapplication.LvStatus = "P";
+                        lvapplication.CompanyID = lvshort.CompanyID;
+                        lvapplication.Active = true;
+                        LeaveController LvProcessController = new LeaveController();
+                        if (LvProcessController.HasLeaveQuota(lvapplication.EmpID, lvapplication.LvType))
+                        {
+                            if (lvapplication.IsHalf != true)
+                            {
+                              
+                                if (LvProcessController.CheckDuplicateLeave(lvapplication))
+                                {
+                                    //Check leave Balance
+                                    if (LvProcessController.CheckLeaveBalance(lvapplication))
+                                    {
+                                        lvapplication.LvDate = DateTime.Today;
+                                        int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
+                                        lvapplication.CreatedBy = _userID;
+                                db.LvApplications.Add(lvapplication);
+                                        if (db.SaveChanges() > 0)
+                                        {
+                                            HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Leave, (byte)MyEnums.Operation.Add, DateTime.Now);
+                                            LvProcessController.AddLeaveToLeaveData(lvapplication);
+                                            LvProcessController.AddLeaveToLeaveAttData(lvapplication);
+                                             return 2;
+                                        }
+                                        else
+                                        {
+                                            ModelState.AddModelError("Remarks", "There is an error while creating leave.");
+                                        }
+
+                                    }
+                                    else
+                                        ModelState.AddModelError("Remarks", "Leave Balance Exceeds, Please check the balance");
+                                }
+                                else
+                                    ModelState.AddModelError("Remarks", "This Employee already has leave of this date ");
+                            }
+                      }
+                        else
+                            ModelState.AddModelError("Remarks", "Leave Quota does not exist");
+                       
+
+                       
+                        
+                    
+                    
+                    }
+                   
+
+
+                }
+                return 2;
+            }
+            else
+                return 3;
+            
+        }
+
+        private LvConsumed CheckMonthAndAddOneLeave(LvConsumed consume)
+        {
+            DateTime today = DateTime.Now; 
+            switch (today.Month)
+            {
+
+                case 1: consume.JanConsumed = consume.JanConsumed + 1;
+                    break;
+                case 2: consume.FebConsumed = consume.FebConsumed + 1;
+                    break;
+                case 3: consume.MarchConsumed = consume.MarchConsumed + 1;
+                    break;
+                case 4: consume.AprConsumed = consume.AprConsumed + 1;
+                    break;
+                case 5: consume.MayConsumed = consume.MayConsumed + 1;
+                    break;
+                case 6: consume.JuneConsumed = consume.JuneConsumed + 1;
+                    break;
+                case 7: consume.JulyConsumed = consume.JulyConsumed + 1;
+                    break;
+                case 8: consume.AugustConsumed = consume.AugustConsumed + 1;
+                    break;
+                case 9: consume.AugustConsumed = consume.AugustConsumed + 1;
+                    break;
+                case 10: consume.SepConsumed = consume.SepConsumed + 1;
+                    break;
+                case 11: consume.OctConsumed = consume.OctConsumed + 1;
+                    break;
+                case 12: consume.DecConsumed = consume.DecConsumed + 1;
+                    break;
+            
+            }
+            return consume;
         }
 
         // GET: /LvShort/Edit/5

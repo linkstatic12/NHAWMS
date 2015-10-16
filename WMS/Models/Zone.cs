@@ -14,7 +14,14 @@ namespace WMS.Models
     
     public partial class Zone
     {
+        public Zone()
+        {
+            this.Emps = new HashSet<Emp>();
+        }
+    
         public short ZoneID { get; set; }
         public string ZoneName { get; set; }
+    
+        public virtual ICollection<Emp> Emps { get; set; }
     }
 }
