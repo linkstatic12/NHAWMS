@@ -46,6 +46,16 @@ namespace WMS.Reports
                                              PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
                                          LoadReport(PathString, _ViewListSum, _dateFrom + " TO " + _dateTo,title);
                         break;
+                    case "ServiceLog": dt = qb.GetValuesfromDB("select * from ViewServiceLog " + query + "(DateTime >= '" + _dateFrom + "' and DateTime <= '" + _dateTo + "' )");
+                        List<ViewServiceLog> _ViewServiceLog = dt.ToList<ViewServiceLog>();
+                        List<ViewServiceLog> _TempViewServiceLog = new List<ViewServiceLog>();
+                        title = "Service Log";
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/ServiceLog.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/ServiceLog.rdlc";
+                        LoadReport(PathString, _ViewServiceLog, _dateFrom + " TO " + _dateTo, title);
+                        break;
                     case "company_employee_summary": dt = qb.GetValuesfromDB("select * from DailySummary " + query + "(Date >= '" + _dateFrom + "' and Date <= '" + _dateTo + "' )");
                          _ViewListSum = dt.ToList<DailySummary>();
                          _TempViewListSum = new List<DailySummary>();
@@ -723,6 +733,24 @@ namespace WMS.Reports
                
                 
             }
+        }
+
+        private void LoadReport(string PathString, List<ViewServiceLog> _ViewServiceLog, string date, string title)
+        {
+            string _Header = title;
+            this.ReportViewer1.LocalReport.DisplayName = title;
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath(PathString);
+            System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
+            ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _ViewServiceLog);
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource1);
+            ReportParameter rp = new ReportParameter("CompanyName", "National Highway Authority", false);
+            ReportParameter rp1 = new ReportParameter("Title", title, false);
+            ReportParameter rp2 = new ReportParameter("Date", date, false);
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp, rp1, rp2 });
+            ReportViewer1.LocalReport.Refresh();  
         }
         private List<DailySummary> ReportsFilterImplementation(FiltersModel fm, string dateFrom, string dateTo, string Criteria)
         {

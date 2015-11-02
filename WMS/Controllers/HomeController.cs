@@ -70,6 +70,7 @@ namespace WMS.Controllers
         {
             try
             {
+                ////this portion is comment out when on deployment
                 //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "fatima-group.com"))
                 //{
                 //    //validate the credentials
@@ -138,11 +139,12 @@ namespace WMS.Controllers
                                 }
                             }
                         }
-                    //}
-                    return RedirectToAction("index");
-               // }
+                        //plz comment for development} after and before return
+               //     }
+                   return RedirectToAction("index");
+               //}
 
-
+                //plz also here comment for development
                 //using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))
                 //{
                 //    using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
@@ -158,7 +160,8 @@ namespace WMS.Controllers
                 //        }
                 //    }
                 //}
-                // this action is for handle post (login)
+
+                 //this action is for handle post (login)
 
             }
             catch (Exception ex)

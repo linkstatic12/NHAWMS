@@ -47,6 +47,7 @@
                                         <li><a href="../ReportContainer.aspx?reportname=emp_record">Employee Record</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_detail_excel">Employee Detail (Only for Excel)</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=leave_application">Leave Application</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=ServiceLog">Service Log</a></li>
                                     
                                     </ul>
                                 </li>

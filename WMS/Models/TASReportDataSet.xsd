@@ -2365,6 +2365,37 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewServiceLogTableAdapter" GeneratorDataComponentClassName="ViewServiceLogTableAdapter" Name="ViewServiceLog" UserDataComponentName="ViewServiceLogTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TAS2013_NHAConnectionString (Web.config)" DbObjectName="TAS2013_NHA.dbo.ViewServiceLog" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Processed, DateTime, Description, ErrorCode, LogID, RdrName, IpAdd, ReaderID, LocID, LocName, CityName, CityID, RegionID, RegionName, ZoneID, ZoneName FROM dbo.ViewServiceLog</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Processed" DataSetColumn="Processed" />
+              <Mapping SourceColumn="DateTime" DataSetColumn="DateTime" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="ErrorCode" DataSetColumn="ErrorCode" />
+              <Mapping SourceColumn="LogID" DataSetColumn="LogID" />
+              <Mapping SourceColumn="RdrName" DataSetColumn="RdrName" />
+              <Mapping SourceColumn="IpAdd" DataSetColumn="IpAdd" />
+              <Mapping SourceColumn="ReaderID" DataSetColumn="ReaderID" />
+              <Mapping SourceColumn="LocID" DataSetColumn="LocID" />
+              <Mapping SourceColumn="LocName" DataSetColumn="LocName" />
+              <Mapping SourceColumn="CityName" DataSetColumn="CityName" />
+              <Mapping SourceColumn="CityID" DataSetColumn="CityID" />
+              <Mapping SourceColumn="RegionID" DataSetColumn="RegionID" />
+              <Mapping SourceColumn="RegionName" DataSetColumn="RegionName" />
+              <Mapping SourceColumn="ZoneID" DataSetColumn="ZoneID" />
+              <Mapping SourceColumn="ZoneName" DataSetColumn="ZoneName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -7642,6 +7673,70 @@
               <xs:element name="OverTime" msprop:Generator_ColumnVarNameInTable="columnOverTime" msprop:Generator_ColumnPropNameInRow="OverTime" msprop:Generator_ColumnPropNameInTable="OverTimeColumn" msprop:Generator_UserColumnName="OverTime" type="xs:int" minOccurs="0" />
               <xs:element name="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_UserColumnName="Grade" type="xs:int" minOccurs="0" />
               <xs:element name="WorkDays" msprop:Generator_ColumnVarNameInTable="columnWorkDays" msprop:Generator_ColumnPropNameInRow="WorkDays" msprop:Generator_ColumnPropNameInTable="WorkDaysColumn" msprop:Generator_UserColumnName="WorkDays" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ViewServiceLog" msprop:Generator_TableClassName="ViewServiceLogDataTable" msprop:Generator_TableVarName="tableViewServiceLog" msprop:Generator_TablePropName="ViewServiceLog" msprop:Generator_RowDeletingName="ViewServiceLogRowDeleting" msprop:Generator_RowChangingName="ViewServiceLogRowChanging" msprop:Generator_RowEvHandlerName="ViewServiceLogRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewServiceLogRowDeleted" msprop:Generator_UserTableName="ViewServiceLog" msprop:Generator_RowChangedName="ViewServiceLogRowChanged" msprop:Generator_RowEvArgName="ViewServiceLogRowChangeEvent" msprop:Generator_RowClassName="ViewServiceLogRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Processed" msprop:Generator_ColumnVarNameInTable="columnProcessed" msprop:Generator_ColumnPropNameInRow="Processed" msprop:Generator_ColumnPropNameInTable="ProcessedColumn" msprop:Generator_UserColumnName="Processed" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DateTime" msprop:Generator_ColumnVarNameInTable="columnDateTime" msprop:Generator_ColumnPropNameInRow="DateTime" msprop:Generator_ColumnPropNameInTable="DateTimeColumn" msprop:Generator_UserColumnName="DateTime" type="xs:dateTime" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ErrorCode" msprop:Generator_ColumnVarNameInTable="columnErrorCode" msprop:Generator_ColumnPropNameInRow="ErrorCode" msprop:Generator_ColumnPropNameInTable="ErrorCodeColumn" msprop:Generator_UserColumnName="ErrorCode" type="xs:unsignedByte" />
+              <xs:element name="LogID" msprop:Generator_ColumnVarNameInTable="columnLogID" msprop:Generator_ColumnPropNameInRow="LogID" msprop:Generator_ColumnPropNameInTable="LogIDColumn" msprop:Generator_UserColumnName="LogID" type="xs:int" />
+              <xs:element name="RdrName" msprop:Generator_ColumnVarNameInTable="columnRdrName" msprop:Generator_ColumnPropNameInRow="RdrName" msprop:Generator_ColumnPropNameInTable="RdrNameColumn" msprop:Generator_UserColumnName="RdrName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IpAdd" msprop:Generator_ColumnVarNameInTable="columnIpAdd" msprop:Generator_ColumnPropNameInRow="IpAdd" msprop:Generator_ColumnPropNameInTable="IpAddColumn" msprop:Generator_UserColumnName="IpAdd">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ReaderID" msprop:Generator_ColumnVarNameInTable="columnReaderID" msprop:Generator_ColumnPropNameInRow="ReaderID" msprop:Generator_ColumnPropNameInTable="ReaderIDColumn" msprop:Generator_UserColumnName="ReaderID" type="xs:short" />
+              <xs:element name="LocID" msprop:Generator_ColumnVarNameInTable="columnLocID" msprop:Generator_ColumnPropNameInRow="LocID" msprop:Generator_ColumnPropNameInTable="LocIDColumn" msprop:Generator_UserColumnName="LocID" type="xs:short" />
+              <xs:element name="LocName" msprop:Generator_ColumnVarNameInTable="columnLocName" msprop:Generator_ColumnPropNameInRow="LocName" msprop:Generator_ColumnPropNameInTable="LocNameColumn" msprop:Generator_UserColumnName="LocName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CityName" msprop:Generator_ColumnVarNameInTable="columnCityName" msprop:Generator_ColumnPropNameInRow="CityName" msprop:Generator_ColumnPropNameInTable="CityNameColumn" msprop:Generator_UserColumnName="CityName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CityID" msprop:Generator_ColumnVarNameInTable="columnCityID" msprop:Generator_ColumnPropNameInRow="CityID" msprop:Generator_ColumnPropNameInTable="CityIDColumn" msprop:Generator_UserColumnName="CityID" type="xs:short" />
+              <xs:element name="RegionID" msprop:Generator_ColumnVarNameInTable="columnRegionID" msprop:Generator_ColumnPropNameInRow="RegionID" msprop:Generator_ColumnPropNameInTable="RegionIDColumn" msprop:Generator_UserColumnName="RegionID" type="xs:int" />
+              <xs:element name="RegionName" msprop:Generator_ColumnVarNameInTable="columnRegionName" msprop:Generator_ColumnPropNameInRow="RegionName" msprop:Generator_ColumnPropNameInTable="RegionNameColumn" msprop:Generator_UserColumnName="RegionName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ZoneID" msprop:Generator_ColumnVarNameInTable="columnZoneID" msprop:Generator_ColumnPropNameInRow="ZoneID" msprop:Generator_ColumnPropNameInTable="ZoneIDColumn" msprop:Generator_UserColumnName="ZoneID" type="xs:short" />
+              <xs:element name="ZoneName" msprop:Generator_ColumnVarNameInTable="columnZoneName" msprop:Generator_ColumnPropNameInRow="ZoneName" msprop:Generator_ColumnPropNameInTable="ZoneNameColumn" msprop:Generator_UserColumnName="ZoneName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

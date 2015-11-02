@@ -1256,6 +1256,7 @@
     <EmbeddedResource Include="Reports\RDLC\RptTCLeave.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RptTCOverTime.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RptTCPresent.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ServiceLog.rdlc" />
     <None Include="DataAccess\Reports.dbml.layout">
       <DependentUpon>Reports.dbml</DependentUpon>
     </None>
