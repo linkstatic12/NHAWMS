@@ -35,7 +35,7 @@
             <!-- /#sidebar-wrapper -->
         </div>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-9">
+         <div class="col-sm-offset-1 col-sm-8 col-md-9 col-md-offset-0 col-lg-9">
                 <div class="row">
                     <div class="col-md-8">
                         <section class="row">
