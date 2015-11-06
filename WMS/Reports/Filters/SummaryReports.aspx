@@ -38,15 +38,15 @@
         <div class="col-sm-9 col-md-9 col-lg-9">
                 <div class="row">
                     <div class="col-md-8">
-                        <section class="row">
+                        <section class="row" ng-controller="SummaryReports">
                             <h2>Choose Daily Summary Report</h2>
                             <ul>
                                 <div class="row">
                             <div class="col-md-6">
-                                From : <input id="dateFrom"  class="input-sm"  runat="server" type="date" />
+                                From : <input id="dateFrom"  class="input-sm"  runat="server" type="date" ng-model="DateFrom" />
                             </div>
                             <div class="col-md-6">
-                                To : <input id="dateTo" class="input-sm"  runat="server" type="date" />
+                                To : <input id="dateTo" class="input-sm"  runat="server" type="date" ng-model="DateTo" />
                             </div>
                         </div>
                                 <li>
@@ -266,4 +266,5 @@
         </div>
     </section>
        <script src="../../Scripts/Filters/DeleteSingleFilters.js"></script>
+           <script src="../../Scripts/angular/mainController.js"></script>
 </asp:Content>

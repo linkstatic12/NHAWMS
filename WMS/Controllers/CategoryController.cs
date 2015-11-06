@@ -112,6 +112,40 @@ namespace WMS.Controllers
             return View(category);
         }
 
+        public ActionResult GiveFromDateToSummaryReport(string date)
+        {
+            if (date != null)
+            {
+                DateTime d1 = Convert.ToDateTime(date);
+                List<string> list = Session["ReportSession"] as List<string>;
+                list[0] = d1.ToString("yyyy-MM-dd");
+                Session["ReportSession"] = list;
+            }
+            
+
+            return null;
+        
+        }
+        public ActionResult GiveToDateToSummaryReport(string date)
+        {
+            if (date != null)
+            {
+                DateTime d1 = Convert.ToDateTime(date);
+                List<string> list = Session["ReportSession"] as List<string>;
+                list[1] = d1.ToString("yyyy-MM-dd");
+                Session["ReportSession"] = list;
+            }
+
+            return null;
+        
+        }
+        public ActionResult GetFromToDateForSummaryReport()
+        {
+           
+            List<string> list = Session["ReportSession"] as List<string>;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        
+        }
         // POST: /Category/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -16,8 +16,10 @@
     <link href="Content/style/filters-page.css" type="text/css" rel="stylesheet" />
     <script src="../../Scripts/jquery-2.1.4.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
+    <script src="../../Scripts/angular.min.js"></script>
+    <script src="../../Scripts/angular/mainController.js"></script>
 </head>
-<body>
+<body ng-app="NHA">
     <header>
         <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
