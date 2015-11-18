@@ -35,7 +35,7 @@
             <!-- /#sidebar-wrapper -->
         </div>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-9">
+         <div class="col-sm-offset-1 col-sm-8 col-md-9 col-md-offset-0 col-lg-9">
                 <div class="row">
                     <div class="col-md-8">
                         <section class="row">
@@ -47,6 +47,7 @@
                                         <li><a href="../ReportContainer.aspx?reportname=emp_record">Employee Record</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_detail_excel">Employee Detail (Only for Excel)</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=leave_application">Leave Application</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=ServiceLog">Service Log</a></li>
                                     
                                     </ul>
                                 </li>
