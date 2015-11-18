@@ -99,9 +99,7 @@
                                 <li>
                                      <h5>Daily Summaries</h5>
                                     <ul>
-                                        <li><a href="../ReportContainer.aspx?reportname=company_consolidated_summary">By Company Consolidated Summary</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=company_employee_summary">By Company Employee Strength Summary</a></li>
-                                        <li><a href="../ReportContainer.aspx?reportname=company_worktime_summary">By Company WorkTime Summary</a></li>
+                                        
                                         <li><a href="../ReportContainer.aspx?reportname=region_consolidated_summary">By Region Consolidated Summary</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=region_strength_summary">By Region Employee Strength Summary</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=region_worktime_summary">By Region WorkTime Summary</a></li>

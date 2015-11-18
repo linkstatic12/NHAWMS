@@ -29,7 +29,15 @@ namespace WMS.Reports
                 string query = "where ";
                 _dateFrom = list[0];
                 string _dateTo = list[1];
-               
+               //for only NHA cause its acting crazy. If date is selected 08/01/2014 goed
+                DateTime dateFrom = Convert.ToDateTime(_dateFrom);
+                DateTime dateTo = Convert.ToDateTime(_dateTo);
+                dateFrom = dateFrom.AddDays(0);
+                dateTo = dateTo.AddDays(0);
+                _dateFrom =dateFrom.ToString("yyyy-MM-dd");
+                _dateTo = dateTo.ToString("yyyy-MM-dd");
+                //end of weird code
+
                 string PathString = "";
 
 
@@ -562,157 +570,7 @@ namespace WMS.Reports
                             PathString = "/WMS/Reports/RDLC/RptTCOverTime.rdlc";
                         LoadReport(PathString, EmpSummDT, _dateTo, 1);
                         break;
-                    /////////////////////////////////////////////////////////////   
-                    /////////////////Summary Reports////////////////////////////
-                    ///////////////////////////////////////////////////////////
-                    case "company_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Consolidated Summary");
-                        break;
-                    case "company_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Strength Summary");
-                        break;
-                    case "company_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "R"), _dateFrom + " TO " + _dateTo, "Company Work Times Summary");
-                        break;
-                    case "location_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "L"), _dateFrom + " TO " + _dateTo, "Location Consolidated Summary");
-                        break;
-                    case "location_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "L"), _dateFrom + " TO " + _dateTo, "Location Strength Summary");
-                        break;
-                    case "location_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "L"), _dateFrom + " TO " + _dateTo, "Location Work Times Summary");
-                        break;
-                    case "shift_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "S"), _dateFrom + " TO " + _dateTo, "Shift Consolidated Summary");
-                        break;
-                    case "shift_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "S"), _dateFrom + " TO " + _dateTo, "Shift Strength Summary");
-                        break;
-                    case "shift_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "S"), _dateFrom + " TO " + _dateTo, "Shift Work Times Summary");
-                        break;
-                    case "category_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "A"), _dateFrom + " TO " + _dateTo, "Category Consolidated Summary");
-                        break;
-                    case "category_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "A"), _dateFrom + " TO " + _dateTo, "Category Strength Summary");
-                        break;
-                    case "category_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "A"), _dateFrom + " TO " + _dateTo, "Category Work Times Summary");
-                        break;
-                    case "type_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "T"), _dateFrom + " TO " + _dateTo, "Employee Type Consolidated Summary");
-                        break;
-                    case "type_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "T"), _dateFrom + " TO " + _dateTo, "Employee Type Strength Summary");
-                        break;
-                    case "type_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "T"), _dateFrom + " TO " + _dateTo, "Employee Type Work Times Summary");
-                        break;
-                    case "dept_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "D"), _dateFrom + " TO " + _dateTo, "Department Consolidated Summary");
-                        break;
-                    case "dept_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "D"), _dateFrom + " TO " + _dateTo, "Department Strength Summary");
-                        break;
-                    case "dept_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "D"), _dateFrom + " TO " + _dateTo, "Department Work Times Summary");
-                        break;
-                    case "section_consolidated":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSConsolidated.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSConsolidated.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "E"), _dateFrom + " TO " + _dateTo, "Section Consolidated Summary");
-                        break;
-                    case "section_strength":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSEmpStrength.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSEmpStrength.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "E"), _dateFrom + " TO " + _dateTo, "Section Strength Summary");
-                        break;
-                    case "section_worktimes":
-                        if (GlobalVariables.DeploymentType == false)
-                            PathString = "/Reports/RDLC/DSWorkSummary.rdlc";
-                        else
-                            PathString = "/WMS/Reports/RDLC/DSWorkSummary.rdlc";
-                        LoadReport(PathString, ReportsFilterImplementation(fm, _dateFrom, _dateTo, "E"), _dateFrom + " TO " + _dateTo, "Section Work Times Summary");
-                        break;
-
+               
 
 
 
@@ -858,7 +716,7 @@ namespace WMS.Reports
         {
             List<WMSLibrary.FiltersAttributes> selectedRegions = (Session["FiltersModel"] as FiltersModel).RegionFilter;
 
-            string query = "and ";
+            string query = "and (";
 
             foreach (var region in selectedRegions)
             {
@@ -866,10 +724,10 @@ namespace WMS.Reports
             }
 
             if(query.Length > 4)   // to remove the last or
-                query = query.Substring(0, query.Length - 4);
+                query = query.Substring(0, query.Length - 4)+")";
             if (selectedRegions.Count==0)
             {
-                query = " CriteriaValue>0";
+                query = "and CriteriaValue>0";
             
             }
             return query;
@@ -899,6 +757,20 @@ namespace WMS.Reports
        
         private List<ViewLvApplication> ReportsFilterImplementation(FiltersModel fm, List<ViewLvApplication> _TempViewList, List<ViewLvApplication> _ViewList)
         {
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var comp in fm.RegionFilter)
+                {
+                    string regionname = comp.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == regionname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
+
             //for location
             if (fm.LocationFilter.Count > 0)
             {
@@ -1025,21 +897,7 @@ namespace WMS.Reports
      
         public List<EmpView> ReportsFilterImplementation(FiltersModel fm, List<EmpView> _TempViewList, List<EmpView> _ViewList)
         {
-            ////for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
-
-
+          
 
             //for location
             if (fm.LocationFilter.Count > 0)
@@ -1167,19 +1025,19 @@ namespace WMS.Reports
         //ViewAttData
         public List<ViewAttData> ReportsFilterImplementation(FiltersModel fm, List<ViewAttData> _TempViewList, List<ViewAttData> _ViewList)
         {
-            ////for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var comp in fm.RegionFilter)
+                {
+                    string regionname = comp.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == regionname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
 
 
@@ -1234,6 +1092,19 @@ namespace WMS.Reports
                 {
                     short _crewID = Convert.ToInt16(cre.ID);
                     _TempViewList.AddRange(_ViewList.Where(aa => aa.CrewID == _crewID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
+            //for regioon
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var cre in fm.RegionFilter)
+                {
+                    string _regionName = cre.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == _regionName).ToList());
                 }
                 _ViewList = _TempViewList.ToList();
             }
@@ -1309,19 +1180,20 @@ namespace WMS.Reports
         //ViewAttData
         public List<ViewDetailAttData> ReportsFilterImplementation(FiltersModel fm, List<ViewDetailAttData> _TempViewList, List<ViewDetailAttData> _ViewList)
         {
-            ////for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var comp in fm.RegionFilter)
+                {
+                    string regionname = comp.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == regionname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
+
 
 
 
@@ -1468,19 +1340,20 @@ namespace WMS.Reports
         //ViewMonthlyData
         public List<ViewMonthlyData> ReportsFilterImplementation(FiltersModel fm, List<ViewMonthlyData> _TempViewList, List<ViewMonthlyData> _ViewList)
         {
-            ////for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var comp in fm.RegionFilter)
+                {
+                    string regionname = comp.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == regionname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
+
 
 
 
@@ -1627,19 +1500,20 @@ namespace WMS.Reports
         //ViewMonthlyDataPer
         public List<ViewMonthlyDataPer> ReportsFilterImplementation(FiltersModel fm, List<ViewMonthlyDataPer> _TempViewList, List<ViewMonthlyDataPer> _ViewList)
         {
-            //for company
-            //if (fm.CompanyFilter.Count > 0)
-            //{
-            //    foreach (var comp in fm.CompanyFilter)
-            //    {
-            //        short _compID = Convert.ToInt16(comp.ID);
-            //        _TempViewList.AddRange(_ViewList.Where(aa => aa.CompanyID == _compID).ToList());
-            //    }
-            //    _ViewList = _TempViewList.ToList();
-            //}
-            //else
-            //    _TempViewList = _ViewList.ToList();
-            //_TempViewList.Clear();
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var comp in fm.RegionFilter)
+                {
+                    string regionname = comp.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionName == regionname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
+
 
 
 

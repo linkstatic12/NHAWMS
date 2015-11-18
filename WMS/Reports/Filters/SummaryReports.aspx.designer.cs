@@ -11,23 +11,5 @@ namespace WMS.Reports.Filters {
     
     
     public partial class SummaryReports {
-        
-        /// <summary>
-        /// dateFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl dateFrom;
-        
-        /// <summary>
-        /// dateTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl dateTo;
     }
 }

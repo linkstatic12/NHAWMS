@@ -48,6 +48,7 @@ namespace WMS.Controllers
             //string query = qb.MakeCustomizeQuery(LoggedInUser);
             //DataTable dt = qb.GetValuesfromDB("select * from EmpView "+query);
             //List<EmpView> emps = dt.ToList<EmpView>();
+
             List<EmpView> emps = db.EmpViews.ToList();
             ViewBag.CurrentFilter = searchString;
 
@@ -65,10 +66,10 @@ namespace WMS.Controllers
                 {
                     try
                     {
-                        emps = emps.Where(s=>s.FpID == 3378).ToList();
-                       // emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
-      //                   || s.EmpNo.ToUpper().Contains(searchString.ToUpper()) || s.LocID.ToString().Contains(searchString)
-                     //   ).ToList();
+                       
+                        emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
+                         || s.EmpNo.ToUpper().Contains(searchString.ToUpper()) || s.LocID.ToString().Contains(searchString)
+                        ).ToList();
                     }
                     catch (Exception ex)
                     {

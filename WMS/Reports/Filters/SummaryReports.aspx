@@ -41,73 +41,73 @@
                         <section class="row" ng-controller="SummaryReports">
                             <h2>Choose Daily Summary Report</h2>
                             <ul>
-                                <div class="row">
+                               <%-- <div class="row">
                             <div class="col-md-6">
                                 From : <input id="dateFrom"  class="input-sm"  runat="server" type="date" ng-model="DateFrom" />
                             </div>
                             <div class="col-md-6">
                                 To : <input id="dateTo" class="input-sm"  runat="server" type="date" ng-model="DateTo" />
                             </div>
-                        </div>
+                        </div>--%>
                                 <li>
                                     <h5>Region Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_consolidated">Region Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_strength">Region Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=company_worktimes">Region Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=company_consolidated">Region Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=company_strength">Region Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=company_worktimes">Region Work Times</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Location Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=location_consolidated">Location Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=location_strength">Location Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=location_worktimes">Location Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=location_consolidated">Location Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=location_strength">Location Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=location_worktimes">Location Work Times</a></li>
 
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Shift Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=shift_consolidated">Shift Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=shift_strength">Shift Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=shift_worktimes">Shift Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=shift_consolidated">Shift Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=shift_strength">Shift Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=shift_worktimes">Shift Work Times</a></li>
 
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Category Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=category_consolidated">Category Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=category_strength">Category Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=category_worktimes">Category Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=category_consolidated">Category Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=category_strength">Category Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=category_worktimes">Category Work Times</a></li>
 
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Employee Type Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=type_consolidated">Employee Type Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=type_strength">Employee Type Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=type_worktimes">Employee Type Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=type_consolidated">Employee Type Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=type_strength">Employee Type Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=type_worktimes">Employee Type Work Times</a></li>
 
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Department Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=dept_consolidated">Department Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=dept_strength">Department Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=dept_worktimes">Department Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=dept_consolidated">Department Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=dept_strength">Department Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=dept_worktimes">Department Work Times</a></li>
 
                                     </ul>
                                 </li>
                                 <li>
                                     <h5>Section Summary</h5>
                                     <ul>
-                                         <li><a href="../ReportContainer.aspx?reportname=section_consolidated">Section Consolidated</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=section_strength">Section Strength</a></li>
-                                         <li><a href="../ReportContainer.aspx?reportname=section_worktimes">Section Work Times</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=section_consolidated">Section Consolidated</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=section_strength">Section Strength</a></li>
+                                         <li><a href="../SummaryReports.aspx?reportname=section_worktimes">Section Work Times</a></li>
 
                                     </ul>
                                 </li>

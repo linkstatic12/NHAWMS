@@ -100,8 +100,8 @@ namespace WMS.Models
         public Nullable<byte> ShiftID { get; set; }
         public Nullable<short> SecID { get; set; }
         public Nullable<short> DivID { get; set; }
-        public Nullable<byte> RegionID { get; set; }
         public Nullable<short> ShifMin { get; set; }
         public Nullable<bool> StatusHL { get; set; }
+        public Nullable<int> RegionID { get; set; }
     }
 }
