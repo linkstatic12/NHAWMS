@@ -17,8 +17,115 @@ namespace WMS.Controllers
         // GET: /JobCard/
         public ActionResult Index()
         {
+            ViewData["JobDateFrom"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+            ViewData["JobDateTo"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+            ViewBag.JobCardType = new SelectList(db.JobCards, "WorkCardID", "WorkCardName");
             return View(db.JobCardApps.ToList());
+
         }
+
+        [HttpPost]
+        public ActionResult EditAttJobCard()
+        {
+            User LoggedInUser = Session["LoggedUser"] as User;
+            try
+            {
+                string _EmpNo = "";
+               // int CompID = Convert.ToInt16(Request.Form["CompanyID"].ToString());
+                List<Emp> _Emp = new List<Emp>();
+                short _WorkCardID = Convert.ToInt16(Request.Form["JobCardType"].ToString());
+                //First Save Job Card Application
+                JobCardApp jobCardApp = new JobCardApp();
+                jobCardApp.CardType = _WorkCardID;
+                jobCardApp.DateCreated = DateTime.Now;
+                jobCardApp.DateStarted = Convert.ToDateTime(Request.Form["JobDateFrom"]);
+                jobCardApp.DateEnded = Convert.ToDateTime(Request.Form["JobDateTo"]);
+                jobCardApp.Status = false;
+                //switch (Request.Form["cars"].ToString())
+                //{                    case "employee":
+                //        if (Request.Form["cars"].ToString() == "employee")
+                //        {
+                            _EmpNo = Request.Form["JobEmpNo"];
+                            _Emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo).ToList();
+                            if (_Emp.Count > 0)
+                            {
+                                jobCardApp.CriteriaData = _Emp.FirstOrDefault().EmpID;
+                                jobCardApp.JobCardCriteria = "E";
+                                db.JobCardApps.Add(jobCardApp);
+                                if (db.SaveChanges() > 0)
+                                {
+                                    AddJobCardAppToJobCardData();
+                                }
+                            }
+                       // }
+                        //break;
+                //}
+
+                //Add Job Card to JobCardData and Mark Legends in Attendance Data if attendance Created
+                Session["EditAttendanceDate"] = DateTime.Today.Date.ToString("yyyy-MM-dd");
+                //ViewBag.JobCardType = new SelectList(db.JobCards, "WorkCardID", "WorkCardName");
+                //ViewBag.ShiftList = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+                //ViewBag.CrewList = new SelectList(db.Crews, "CrewID", "CrewName");
+                //ViewBag.SectionList = new SelectList(db.Sections, "SectionID", "SectionName");
+                ViewBag.CMessage = "Job Card Created sucessfully";
+                ViewData["datef"] = Session["EditAttendanceDate"].ToString();
+                ViewData["JobDateFrom"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+                ViewData["JobDateTo"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+                ViewBag.JobCardType = new SelectList(db.JobCards, "WorkCardID", "WorkCardName");
+              //  ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", LoggedInUser.CompanyID);
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                //ViewData["datef"] = HttpContext.Session["EditAttendanceDate"].ToString();
+                ViewData["JobDateFrom"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+                ViewData["JobDateTo"] = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd");
+                ViewBag.JobCardType = new SelectList(db.JobCards, "WorkCardID", "WorkCardName");
+                //ViewBag.ShiftList = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+                //ViewBag.CrewList = new SelectList(db.Crews, "CrewID", "CrewName");
+                //ViewBag.SectionList = new SelectList(db.Sections, "SectionID", "SectionName");
+                ViewBag.CMessage = "An Error occured while creating Job Card of" + Request.Form["JobCardType"].ToString();
+                return View("Index");
+            }
+        }
+
+        private void AddJobCardAppToJobCardData()
+        {
+            using (var ctx = new TAS2013Entities())
+            {
+                List<JobCardApp> _jobCardApp = new List<JobCardApp>();
+                _jobCardApp = ctx.JobCardApps.Where(aa => aa.Status == false).ToList();
+                User LoggedInUser = Session["LoggedUser"] as User;
+                List<Emp> _Emp = new List<Emp>();
+                foreach (var jcApp in _jobCardApp)
+                {
+                    jcApp.Status = true;
+                    switch (jcApp.JobCardCriteria)
+                    {
+
+                       case "E":
+                            int _EmpID = (int)jcApp.CriteriaData;
+                            _Emp = ctx.Emps.Where(aa => aa.EmpID == _EmpID).ToList();
+                           break;
+                    }
+                    foreach (var selectedEmp in _Emp)
+                    {
+                        //AddJobCardData(selectedEmp, (short)jcApp.CardType, jcApp.DateStarted.Value, jcApp.DateEnded.Value);
+                    }
+                }
+                ctx.SaveChanges();
+                ctx.Dispose();
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         // GET: /JobCard/Details/5
         public ActionResult Details(int? id)
