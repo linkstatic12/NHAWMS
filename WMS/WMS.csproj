@@ -392,6 +392,7 @@
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobCardAppRController.cs" />
+    <Compile Include="Controllers\JobCardController.cs" />
     <Compile Include="Controllers\JobCardEmpRController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
@@ -1234,6 +1235,12 @@
     <Content Include="Views\Zones\Details.cshtml" />
     <Content Include="Views\Zones\Index.cshtml" />
     <Content Include="Views\Zones\_CreateOrEdit.cshtml" />
+    <Content Include="Views\LvApp\EmpList.cshtml" />
+    <Content Include="Views\JobCard\Create.cshtml" />
+    <Content Include="Views\JobCard\Delete.cshtml" />
+    <Content Include="Views\JobCard\Details.cshtml" />
+    <Content Include="Views\JobCard\Edit.cshtml" />
+    <Content Include="Views\JobCard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

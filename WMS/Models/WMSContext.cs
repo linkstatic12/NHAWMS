@@ -20,5 +20,7 @@ namespace WMS.Models
         public DbSet<WMS.Models.Zone> Zones { get; set; }
 
         public DbSet<WMS.Models.Region> Regions { get; set; }
+
+        public DbSet<WMS.Models.JobCardApp> JobCardApps { get; set; }
     }
 }

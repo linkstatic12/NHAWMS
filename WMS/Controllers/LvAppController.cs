@@ -77,7 +77,25 @@ namespace WMS.Controllers
             int pageNumber = (page ?? 1);
             return View(lvapplications.OrderBy(aa=>aa.LvDate).ToPagedList(pageNumber, pageSize));
         }
-
+        public ActionResult EmpList(string sortOrder, string searchString, string currentFilter, int? page)
+        {
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+                 
+            List<EmpView> listOfEmps = new List<EmpView>();
+            
+            listOfEmps = db.EmpViews.Where(aa => aa.Status == true).OrderBy(s=>s.EmpName).ToList();
+            if (ViewBag.CurrentFilter != null || searchString != null)
+                page = 1;
+            else { searchString = currentFilter; }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                listOfEmps = listOfEmps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
+                     || s.EmpNo.ToUpper().Contains(searchString.ToUpper())).ToList();
+            }
+            return View(listOfEmps.ToPagedList(pageNumber,pageSize));
+        }
         // GET: /LvApp/Details/5
           [CustomActionAttribute]
         public ActionResult Details(int? id)
@@ -98,7 +116,16 @@ namespace WMS.Controllers
           [CustomActionAttribute]
         public ActionResult Create()
         {
-            ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo");
+            var emps =
+db.Emps
+  .Where(s => s.Status == true)
+  .ToList().OrderBy(s => s.EmpName)
+  .Select(s => new
+  {
+      EmpID = s.EmpID,
+      Description = string.Format("{0}-{1}-{2}", s.EmpName, s.EmpID,s.LocID)
+  });
+            ViewBag.EmpID = new SelectList(emps, "EmpID", "Description");
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             ViewBag.LvType = new SelectList(db.LvTypes.Where(aa=>aa.Enable==true).ToList(), "LvType1", "LvDesc");
             return View();

@@ -6,88 +6,101 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateStarted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateEnded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JobCardCriteria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CriteriaData)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeIn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeOut)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkMin)
-        </th>
-        <th></th>
-    </tr>
+  <section class="col-md-6">
+        <p style="font-size:16px; margin-bottom:15px;">Assign Job Card</p>
+        
+        <article class="row">
+            <section class="col-md-6">
+                 <div style="margin-left:15%; font-size:15px">
+                    <div class="radio"><label><input type="radio" value="shift" name="cars">By Shift</label></div>
+                    <div class="radio"><label><input type="radio" value="crew" name="cars">By Crew</label></div>
+                    <div class="radio"><label><input type="radio" value="section"name="cars">By Section</label></div>
+                    <div class="radio"><label><input type="radio" checked value="employee" name="cars">By Employee</label></div>
+                </div>
+                <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-4">
+                        <label>From</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="JobDateFrom" name="JobDateFrom" value="@ViewData["JobDateFrom"]" type="date" class="form-control"/>
+                    </div>
+                </div>
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-4">
+                        <label>To</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="JobDateTo" name="JobDateTo" type="date" value="@ViewData["JobDateTo"]" class="form-control"/>
+                    </div>
+                </div>
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-6">
+                        <label>Job Card</label>
+                    </div>
+                    <div class="col-md-6">
+                         @Html.DropDownList("CardType",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                    </div>
+                </div>
+                <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-6">
+                        <label>Job Card</label>
+                    </div>
+                    <div class="col-md-6">
+                         @Html.DropDownList("CompanyID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                    </div>
+                </div>
+                 <div id="Option1" class="desc">
+                        <div class="row" style="margin-left:10%; margin-bottom:3%">
+                            <div class="col-md-6">
+                                <label>Shift</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("ShiftList",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Option2" class="desc" style="display: none;">
+                        <div class="row" style="margin-left:10%; margin-bottom:3%">
+                            <div class="col-md-6">
+                                <label>Crew</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("CrewList",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                            </div>
+                        </div>
+                    </div>
+                     <div id="Option3" class="desc" style="display: none;">
+                        <div class="row" style="margin-left:10%; margin-bottom:3%">
+                            <div class="col-md-6">
+                                <label>Section</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("SectionList",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                            </div>
+                        </div>
+                    </div>
+                     <div id="Option4" class="desc" style="display: none;">
+                        <div class="row" style="margin-left:10%; margin-bottom:3%">
+                            <div class="col-md-6">
+                                <label>Employee</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="JobEmpNo" name="JobEmpNo" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Save"  class="btn btn-sm btn-success"/>
+                    </div>
+                </div>
+            </section>
+            <section class="col-md-6">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateStarted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateEnded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobCardCriteria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriteriaData)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeIn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeOut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkMin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobCardID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.JobCardID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.JobCardID })
-        </td>
-    </tr>
-}
-
-</table>
+            </section>
+        </article>
+        
+    </section>
