@@ -63,6 +63,11 @@ namespace WMS.CustomClass
                     _CriteriaForOrLoc.Add(" RegionID = " + uloc.CriteriaData + " ");
                 if (uloc.Criteria.Trim() == "C")
                     _CriteriaForOrLoc.Add(" CityID = " + uloc.CriteriaData + " ");
+                if (uloc.Criteria.Trim() == "")
+                { query = "";
+                return query;
+                
+                }
             }
            
            
