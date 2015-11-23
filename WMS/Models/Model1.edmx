@@ -1739,7 +1739,16 @@
       [ViewServiceLog].[ErrorCode] AS [ErrorCode], 
       [ViewServiceLog].[LogID] AS [LogID], 
       [ViewServiceLog].[RdrName] AS [RdrName], 
-      [ViewServiceLog].[IpAdd] AS [IpAdd]
+      [ViewServiceLog].[IpAdd] AS [IpAdd], 
+      [ViewServiceLog].[ReaderID] AS [ReaderID], 
+      [ViewServiceLog].[LocID] AS [LocID], 
+      [ViewServiceLog].[LocName] AS [LocName], 
+      [ViewServiceLog].[CityName] AS [CityName], 
+      [ViewServiceLog].[CityID] AS [CityID], 
+      [ViewServiceLog].[RegionID] AS [RegionID], 
+      [ViewServiceLog].[RegionName] AS [RegionName], 
+      [ViewServiceLog].[ZoneID] AS [ZoneID], 
+      [ViewServiceLog].[ZoneName] AS [ZoneName]
       FROM [dbo].[ViewServiceLog] AS [ViewServiceLog]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewSLData" EntityType="TAS2013_NHAModel.Store.ViewSLData" store:Type="Views" store:Schema="dbo" store:Name="ViewSLData">
@@ -3375,6 +3384,7 @@
           <Property Name="ViewLocation" Type="bit" />
           <Property Name="LocationID" Type="smallint" />
           <Property Name="MRoster" Type="bit" />
+          <Property Name="CanJobCard" Type="bit" />
         </EntityType>
         <EntityType Name="UserAccess">
           <Key>
@@ -5093,6 +5103,13 @@
             <PropertyRef Name="LogID" />
             <PropertyRef Name="RdrName" />
             <PropertyRef Name="IpAdd" />
+            <PropertyRef Name="ReaderID" />
+            <PropertyRef Name="LocID" />
+            <PropertyRef Name="LocName" />
+            <PropertyRef Name="CityID" />
+            <PropertyRef Name="RegionID" />
+            <PropertyRef Name="ZoneID" />
+            <PropertyRef Name="ZoneName" />
           </Key>
           <Property Name="Processed" Type="bit" />
           <Property Name="DateTime" Type="datetime" Nullable="false" />
@@ -5101,6 +5118,15 @@
           <Property Name="LogID" Type="int" Nullable="false" />
           <Property Name="RdrName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="IpAdd" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ReaderID" Type="smallint" Nullable="false" />
+          <Property Name="LocID" Type="smallint" Nullable="false" />
+          <Property Name="LocName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityID" Type="smallint" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZoneID" Type="smallint" Nullable="false" />
+          <Property Name="ZoneName" Type="nchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013_NHA.dbo.ViewSLData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -7705,6 +7731,7 @@
           <Property Name="ViewLocation" Type="Boolean" />
           <Property Name="LocationID" Type="Int16" />
           <Property Name="MRoster" Type="Boolean" />
+          <Property Name="CanJobCard" Type="Boolean" />
           <NavigationProperty Name="Company" Relationship="TAS2013_NHAModel.FK_User_Company" FromRole="User" ToRole="Company" />
           <NavigationProperty Name="Emp" Relationship="TAS2013_NHAModel.FK_User_Emp" FromRole="User" ToRole="Emp" />
           <NavigationProperty Name="Location" Relationship="TAS2013_NHAModel.FK_User_Location" FromRole="User" ToRole="Location" />
@@ -9343,6 +9370,13 @@
             <PropertyRef Name="LogID" />
             <PropertyRef Name="RdrName" />
             <PropertyRef Name="IpAdd" />
+            <PropertyRef Name="ReaderID" />
+            <PropertyRef Name="LocID" />
+            <PropertyRef Name="LocName" />
+            <PropertyRef Name="CityID" />
+            <PropertyRef Name="RegionID" />
+            <PropertyRef Name="ZoneID" />
+            <PropertyRef Name="ZoneName" />
           </Key>
           <Property Name="Processed" Type="Boolean" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -9351,6 +9385,15 @@
           <Property Name="LogID" Type="Int32" Nullable="false" />
           <Property Name="RdrName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="IpAdd" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ReaderID" Type="Int16" Nullable="false" />
+          <Property Name="LocID" Type="Int16" Nullable="false" />
+          <Property Name="LocName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="CityName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CityID" Type="Int16" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="RegionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ZoneID" Type="Int16" Nullable="false" />
+          <Property Name="ZoneName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
         </EntityType>
         <EntityType Name="ViewSLData">
           <Key>
@@ -11522,6 +11565,7 @@
                 <ScalarProperty Name="ViewLocation" ColumnName="ViewLocation" />
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="MRoster" ColumnName="MRoster" />
+                <ScalarProperty Name="CanJobCard" ColumnName="CanJobCard" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13125,6 +13169,15 @@
                 <ScalarProperty Name="LogID" ColumnName="LogID" />
                 <ScalarProperty Name="RdrName" ColumnName="RdrName" />
                 <ScalarProperty Name="IpAdd" ColumnName="IpAdd" />
+                <ScalarProperty Name="ReaderID" ColumnName="ReaderID" />
+                <ScalarProperty Name="LocID" ColumnName="LocID" />
+                <ScalarProperty Name="LocName" ColumnName="LocName" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

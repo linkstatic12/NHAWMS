@@ -54,6 +54,7 @@ namespace WMS.Models
         public Nullable<bool> ViewLocation { get; set; }
         public Nullable<short> LocationID { get; set; }
         public Nullable<bool> MRoster { get; set; }
+        public Nullable<bool> CanJobCard { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Emp Emp { get; set; }

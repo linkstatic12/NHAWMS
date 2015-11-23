@@ -21,5 +21,14 @@ namespace WMS.Models
         public int LogID { get; set; }
         public string RdrName { get; set; }
         public string IpAdd { get; set; }
+        public short ReaderID { get; set; }
+        public short LocID { get; set; }
+        public string LocName { get; set; }
+        public string CityName { get; set; }
+        public short CityID { get; set; }
+        public int RegionID { get; set; }
+        public string RegionName { get; set; }
+        public short ZoneID { get; set; }
+        public string ZoneName { get; set; }
     }
 }
