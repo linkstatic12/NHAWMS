@@ -112,7 +112,7 @@ namespace WMS.Reports.Filters
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
             //string query = qb.QueryForCompanyFilters(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from ViewDepartment");
+            DataTable dt = qb.GetValuesfromDB("select * from ViewDepartment order by DeptName asc");
             _View = dt.ToList<ViewDepartment>();
             //if (fm.CompanyFilter.Count > 0)
             //{
@@ -142,13 +142,29 @@ namespace WMS.Reports.Filters
             FiltersModel fm = Session["FiltersModel"] as FiltersModel;
             List<Location> _View = new List<Location>();
             List<Location> _TempView = new List<Location>();
+            TAS2013Entities db = new TAS2013Entities();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-           // string query = qb.QueryForUserAccess(LoggedInUser,"Location");
-            DataTable dt = qb.GetValuesfromDB("select * from Location");
+            string query = qb.QueryForLocReport(LoggedInUser);
+            List<City> city = db.Cities.ToList();
+            DataTable dt = qb.GetValuesfromDB("select * from Location " + query+" order by LocName asc");
             _View = dt.ToList<Location>();
+            if (fm.RegionFilter.Count > 0)
+            {
+                _TempView.Clear();
+                foreach (var region in fm.RegionFilter)
+                {
+                    short regionID = Convert.ToInt16(region.ID);
+                    foreach (var c in city.Where(aa => aa.RegionID == regionID))
+                    {
+                        _TempView.AddRange(_View.Where(aa => aa.CityID == c.CityID).ToList());
+                    }
+                }
+                _View = _TempView.ToList();
+            }
             if (fm.CityFilter.Count > 0)
             {
+                _TempView.Clear();
                 foreach (var citi in fm.CityFilter)
                 {
                     short _compID = Convert.ToInt16(citi.ID);

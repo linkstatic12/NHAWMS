@@ -46,6 +46,8 @@ namespace WMS.Controllers
                     Session["MREmployee"] = "0";
                     Session["MRoster"] = "0";
                     Session["CanJobCard"] = "0";
+                    Session["MJobCard"] = "0";
+                    Session["MEmployee"] = "0";
 
                     Session["MRDetail"] = "0";
                     Session["MRSummary"] = "0";
@@ -104,6 +106,8 @@ namespace WMS.Controllers
                                     Session["MREmployee"] = "0";
                                     Session["MRDetail"] = "0";
                                     Session["MRSummary"] = "0";
+                                    Session["MJobCard"] = "0";
+                                    Session["MEmployee"] = "0";
                                     Session["LogedUserID"] = v.UserID.ToString();
                                     Session["LogedUserFullname"] = v.Name;
                                     Session["LoggedUser"] = v;
@@ -136,9 +140,12 @@ namespace WMS.Controllers
                                         Session["MRSummary"] = "1";
                                     if (v.MRoster == true)
                                         Session["MRoster"] = "1";
-
-                                    if (v.CanJobCard == true)
-                                        Session["CanJobCard"] = "1";
+                                    if (v.MEmployee == true)
+                                        Session["MEmployee"] = "1";
+                                    if (v.MJobCard == true)
+                                        Session["MJobCard"] = "1";
+                                    //if (v.CanJobCard == true)
+                                    //    Session["CanJobCard"] = "1";
 
                                     HelperClass.MyHelper.SaveAuditLog(v.UserID, (byte)MyEnums.FormName.LogIn, (byte)MyEnums.Operation.LogIn, DateTime.Now);
                                     return RedirectToAction("AfterLogin");
@@ -217,6 +224,8 @@ namespace WMS.Controllers
                 Session["MREmployee"] = null;
                 Session["MRDetail"] = null;
                 Session["MRSummary"] = null;
+                Session["MJobCard"] = null;
+                Session["MEmployee"] = null;
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

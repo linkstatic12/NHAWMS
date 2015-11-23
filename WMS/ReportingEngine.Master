@@ -35,10 +35,12 @@
             </div>
             <div class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
+                    <% if (HttpContext.Current.Session["MRSummary"].ToString() == "1")
+                                {%>
                     <li >
                        <a href="/WMS/Reports/Filters/SummaryReports.aspx" class="dropdown-toggle"><span class="glyphicon glyphicon-tower"></span><span> Summary Reports</span></a>
                     </li>
-                     
+                     <%}%>
                    <%--  <% if(Session["MREmployee"].ToString() == "1") %> 
                      <% { %> 
                     <li class="dropdown">

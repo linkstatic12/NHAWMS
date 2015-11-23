@@ -32,11 +32,13 @@ namespace WMS.Models
         public Nullable<short> CompanyID { get; set; }
         public Nullable<bool> CanAdd { get; set; }
         public Nullable<int> EmpID { get; set; }
+        public Nullable<bool> MEmployee { get; set; }
         public Nullable<bool> MHR { get; set; }
         public Nullable<bool> MDevice { get; set; }
         public Nullable<bool> MLeave { get; set; }
         public Nullable<bool> MDesktop { get; set; }
         public Nullable<bool> MEditAtt { get; set; }
+        public Nullable<bool> MJobCard { get; set; }
         public Nullable<bool> MUser { get; set; }
         public Nullable<bool> MOption { get; set; }
         public Nullable<bool> MRDailyAtt { get; set; }
@@ -54,7 +56,6 @@ namespace WMS.Models
         public Nullable<bool> ViewLocation { get; set; }
         public Nullable<short> LocationID { get; set; }
         public Nullable<bool> MRoster { get; set; }
-        public Nullable<bool> CanJobCard { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Emp Emp { get; set; }

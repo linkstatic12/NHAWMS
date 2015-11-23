@@ -83,15 +83,36 @@ namespace WMS.Reports.Filters
             List<EmpView> _TempView = new List<EmpView>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-           // string query = qb.QueryForCompanyFilters(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from EmpView");
+           string query = qb.QueryForEmployeeReports(LoggedInUser);
+           DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query+" order by EmpName asc");
             _View = dt.ToList<EmpView>();
             if (fm.CompanyFilter.Count > 0)
             {
+                _TempView.Clear();
                 foreach (var comp in fm.CompanyFilter)
                 {
                     short _compID = Convert.ToInt16(comp.ID);
                     _TempView.AddRange(_View.Where(aa => aa.CompanyID == _compID).ToList());
+                }
+                _View = _TempView.ToList();
+            }
+            if (fm.RegionFilter.Count > 0)
+            {
+                _TempView.Clear();
+                foreach (var reg in fm.RegionFilter)
+                {
+                    short _regID = Convert.ToInt16(reg.ID);
+                    _TempView.AddRange(_View.Where(aa => aa.RegionID == _regID).ToList());
+                }
+                _View = _TempView.ToList();
+            }
+            if (fm.CityFilter.Count > 0)
+            {
+                _TempView.Clear();
+                foreach (var city in fm.CityFilter)
+                {
+                    short _cityID = Convert.ToInt16(city.ID);
+                    _TempView.AddRange(_View.Where(aa => aa.CityID == _cityID).ToList());
                 }
                 _View = _TempView.ToList();
             }

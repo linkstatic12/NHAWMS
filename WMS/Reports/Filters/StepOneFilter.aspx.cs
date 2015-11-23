@@ -158,8 +158,8 @@ namespace WMS.Reports.Filters
         {
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-            //string query = qb.QueryForLocationTableSegeration(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from Region ");
+            string query = qb.QueryForRegionInFilters(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from Region "+query+" order by RegionName asc");
             List<Region> _View = dt.ToList<Region>();
             GridViewRegion.DataSource = _View.Where(aa => aa.RegionName.ToUpper().Contains(search.ToUpper())).ToList();
             GridViewRegion.DataBind();

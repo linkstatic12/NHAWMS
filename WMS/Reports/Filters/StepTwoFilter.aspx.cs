@@ -211,11 +211,12 @@ namespace WMS.Reports.Filters
             List<City> _TempView = new List<City>();
             User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
-           // string query = qb.QueryForUserAccess(LoggedInUser,"City");
-            DataTable dt = qb.GetValuesfromDB("select * from City");
+            string query = qb.QueryForReportsCity(LoggedInUser,"City");
+            DataTable dt = qb.GetValuesfromDB("select * from City " + query+" order by CityName asc");
             _View = dt.ToList<City>();
             if (fm.RegionFilter.Count > 0)
             {
+                _TempView.Clear();
                 foreach (var reg in fm.RegionFilter)
                 {
                     short _regID = Convert.ToInt16(reg.ID);

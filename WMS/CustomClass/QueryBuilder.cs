@@ -63,8 +63,14 @@ namespace WMS.CustomClass
                     _CriteriaForOrLoc.Add(" RegionID = " + uloc.CriteriaData + " ");
                 if (uloc.Criteria.Trim() == "C")
                     _CriteriaForOrLoc.Add(" CityID = " + uloc.CriteriaData + " ");
+                if (uloc.Criteria.Trim() == "L")
+                    _CriteriaForOrLoc.Add(" LocID = " + uloc.CriteriaData + " ");
+                if (uloc.Criteria.Trim() == "S")
+                    query = "";
                 if (uloc.Criteria.Trim() == "")
-                { query = "";
+                { 
+                    
+                    query = "";
                 return query;
                 
                 }
@@ -628,6 +634,228 @@ namespace WMS.CustomClass
             query = query + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1];
             return query;
         }
-        
+
+        #region -- Reports Filters Data Seggregation according to User Role--
+        internal string QueryForRegionInFilters(User LoggedInUser)
+        {
+            string query = " where ";
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserAccess> uAcc = new List<UserAccess>();
+            uAcc = db.UserAccesses.Where(aa => aa.UserID == LoggedInUser.UserID).ToList();
+            List<Region> regions = db.Regions.ToList();
+            List<City> cities = db.Cities.ToList();
+            List<Location> locs = db.Locations.ToList();
+            List<string> queryList = new List<string>();
+            foreach (var access in uAcc)
+            {
+                switch (LoggedInUser.RoleID)
+                {
+                    case 1://Super ADmin
+                        query = "";
+                        break;
+                    case 4://Zone
+                        queryList.Add(" ZoneID =" + access.CriteriaData.ToString());
+                        break;
+                    case 5://REgion
+                        queryList.Add(" RegionID =" + access.CriteriaData.ToString());
+                        break;
+                    case 6://City
+                        string regionID = cities.Where(aa => aa.CityID == access.CriteriaData).FirstOrDefault().RegionID.ToString();
+                        queryList.Add(" RegionID =" + regionID);
+                        break;
+                    case 7://Location
+                         string regionIDForLoc = locs.Where(aa => aa.LocID == access.CriteriaData).FirstOrDefault().City.Region.RegionID.ToString();
+                         queryList.Add(" RegionID =" + regionIDForLoc);
+                        break;
+                }
+            }
+            if (queryList.Count == 1)
+            {
+                query = query + queryList[0];
+            }
+            else if(queryList.Count>1)
+            {
+                for (int i = 0; i < queryList.Count - 1; i++)
+                {
+                    query = query + queryList[i] + " or ";
+                }
+                query = query + queryList[queryList.Count - 1];
+            }
+
+
+            return query;
+        }
+
+        internal string QueryForReportsCity(User LoggedInUser, string p)
+        {
+            string query = " where ";
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserAccess> uAcc = new List<UserAccess>();
+            uAcc = db.UserAccesses.Where(aa => aa.UserID == LoggedInUser.UserID).ToList();
+            List<Region> regions = db.Regions.ToList();
+            List<City> cities = db.Cities.ToList();
+            List<Location> locs = db.Locations.ToList();
+            List<string> queryList = new List<string>();
+            foreach (var access in uAcc)
+            {
+                switch (LoggedInUser.RoleID)
+                {
+                    case 1://Super ADmin
+                        query = "";
+                        break;
+                    case 4://Zone
+                        List<City> city = db.Cities.Where(aa => aa.Region.ZoneID== access.CriteriaData).ToList();
+                        foreach (var c in city)
+                        {
+                            queryList.Add(" CityID =" + c.CityID);
+                        }
+
+                        break;
+                    case 5://REgion
+                        city = db.Cities.Where(aa => aa.RegionID == access.CriteriaData).ToList();
+                        foreach (var c in city)
+                        {
+                            queryList.Add(" CityID =" + c.CityID);
+                        }
+                        break;
+                    case 6://City
+                        string cityID = cities.Where(aa => aa.CityID == access.CriteriaData).FirstOrDefault().CityID.ToString();
+                        queryList.Add(" CityID =" + cityID);
+                        break;
+                    case 7://Location
+                        string cityIDForLoc = locs.Where(aa => aa.LocID == access.CriteriaData).FirstOrDefault().CityID.ToString();
+                        queryList.Add(" CityID =" + cityIDForLoc);
+                        break;
+                }
+            }
+            if (queryList.Count == 1)
+            {
+                query = query + queryList[0];
+            }
+            else if (queryList.Count > 1)
+            {
+                for (int i = 0; i < queryList.Count - 1; i++)
+                {
+                    query = query + queryList[i] + " or ";
+                }
+                query = query + queryList[queryList.Count - 1];
+            }
+
+
+            return query;
+        }
+
+        internal string QueryForLocReport(User LoggedInUser)
+        {
+            string query = " where ";
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserAccess> uAcc = new List<UserAccess>();
+            uAcc = db.UserAccesses.Where(aa => aa.UserID == LoggedInUser.UserID).ToList();
+            List<Region> regions = db.Regions.ToList();
+            List<City> cities = db.Cities.ToList();
+            List<Location> locss = db.Locations.ToList();
+            List<string> queryList = new List<string>();
+            foreach (var access in uAcc)
+            {
+                switch (LoggedInUser.RoleID)
+                {
+                    case 1://Super ADmin
+                        query = "";
+                        break;
+                    case 4://Zone
+                        List<Location> locs = db.Locations.Where(aa => aa.City.Region.ZoneID == access.CriteriaData).ToList();
+                        foreach (var c in locs)
+                        {
+                            queryList.Add(" LocID =" + c.LocID);
+                        }
+
+                        break;
+                    case 5://REgion
+                        locs = db.Locations.Where(aa => aa.City.RegionID == access.CriteriaData).ToList();
+                        foreach (var c in locs)
+                        {
+                            queryList.Add(" LocID =" + c.LocID);
+                        }
+                        break;
+                    case 6://City
+                        locs = db.Locations.Where(aa => aa.CityID == access.CriteriaData).ToList();
+                        foreach (var c in locs)
+                        {
+                            queryList.Add(" LocID =" + c.LocID);
+                        }
+                        break;
+                    case 7://Location
+                        string cityIDForLoc = locss.Where(aa => aa.LocID == access.CriteriaData).FirstOrDefault().LocID.ToString();
+                        queryList.Add(" LocID =" + cityIDForLoc);
+                        break;
+                }
+            }
+            if (queryList.Count == 1)
+            {
+                query = query + queryList[0];
+            }
+            else if (queryList.Count > 1)
+            {
+                for (int i = 0; i < queryList.Count - 1; i++)
+                {
+                    query = query + queryList[i] + " or ";
+                }
+                query = query + queryList[queryList.Count - 1];
+            }
+
+
+            return query;
+        }
+
+        internal string QueryForEmployeeReports(User LoggedInUser)
+        {
+            string query = " where ";
+            TAS2013Entities db = new TAS2013Entities();
+            List<UserAccess> uAcc = new List<UserAccess>();
+            uAcc = db.UserAccesses.Where(aa => aa.UserID == LoggedInUser.UserID).ToList();
+            List<Region> regions = db.Regions.ToList();
+            List<City> cities = db.Cities.ToList();
+            List<Location> locs = db.Locations.ToList();
+            List<string> queryList = new List<string>();
+            foreach (var access in uAcc)
+            {
+                switch (LoggedInUser.RoleID)
+                {
+                    case 1://Super ADmin
+                        query = "";
+                        break;
+                    case 4://Zone
+                        queryList.Add(" ZoneID =" + access.CriteriaData.ToString());
+                        break;
+                    case 5://REgion
+                        queryList.Add(" RegionID =" + access.CriteriaData.ToString());
+                        break;
+                    case 6://City
+
+                        queryList.Add(" CityID =" + access.CriteriaData.ToString());
+                        break;
+                    case 7://Location
+                        queryList.Add(" LocID =" + access.CriteriaData.ToString());
+                        break;
+                }
+            }
+            if (queryList.Count == 1)
+            {
+                query = query + queryList[0];
+            }
+            else if (queryList.Count > 1)
+            {
+                for (int i = 0; i < queryList.Count - 1; i++)
+                {
+                    query = query + queryList[i] + " or ";
+                }
+                query = query + queryList[queryList.Count - 1];
+            }
+
+
+            return query;
+        }
+
+        #endregion
     }
 }

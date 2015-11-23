@@ -11,16 +11,16 @@
                         <h4>Filters Navigation</h4>
                     </li>
                    <li >
-                        <asp:LinkButton ID="btnStepOne" runat="server" CssClass="inactive-link" OnClick="btnStepOne_Click" >Step One<p>Company, Locations</p></asp:LinkButton>
+                        <asp:LinkButton ID="btnStepOne" runat="server" CssClass="inactive-link" OnClick="btnStepOne_Click" >Step One<p>Regions,Shifts</p></asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="btnStepTwo" runat="server" CssClass="inactive-link" OnClick="btnStepTwo_Click" >Step Two<p>Divisions, Shifts</p></asp:LinkButton>
+                        <asp:LinkButton ID="btnStepTwo" runat="server" CssClass="inactive-link" OnClick="btnStepTwo_Click" >Step Two<p>City,Employee Types</p></asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="btnStepThree" runat="server"  CssClass="inactive-link" OnClick="btnStepThree_Click" >Step Three<p>Departments, Employee Type</p></asp:LinkButton>
+                        <asp:LinkButton ID="btnStepThree" runat="server"  CssClass="inactive-link" OnClick="btnStepThree_Click" >Step Three<p>Location,Wings</p></asp:LinkButton>
                     </li>
                     <li>
-                        <asp:LinkButton ID="btnStepFour" runat="server" CssClass="inactive-link" OnClick="btnStepFour_Click" >Step Four<p>Sections, Crew</p></asp:LinkButton>
+                        <asp:LinkButton ID="btnStepFour" runat="server" CssClass="inactive-link" OnClick="btnStepFour_Click" >Step Four<p>Crews, Sections</p></asp:LinkButton>
                     </li>
                     <li>
                         <asp:LinkButton ID="btnStepFive" runat="server"  CssClass="active-link" OnClick="btnStepFive_Click" >Step Five<p>Employee</p></asp:LinkButton>

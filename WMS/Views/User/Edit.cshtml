@@ -22,7 +22,8 @@
                <div class="form-group">
                      <div class="control-label col-md-4">User Name</div>
                          <div class="col-md-4">
-                            @Html.Label(Model.UserName)
+                            @Html.TextBoxFor(model => model.UserName,new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UserName)
                         </div>
               </div>
                <div class="form-group">
@@ -286,7 +287,15 @@
                         },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                 </div>
             </div>
-         
+         <div class="form-group">
+                <div class="control-label col-md-6">Employee</div>
+                <div class="col-md-6">
+                    @Html.DropDownList("MEmployee", new List<SelectListItem>
+                    { new SelectListItem { Text = "No", Value = "false", Selected=true},
+                        new SelectListItem { Text = "Yes", Value = "true"}
+                        },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="control-label col-md-6">Device</div>
@@ -315,7 +324,15 @@
                         },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                 </div>
             </div>
-
+         <div class="form-group">
+                 <div class="control-label col-md-6">Job Card</div>
+                <div class="col-md-6">
+                    @Html.DropDownList("MJobCard", new List<SelectListItem>
+                    { new SelectListItem { Text = "No", Value = "false", Selected=true},
+                        new SelectListItem { Text = "Yes", Value = "true"}
+                        },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                </div>
+            </div>
             <div class="form-group">
                  <div class="control-label col-md-6">Leave</div>
                 <div class="col-md-6">
@@ -326,7 +343,7 @@
                 </div>
             </div>
          <div class="form-group">
-                    <div class="control-label col-md-4">Roster</div>
+                    <div class="control-label col-md-6">Roster</div>
                     <div class="col-md-6">
                         @Html.DropDownList("MRoster", new List<SelectListItem>
                         { new SelectListItem { Text = "No", Value = "false", Selected=true},
@@ -334,7 +351,7 @@
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                     </div>
                  </div>
-         <div class="form-group">
+        @* <div class="form-group">
                     <div class="control-label col-md-4">Job Card</div>
                     <div class="col-md-6">
                         @Html.DropDownList("CanJobCard", new List<SelectListItem>
@@ -342,7 +359,7 @@
                             new SelectListItem { Text = "Yes", Value = "true"}
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                     </div>
-                 </div>
+                 </div>*@
        </section>
 
          <section class="col-md-4"> 

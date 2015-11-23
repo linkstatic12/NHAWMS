@@ -104,7 +104,7 @@ namespace WMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRoster,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
+        public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MEmployee,MDevice,MLeave,MDesktop,MEditAtt,MJobCard,MUser,MOption,MRoster,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
             int count;
             String requestform = "";
@@ -171,6 +171,10 @@ namespace WMS.Controllers
                     user.MHR = true;
                 else
                     user.MHR = false;
+                if (Request.Form["MEmployee"] == "1")
+                    user.MEmployee = true;
+                else
+                    user.MEmployee = false;
                 if (Request.Form["MOption"] == "1")
                     user.MOption = true;
                 else
@@ -187,6 +191,10 @@ namespace WMS.Controllers
                     user.MEditAtt = true;
                 else
                     user.MEditAtt = false;
+                if (Request.Form["MJobCard"] == "1")
+                    user.MJobCard = true;
+                else
+                    user.MJobCard = false;
                 if (Request.Form["MLeave"] == "1")
                     user.MLeave = true;
                 else
@@ -506,7 +514,7 @@ namespace WMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MEmployee,MDevice,MLeave,MDesktop,MEditAtt,MJobCard,MUser,MOption,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
             bool check = false;
             
@@ -546,6 +554,10 @@ namespace WMS.Controllers
                 user.MHR = true;
             else
                 user.MHR = false;
+            if (Request.Form["MEmployee"].ToString() == "true")
+                user.MEmployee = true;
+            else
+                user.MEmployee = false;
             //if (Request.Form["MOption"].ToString() == "true")
             //    user.MOption = true;
             //else
@@ -562,6 +574,10 @@ namespace WMS.Controllers
                 user.MEditAtt = true;
             else
                 user.MEditAtt = false;
+            if (Request.Form["MJobCard"].ToString() == "true")
+                user.MJobCard = true;
+            else
+                user.MJobCard = false;
             if (Request.Form["MLeave"].ToString() == "true")
                 user.MLeave = true;
             else
@@ -603,11 +619,11 @@ namespace WMS.Controllers
                        else
                 user.MRGraph = false;
 
-            if (Request.Form["CanJobCard"].ToString() == "true")
-                user.CanJobCard = true;
+            //if (Request.Form["CanJobCard"].ToString() == "true")
+            //    user.CanJobCard = true;
 
-            else 
-                user.CanJobCard = false;
+            //else 
+            //    user.CanJobCard = false;
             string requestform;
             
 

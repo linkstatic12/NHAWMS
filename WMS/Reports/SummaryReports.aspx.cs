@@ -377,7 +377,10 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
+                    {
                         TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
+                    }
                     TempDS.Clear();
                     break;
                 case "L":
@@ -394,7 +397,7 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
-                        TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
                     TempDS.Clear();
                     break;
                 case "D":
@@ -411,7 +414,7 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
-                        TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
                     TempDS.Clear();
                     break;
                 case "E":
@@ -428,7 +431,7 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
-                        TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
                     TempDS.Clear();
                     break;
 
@@ -446,7 +449,7 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
-                        TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
                     TempDS.Clear();
                     break;
                 case "T":
@@ -463,7 +466,7 @@ namespace WMS.Reports
                         ViewDS = TempDS.ToList();
                     }
                     else
-                        TempDS = ViewDS.ToList();
+                        ViewDS.Clear();
                     TempDS.Clear();
                     break;
                 //case "A":

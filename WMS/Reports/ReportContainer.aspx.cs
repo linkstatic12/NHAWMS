@@ -762,6 +762,19 @@ namespace WMS.Reports
                 _TempViewList = _ViewList.ToList();
             _TempViewList.Clear();
 
+            //for City
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    string cityname = city.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityName == cityname).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
             //for location
             if (fm.LocationFilter.Count > 0)
             {
@@ -887,7 +900,33 @@ namespace WMS.Reports
 
         public List<EmpView> ReportsFilterImplementation(FiltersModel fm, List<EmpView> _TempViewList, List<EmpView> _ViewList)
         {
+            //for region
+            if (fm.RegionFilter.Count > 0)
+            {
+                foreach (var reg in fm.RegionFilter)
+                {
+                    short _regID = Convert.ToInt16(reg.ID);
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.RegionID == _regID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
+            //for city
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    short _cityID = Convert.ToInt16(city.ID);
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityID == _cityID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
             //for location
             if (fm.LocationFilter.Count > 0)
@@ -1028,7 +1067,19 @@ namespace WMS.Reports
                 _TempViewList = _ViewList.ToList();
             _TempViewList.Clear();
 
-
+            //for city
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    string _cityID = city.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityName == _cityID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
             //for location
             if (fm.LocationFilter.Count > 0)
@@ -1183,7 +1234,19 @@ namespace WMS.Reports
             _TempViewList.Clear();
 
 
-
+            //for city
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    short _cityID = Convert.ToInt16(city.ID);
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityID == _cityID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
             //for location
             if (fm.LocationFilter.Count > 0)
@@ -1343,7 +1406,19 @@ namespace WMS.Reports
             _TempViewList.Clear();
 
 
-
+            //for city
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    string _cityID = city.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityName== _cityID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
             //for location
             if (fm.LocationFilter.Count > 0)
@@ -1503,7 +1578,19 @@ namespace WMS.Reports
             _TempViewList.Clear();
 
 
-
+            //for city
+            if (fm.CityFilter.Count > 0)
+            {
+                foreach (var city in fm.CityFilter)
+                {
+                    string _cityID = city.FilterName;
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.CityName == _cityID).ToList());
+                }
+                _ViewList = _TempViewList.ToList();
+            }
+            else
+                _TempViewList = _ViewList.ToList();
+            _TempViewList.Clear();
 
             //for location
             if (fm.LocationFilter.Count > 0)

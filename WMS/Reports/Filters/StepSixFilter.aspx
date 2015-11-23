@@ -41,6 +41,8 @@
                         <section class="row">
                             <h2>Choose Report</h2>
                             <ul>
+                                <% if (HttpContext.Current.Session["MREmployee"].ToString() == "1")
+                                {%>
                                 <li>
                                     <h5>HR Reports</h5>
                                     <ul>
@@ -51,6 +53,9 @@
                                     
                                     </ul>
                                 </li>
+                                 <%}%>
+                                 <% if (HttpContext.Current.Session["MRDailyAtt"].ToString() == "1")
+                                {%>
                                 <li>
                                     <h5>Daily Attendance</h5>
                                     <ul>
@@ -71,10 +76,13 @@
                                         <li><a href="../ReportContainer.aspx?reportname=multiple_in_out">Multiple In/Out</a></li>
                                     </ul>
                                 </li>
+                                <%}%>
+                                 <% if (HttpContext.Current.Session["MRMonthly"].ToString() == "1")
+                                {%>
                                 <li>
                                     <h5>Monthly</h5>
                                     <ul>
-                                        <li><a href="../ReportContainer.aspx?reportname=monthly_leave_sheet">Monthly Leave Sheet</a></li>
+                                        <%--<li><a href="../ReportContainer.aspx?reportname=monthly_leave_sheet">Monthly Leave Sheet</a></li>--%>
                                         <%--<li><a href="../ReportContainer.aspx?reportname=monthly_21-20">Monthly Sheet (21th to 20th)</a></li>--%>
                                         <li><a href="../ReportContainer.aspx?reportname=monthly_1-31">Monthly Sheet (1st to 31th)</a></li>
                                         <%--<li><a href="../ReportContainer.aspx?reportname=monthlysummary_21-20">Monthly Summary (21th to 20th)</a></li>--%>
@@ -84,6 +92,9 @@
                                        
                                     </ul>
                                 </li>
+                                <%}%>
+                                <% if (HttpContext.Current.Session["MRDailyAtt"].ToString() == "1")
+                                {%>
                                 <li>
                                     <h5>Top Criteria</h5>
                                     <ul>
@@ -97,27 +108,32 @@
                                         <li><a href="../ReportContainer.aspx?reportname=top_overtime">Top Overtime</a></li>
                                     </ul>
                                 </li>
+                                 <%}%>
+                                <% if (HttpContext.Current.Session["MRDailyAtt"].ToString() == "1")
+                                {%>
                                 <li>
-                                     <h5>Daily Summaries</h5>
+                                    <%-- <h5>Daily Summaries</h5>
                                     <ul>
                                         
                                         <li><a href="../ReportContainer.aspx?reportname=region_consolidated_summary">By Region Consolidated Summary</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=region_strength_summary">By Region Employee Strength Summary</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=region_worktime_summary">By Region WorkTime Summary</a></li>
 
-                                    </ul>
+                                    </ul>--%>
                                     <h5>Detailed</h5>
                                     <ul>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_att">Employee Attendance</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=emp_absent">Employee Absent</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                <%}%>
+
+                                <%--<li>
                                     <h5>Yearly</h5>
                                     <ul>
                                         <li><a href="../ReportContainer.aspx?reportname=lv_quota">Leave Quota</a></li>
                                     </ul>
-                                </li>
+                                </li>--%>
                             </ul>
                         </section>
                     </div>
