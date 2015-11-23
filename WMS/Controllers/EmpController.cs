@@ -43,13 +43,13 @@ namespace WMS.Controllers
             {
                 searchString = currentFilter;
             }
-            //User LoggedInUser = Session["LoggedUser"] as User;
-            //QueryBuilder qb = new QueryBuilder();
-            //string query = qb.MakeCustomizeQuery(LoggedInUser);
-            //DataTable dt = qb.GetValuesfromDB("select * from EmpView "+query);
-            //List<EmpView> emps = dt.ToList<EmpView>();
+            User LoggedInUser = Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            List<EmpView> emps = dt.ToList<EmpView>();
 
-            List<EmpView> emps = db.EmpViews.ToList();
+           // List<EmpView> emps = db.EmpViews.ToList();
             ViewBag.CurrentFilter = searchString;
 
             if (!String.IsNullOrEmpty(searchString))

@@ -52,59 +52,35 @@ namespace WMS.CustomClass
             List<string> _Criteria = new List<string>();
             List<string> _CriteriaForOr = new List<string>();
             List<string> _CriteriaForOrLoc = new List<string>();
-            //if (_user.ViewLocation == true)
-            // {
-            //     _Criteria.Add(" LocID = " + _user.LocationID.ToString());
-            // }
-            TAS2013Entities db = new TAS2013Entities();
+           TAS2013Entities db = new TAS2013Entities();
             List<UserAccess> ulocs = new List<UserAccess>();
             ulocs = db.UserAccesses.Where(aa => aa.UserID == _user.UserID).ToList();
             foreach (var uloc in ulocs)
             {      
-                if(uloc.Criteria == "Z")
+                if(uloc.Criteria.Trim() == "Z")
                 _CriteriaForOrLoc.Add(" ZoneID = " + uloc.CriteriaData + " ");
-                if(uloc.Criteria == "R")
+                if (uloc.Criteria.Trim() == "R")
                     _CriteriaForOrLoc.Add(" RegionID = " + uloc.CriteriaData + " ");
-                if (uloc.Criteria == "C")
+                if (uloc.Criteria.Trim() == "C")
                     _CriteriaForOrLoc.Add(" CityID = " + uloc.CriteriaData + " ");
             }
-            switch (_user.RoleID)
-            {
-                case 1:
-                    break;
-                case 2:
-                    _Criteria.Add(" CompanyID= 1 or CompanyID = 2 ");
-                    break;
-                case 3:
-                    _Criteria.Add(" CompanyID>= 3");
-                    break;
-                case 4:
-                    _Criteria.Add(" CompanyID = " + _user.CompanyID.ToString());
-                    break;
-                case 5:
-                    break;
-            }
-            for (int i = 0; i < _Criteria.Count; i++)
-            {
-                query = query + _Criteria[i] + " and ";
-            }
+           
+           
             for (int i = 0; i < _CriteriaForOrLoc.Count - 1; i++)
             {
                 subQueryLoc = subQueryLoc + _CriteriaForOrLoc[i] + " or ";
             }
             if(_CriteriaForOrLoc.Count>0)
-            subQueryLoc = " and  ( " + subQueryLoc + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1] + " ) ";
-            //query = query + " ) and (";
-            //query = query + _Criteria[_Criteria.Count-1];
-
-            subQuery = " ( ";
-            for (int i = 0; i < _CriteriaForOr.Count - 1; i++)
-            {
-                subQuery = subQuery + _CriteriaForOr[i] + " or ";
-            } if (_CriteriaForOr.Count > 0)
-            subQuery = subQuery + _CriteriaForOr[_CriteriaForOr.Count - 1];
-            subQuery = subQuery + " ) ";
-            query = query + subQuery + subQueryLoc;
+            subQueryLoc = " ( " + subQueryLoc + _CriteriaForOrLoc[_CriteriaForOrLoc.Count - 1] + " ) ";
+           
+            //subQuery = " ( ";
+            //for (int i = 0; i < _CriteriaForOr.Count - 1; i++)
+            //{
+            //    subQuery = subQuery + _CriteriaForOr[i] + " or ";
+            //} if (_CriteriaForOr.Count > 0)
+            //subQuery = subQuery + _CriteriaForOr[_CriteriaForOr.Count - 1];
+            //subQuery = subQuery + " ) ";
+            query = query + subQueryLoc;
             return query;
         }
 
