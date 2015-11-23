@@ -504,16 +504,17 @@ namespace WMS.Controllers
         }
         public ActionResult RegionList(string ID)
         {
-
-            int Code = Convert.ToInt32(ID);
-            var states = db.Regions.Where(aa => aa.ZoneID == Code);
-            if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(
-                                states.ToArray(),
-                                "RegionID",
-                                "RegionName")
-                           , JsonRequestBehavior.AllowGet);
-
+            if (ID==null)
+            {
+                int Code = Convert.ToInt32(ID);
+                var states = db.Regions.Where(aa => aa.ZoneID == Code);
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(new SelectList(
+                                    states.ToArray(),
+                                    "RegionID",
+                                    "RegionName")
+                               , JsonRequestBehavior.AllowGet);
+            }
             return RedirectToAction("Index");
         }
         public ActionResult GradeList(string ID)

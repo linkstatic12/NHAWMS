@@ -600,8 +600,14 @@ namespace WMS.Controllers
                 user.MRSummary = false;
             if (Request.Form["MRGraph"].ToString() == "true")
                 user.MRGraph = true;
-            else
+                       else
                 user.MRGraph = false;
+
+            if (Request.Form["CanJobCard"].ToString() == "true")
+                user.CanJobCard = true;
+
+            else 
+                user.CanJobCard = false;
             string requestform;
             
 

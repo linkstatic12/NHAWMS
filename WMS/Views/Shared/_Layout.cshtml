@@ -75,7 +75,10 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-phone"></i>  Attendance <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a href="~/EditAttendance">Edit</a></li>
+                           @if (Session["CanJobCard"].ToString() == "1")
+                           {
                            <li><a href="~/JobCard">Job Card</a></li>
+                           }
                       </ul>
                     </li>
                   }

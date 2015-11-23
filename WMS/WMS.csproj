@@ -239,6 +239,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\Majida.pubxml" />
     <None Include="Properties\PublishProfiles\WMS-NHA.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -347,7 +348,6 @@
       <DependentUpon>TASReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\as.pubxml" />
-    <None Include="Properties\PublishProfiles\NHAWMS.pubxml" />
     <None Include="Properties\PublishProfiles\WMSFatima.pubxml" />
     <None Include="Properties\PublishProfiles\WMSNHA.pubxml" />
     <Content Include="ReportingEngine.Master" />
@@ -383,6 +383,7 @@
     <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\EditAttendanceController.cs" />
+    <Compile Include="Controllers\EditAttendance\AttData.cs" />
     <Compile Include="Controllers\EditAttendance\ManualAttendanceProcess.cs" />
     <Compile Include="Controllers\EmpController.cs" />
     <Compile Include="Controllers\EmpTypeController.cs" />

@@ -334,6 +334,15 @@
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                     </div>
                  </div>
+         <div class="form-group">
+                    <div class="control-label col-md-4">Job Card</div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("CanJobCard", new List<SelectListItem>
+                        { new SelectListItem { Text = "No", Value = "false", Selected=true},
+                            new SelectListItem { Text = "Yes", Value = "true"}
+                            },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                    </div>
+                 </div>
        </section>
 
          <section class="col-md-4"> 
