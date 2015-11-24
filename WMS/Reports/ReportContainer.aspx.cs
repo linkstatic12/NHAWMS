@@ -2307,25 +2307,25 @@ namespace WMS.Reports
 
         }
         List<ViewPresentEmp> _PrEmp = new List<ViewPresentEmp>();
+        List<ViewPresentEmp> _PrEmps = new List<ViewPresentEmp>();
         private void FillDataTable(List<EmpView> _EmpView, DateTime dateFrom, DateTime dateTo)
         {
             TAS2013Entities context = new TAS2013Entities();
-            _PreEmp = context.ViewPresentEmps.Where(aa => aa.AttDate >= dateFrom && aa.AttDate <= dateTo).ToList();
+            _PrEmps = context.ViewPresentEmps.Where(aa => aa.AttDate >= dateFrom && aa.AttDate <= dateTo).ToList();
             foreach (var _Employee in _EmpView)
             {
+                _PrEmp = _PrEmps.Where(aa => aa.EmpID == _Employee.EmpID).ToList();
+                int FPID = (int)_Employee.FpID;
                 if (_Employee.FpID != null)
                 {
-                    _PrEmp = _PreEmp;
-                    int FPID = (int)_Employee.FpID;
-                    _PrEmp = _PrEmp.Where(aa => aa.FpID == FPID).ToList();
                     TDays = _PrEmp.Count();
                     PCount = _PrEmp.Where(aa => aa.TimeIn != null).Count();
-                    ACount = _PrEmp.Where(aa => (aa.TimeIn == null && aa.TimeOut == null) && (aa.DutyCode == "D")).Count();
+                    ACount = _PrEmp.Where(aa => (aa.TimeIn == null && aa.TimeOut == null) && (aa.DutyCode == "D") && aa.StatusAB==true).Count();
                     LCount = _PrEmp.Where(aa => aa.DutyCode == "L").Count();
                     EarlyInCount = _PrEmp.Where(aa => aa.EarlyIn >= 0).Count();
                     EarlyOutCount = _PrEmp.Where(aa => aa.EarlyOut >= 0).Count();
-                    LateCCount = _PrEmp.Where(aa => aa.TimeIn != null && aa.StatusLI == true).Count();
-                    ExtraCount = _PrEmp.Where(aa => aa.TimeIn != null && aa.StatusOT == true).Count();
+                    LateCCount = _PrEmp.Where(aa => aa.LateIn>0).Count();
+                    ExtraCount = _PrEmp.Where(aa => aa.OTMin>0).Count();
                     WrkDaysCount = _PrEmp.Where(aa => aa.DutyCode == "D").Count();
                     EmpSummDT.Rows.Add(_Employee.FpID, _Employee.EmpName, _Employee.DesignationName, _Employee.DeptName, _Employee.SectionName, TDays, PCount, ACount, LCount, LateCCount, EarlyOutCount, EarlyInCount, ExtraCount, _Employee.GradeName, WrkDaysCount);
 
