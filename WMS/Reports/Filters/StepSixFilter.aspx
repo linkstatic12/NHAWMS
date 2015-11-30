@@ -95,7 +95,7 @@
                                     </ul>
                                 </li>
                                 <%}%>
-                                <% if (HttpContext.Current.Session["MRDailyAtt"].ToString() == "1")
+                                <% if (HttpContext.Current.Session["MRMonthly"].ToString() == "1")
                                 {%>
                                 <li>
                                     <h5>Top Criteria</h5>
@@ -107,6 +107,7 @@
                                         <li><a href="../ReportContainer.aspx?reportname=top_earlyIn">Top Early In</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=top_earlyOut">Top Early Out</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=top_lateIn">Top Late In</a></li>
+                                        <li><a href="../ReportContainer.aspx?reportname=top_lateInShort">Top Late In(Short Work Minutes)</a></li>
                                         <li><a href="../ReportContainer.aspx?reportname=top_overtime">Top Overtime</a></li>
                                     </ul>
                                 </li>

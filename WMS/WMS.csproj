@@ -185,6 +185,7 @@
     <Content Include="Reports\Filters\StepThreeFilter.aspx" />
     <Content Include="Reports\Filters\StepTwoFilter.aspx" />
     <Content Include="Reports\Filters\SummaryReports.aspx" />
+    <Content Include="Reports\Graph\Graphs.aspx" />
     <Content Include="Reports\LeaveDatewise.aspx" />
     <Content Include="Reports\LvQuota.aspx" />
     <Content Include="Reports\MDetailExcelC.aspx" />
@@ -993,6 +994,13 @@
       <DependentUpon>SummaryReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\GlobalVariables.cs" />
+    <Compile Include="Reports\Graph\Graphs.aspx.cs">
+      <DependentUpon>Graphs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Graph\Graphs.aspx.designer.cs">
+      <DependentUpon>Graphs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\LeaveDatewise.aspx.cs">
       <DependentUpon>LeaveDatewise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

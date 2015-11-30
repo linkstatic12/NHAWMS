@@ -606,13 +606,27 @@ namespace WMS.Reports
                             PathString = "/WMS/Reports/RDLC/RptTCEarlyOut.rdlc";
                         LoadReport(PathString, EmpSummDT, _dateFrom + " TO " + _dateTo, 1);
                         break;
-                    case "top_lateIn":
+                    case "top_lateIn": 
                         title = "Top Late In Employees";
                         dt = qb.GetValuesfromDB("select * from EmpView");
                         _ViewList1 = dt.ToList<EmpView>();
                         _TempViewList1 = new List<EmpView>();
                         CreateEmpSummaryTable();
                         FillDataTable(ReportsFilterImplementation(fm, _TempViewList1, _ViewList1), Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
+
+                        if (GlobalVariables.DeploymentType == false)
+                            PathString = "/Reports/RDLC/RptTCLateComers.rdlc";
+                        else
+                            PathString = "/WMS/Reports/RDLC/RptTCLateComers.rdlc";
+                        LoadReport(PathString, EmpSummDT, _dateFrom + " TO " + _dateTo, 1);
+                        break;
+                    case "top_lateInShort": 
+                    title = "Top Late In (Short Work Minutes) Employees";
+                        dt = qb.GetValuesfromDB("select * from EmpView");
+                        _ViewList1 = dt.ToList<EmpView>();
+                        _TempViewList1 = new List<EmpView>();
+                        CreateEmpSummaryTable();
+                        FillDataTableForShortMinutes(ReportsFilterImplementation(fm, _TempViewList1, _ViewList1), Convert.ToDateTime(_dateFrom), Convert.ToDateTime(_dateTo));
 
                         if (GlobalVariables.DeploymentType == false)
                             PathString = "/Reports/RDLC/RptTCLateComers.rdlc";
@@ -2572,7 +2586,32 @@ namespace WMS.Reports
             //LoadReport("~/Reports/Reports/RptSummaryW.rdlc", _SummaryEmp);
         }
 
+        private void FillDataTableForShortMinutes(List<EmpView> _EmpView, DateTime dateFrom, DateTime dateTo)
+        {
+            TAS2013Entities context = new TAS2013Entities();
+            _PrEmps = context.ViewPresentEmps.Where(aa => aa.AttDate >= dateFrom && aa.AttDate <= dateTo).ToList();
+            foreach (var _Employee in _EmpView)
+            {
+                _PrEmp = _PrEmps.Where(aa => aa.EmpID == _Employee.EmpID).ToList();
+                int FPID = (int)_Employee.FpID;
+                if (_Employee.FpID != null)
+                {
+                    TDays = _PrEmp.Count();
+                    PCount = _PrEmp.Where(aa => aa.TimeIn != null).Count();
+                    ACount = _PrEmp.Where(aa => (aa.TimeIn == null && aa.TimeOut == null) && (aa.DutyCode == "D") && aa.StatusAB == true).Count();
+                    LCount = _PrEmp.Where(aa => aa.DutyCode == "L").Count();
+                    EarlyInCount = _PrEmp.Where(aa => aa.EarlyIn >= 0).Count();
+                    EarlyOutCount = _PrEmp.Where(aa => aa.EarlyOut >= 0).Count();
+                    LateCCount = _PrEmp.Where(aa => aa.LateIn > 0 && aa.WorkMin < 480).Count();
+                    ExtraCount = _PrEmp.Where(aa => aa.OTMin > 0).Count();
+                    WrkDaysCount = _PrEmp.Where(aa => aa.DutyCode == "D").Count();
+                    EmpSummDT.Rows.Add(_Employee.FpID, _Employee.EmpName, _Employee.DesignationName, _Employee.DeptName, _Employee.SectionName, TDays, PCount, ACount, LCount, LateCCount, EarlyOutCount, EarlyInCount, ExtraCount, _Employee.GradeName, WrkDaysCount);
 
+                    _PrEmp.Clear();
+                }
+
+            }
+        }
         private void LoadReport(string path, DataTable _PresentEmp, string DateToFor)
         {
             ReportDataSource datasource1 = new ReportDataSource("DataSet1", _PresentEmp);
