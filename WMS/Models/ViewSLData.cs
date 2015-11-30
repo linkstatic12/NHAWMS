@@ -54,5 +54,8 @@ namespace WMS.Models
         public Nullable<short> DeptID { get; set; }
         public Nullable<byte> ShiftID { get; set; }
         public Nullable<short> SecID { get; set; }
+        public int RegionID { get; set; }
+        public Nullable<short> ZoneID { get; set; }
+        public Nullable<short> CityID { get; set; }
     }
 }

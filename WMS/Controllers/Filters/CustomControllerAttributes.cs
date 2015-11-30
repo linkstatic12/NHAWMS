@@ -45,7 +45,7 @@ namespace WMS.Controllers.Filters
                             HavePermission = true;
                         break;
                     case "Emp":
-                        if (CheckHRPermision(_User))
+                        if (CheckEmployeePermision(_User))
                             HavePermission = true;
                         break;
                     case "EmpType":
@@ -142,7 +142,13 @@ namespace WMS.Controllers.Filters
             else
                 return false;
         }
-
+        private bool CheckEmployeePermision(User _User)
+        {
+            if (_User.MEmployee == true)
+                return true;
+            else
+                return false;
+        }
         private bool CheckUserPermision(User _User)
         {
             if(_User.MUser == true)

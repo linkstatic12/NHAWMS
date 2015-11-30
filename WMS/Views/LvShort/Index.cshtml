@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WMS.Models.LvShort>
+﻿@*@model IEnumerable<WMS.Models.LvShort>*@
+@model PagedList.IPagedList<WMS.Models.ViewSLData>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -18,13 +20,13 @@
 <table class="table table-bordered table-hover table-condensed">
     <tr class="table-header">
         <th>
-            Date
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            Emp No
+             @Html.ActionLink("EmpNo", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            Emp Name
+             @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             Department
@@ -58,16 +60,16 @@
               @item.CreatedDate.Value.Date.ToString("dd-MMM-yyyy")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Emp.EmpNo)
+            @Html.DisplayFor(modelItem => item.EmpNo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Emp.EmpName)
+            @Html.DisplayFor(modelItem => item.EmpName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Emp.Section.Department.DeptName)
+            @Html.DisplayFor(modelItem => item.DeptName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Emp.Section.SectionName)
+            @Html.DisplayFor(modelItem => item.SectionName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SHour)
@@ -93,4 +95,9 @@
 }
 
 </table>
+</div>
+<div class="form-inline">
+          <div class="form-group ">@Html.PagedListPager(Model, page => Url.Action("Index", 
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))</div>
+          <div class="form-group pull-right">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
 </div>

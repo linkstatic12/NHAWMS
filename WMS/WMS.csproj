@@ -392,9 +392,7 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JobCardAppRController.cs" />
     <Compile Include="Controllers\JobCardController.cs" />
-    <Compile Include="Controllers\JobCardEmpRController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LeaveSettingsController.cs" />
@@ -693,6 +691,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewEmpType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewJobCardApp.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewJobCardEmp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewLateComer.cs">
@@ -1211,16 +1215,6 @@
     <Content Include="Views\Roster\Create.cshtml" />
     <Content Include="Views\User\ListOfADUser.cshtml" />
     <Content Include="Views\Roster\RosterAppIndex.cshtml" />
-    <Content Include="Views\JobCardAppR\Create.cshtml" />
-    <Content Include="Views\JobCardAppR\Delete.cshtml" />
-    <Content Include="Views\JobCardAppR\Details.cshtml" />
-    <Content Include="Views\JobCardAppR\Edit.cshtml" />
-    <Content Include="Views\JobCardAppR\Index.cshtml" />
-    <Content Include="Views\JobCardEmpR\Create.cshtml" />
-    <Content Include="Views\JobCardEmpR\Delete.cshtml" />
-    <Content Include="Views\JobCardEmpR\Details.cshtml" />
-    <Content Include="Views\JobCardEmpR\Edit.cshtml" />
-    <Content Include="Views\JobCardEmpR\Index.cshtml" />
     <Content Include="Views\Roster\RosterDetail.cshtml" />
     <Content Include="Views\Roster\RosterContinue.cshtml" />
     <Content Include="Views\LeaveQuota\Index.cshtml" />
@@ -1242,6 +1236,8 @@
     <Content Include="Views\JobCard\Details.cshtml" />
     <Content Include="Views\JobCard\Edit.cshtml" />
     <Content Include="Views\JobCard\Index.cshtml" />
+    <Content Include="Views\JobCard\JobCardList.cshtml" />
+    <Content Include="Views\LvShort\EmpList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1257,6 +1253,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\RDLC\DRJobCard.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RptTCAbsent.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RptTCEarlyIn.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RptTCEarlyOut.rdlc" />

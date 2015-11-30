@@ -112,6 +112,8 @@ namespace WMS.Models
         public DbSet<ViewEmergencyDetail> ViewEmergencyDetails { get; set; }
         public DbSet<ViewEmpPic> ViewEmpPics { get; set; }
         public DbSet<ViewEmpType> ViewEmpTypes { get; set; }
+        public DbSet<ViewJobCardApp> ViewJobCardApps { get; set; }
+        public DbSet<ViewJobCardEmp> ViewJobCardEmps { get; set; }
         public DbSet<ViewLateComer> ViewLateComers { get; set; }
         public DbSet<ViewLateOut> ViewLateOuts { get; set; }
         public DbSet<ViewLeaveData> ViewLeaveDatas { get; set; }

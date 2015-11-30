@@ -19,13 +19,76 @@ namespace WMS.Controllers
         private TAS2013Entities db = new TAS2013Entities();
 
         // GET: /LvShort/
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             User LoggedInUser = Session["LoggedUser"] as User;
-            var lvshorts = db.LvShorts.Where(aa=>aa.CompanyID == LoggedInUser.CompanyID).ToList();
-            return View(lvshorts);
-        }
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TypeSortParm = sortOrder == "LvType" ? "LvType_desc" : "LvType";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForUserAccess(LoggedInUser, qb.CheckForUserRole(LoggedInUser));
 
+            DateTime dt1 = DateTime.Today;
+            DateTime dt2 = new DateTime(dt1.Year, 1, 1);
+            string date = dt2.Year.ToString() + "-" + dt2.Month.ToString() + "-" + dt2.Day.ToString() + " ";
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSLData where " + query);
+            List<ViewSLData> lvapplications = dt.ToList<ViewSLData>();
+
+            ViewBag.CurrentFilter = searchString;
+            //var lvapplications = db.LvApplications.Where(aa=>aa.ToDate>=dt2).Include(l => l.Emp).Include(l => l.LvType1);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lvapplications = lvapplications.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
+                     || s.EmpNo.ToUpper().Contains(searchString.ToUpper())).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    lvapplications = lvapplications.OrderByDescending(s => s.EmpName).ToList();
+                    break;
+                case "Date_desc":
+                    lvapplications = lvapplications.OrderByDescending(s => s.DutyDate).ToList();
+                    break;
+                case "Date":
+                    lvapplications = lvapplications.OrderBy(s => s.DutyDate).ToList();
+                    break;
+                default:
+                    lvapplications = lvapplications.OrderBy(s => s.EmpName).ToList();
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lvapplications.OrderByDescending(aa => aa.DutyDate).ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult EmpList(string sortOrder, string searchString, string currentFilter, int? page)
+        {
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+
+            List<EmpView> listOfEmps = new List<EmpView>();
+
+            listOfEmps = db.EmpViews.Where(aa => aa.Status == true).OrderBy(s => s.EmpName).ToList();
+            if (ViewBag.CurrentFilter != null || searchString != null)
+                page = 1;
+            else { searchString = currentFilter; }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                listOfEmps = listOfEmps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
+                     || s.EmpNo.ToUpper().Contains(searchString.ToUpper())).ToList();
+            }
+            return View(listOfEmps.ToPagedList(pageNumber, pageSize));
+        }
         // GET: /LvShort/Details/5
              [CustomActionAttribute]
         public ActionResult Details(int? id)
